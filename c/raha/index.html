@@ -34,7 +34,7 @@
   --hf:'Baloo Bhaijaan 2','Cairo',Tahoma,sans-serif; --bf:'Cairo',Tahoma,system-ui,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;overflow-x:clip}
 body{font-family:var(--bf);color:var(--ink);background:var(--bg);line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 img{display:block;max-width:100%}
 button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit}
@@ -190,12 +190,13 @@ footer.ft{background:var(--k);color:#BDBDC4;padding:40px 0 110px;margin-top:20px
 .crumbs{font-size:13px;color:var(--mut);font-weight:700;padding:14px 0}
 .crumbs a:hover{color:var(--o)}
 .pdp{display:grid;grid-template-columns:1.05fr .95fr;gap:36px;align-items:start}
+.pdp>*{min-width:0}
 .gal{position:sticky;top:92px}
 .gal .main{position:relative;border-radius:24px;overflow:hidden;background:var(--sand);aspect-ratio:1/1}
 .gal .main img{width:100%;height:100%;object-fit:contain;background:#fff}
 .gal .main .bd-off{position:absolute;top:14px;left:14px;background:var(--o);color:#fff;font-family:var(--hf);font-weight:800;border-radius:16px;padding:8px 12px;font-size:20px;line-height:1.1;text-align:center}
 .gal .main .bd-off small{display:block;font-size:12px;font-family:var(--bf)}
-.thumbs{display:flex;gap:8px;margin-top:10px;overflow-x:auto}
+.thumbs{display:flex;gap:8px;margin-top:10px;overflow-x:auto;max-width:100%;scrollbar-width:none}
 .thumbs button{flex:0 0 74px;height:74px;border-radius:14px;overflow:hidden;border:2px solid transparent;background:var(--sand)}
 .thumbs button.on{border-color:var(--o)}
 .thumbs img{width:100%;height:100%;object-fit:cover}
@@ -661,6 +662,6 @@ footer.ft{background:var(--k);color:#BDBDC4;padding:40px 0 110px;margin-top:20px
 <aside class="drawer" id="drawer" aria-label="السلة"></aside>
 <div class="toast" id="toast"></div>
 
-<script src="/app.js?v=579279" defer></script>
+<script src="/app.js?v=582196" defer></script>
 </body>
 </html>
