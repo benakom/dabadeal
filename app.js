@@ -549,10 +549,12 @@ function renderThanks(){
 /* =================== ROUTER =================== */
 function route(){
   const h=location.hash.replace('#','');
+  if(h||!app.dataset.pre) delete app.dataset.pre;
   closeDrawer(); $('#satc').classList.remove('on');
   if(h.startsWith('p-')) renderPDP(h.slice(2));
   else if(h==='checkout') renderCheckout();
   else if(h==='merci') renderThanks();
+  else if(app.dataset.pre){ delete app.dataset.pre; return; }
   else renderHome();
   window.scrollTo({top:0,behavior:'instant'});
 }
