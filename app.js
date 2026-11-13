@@ -4,7 +4,7 @@ const CONFIG = {
   STORE: "Dabadeal",
   CURRENCY: "درهم",
   WHATSAPP_NUMBER: "",          // ex: 2126XXXXXXXX (sans + ni 0) — affiche le bouton WhatsApp
-  ORDER_WEBHOOK: "",            // URL Google Apps Script / Make / n8n qui enregistre les commandes
+  ORDER_WEBHOOK: "https://script.google.com/macros/s/AKfycbyWud_WSQbNotT96EAojhqnH4fid28wpe6MXvAmG2LbY0lAbRHS8EAk0G497X9eBaqdMg/exec",            // URL Google Apps Script / Make / n8n qui enregistre les commandes
   TIER_DISCOUNT: 0.20,          // -20% sur chaque unité au-delà de la 1re
   BUNDLE_DISCOUNT: 0.15,        // -15% sur les produits ajoutés via "Ka-yechriwhom m3a ba3d"
   ORDER_BUMP_DISCOUNT: 0.30,    // -30% sur l'order bump du checkout
@@ -169,7 +169,10 @@ function setQty(key, q){ const l=cart.find(x=>x.key===key); if(!l) return; l.qty
 /* =================== UTILS =================== */
 const $ = s=>document.querySelector(s);
 const app = $('#app');
-function track(ev,data){ try{ if(window.fbq) fbq('track',ev,data||{}); if(window.ttq) ttq.track(ev,data||{}); }catch(e){} }
+function track(ev,data,opt){ try{ if(window.fbq) fbq('track',ev,data||{},opt||{}); if(window.ttq) ttq.track(ev,data||{}); }catch(e){} }
+/* anti-bot : signaux humains + temps de remplissage */
+let HUMAN=false; const FS={};
+['pointerdown','keydown','touchstart'].forEach(ev=>addEventListener(ev,()=>{HUMAN=true},{passive:true,once:true}));
 function toast(msg){ const t=$('#toast'); t.textContent=msg; t.classList.add('on'); clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove('on'),1800); }
 function renderCount(b){ const c=$('#cartCount'); const n=totals().items; c.textContent=n; c.classList.toggle('on',n>0); if(b){ const btn=$('#cartBtn'); btn.classList.remove('bump'); void btn.offsetWidth; btn.classList.add('bump'); } }
 function etaText(){
@@ -452,7 +455,8 @@ const CITIES=['الدار البيضاء','الرباط','سلا','تمارة','
 let saved={}; try{ saved=JSON.parse(localStorage.getItem('dd_cust')||'{}'); }catch(e){}
 const esc=v=>(v||'').replace(/"/g,'&quot;');
 function fieldsHTML(px){
-  return `<div class="f" id="${px}-f-name"><label for="${px}-name">الاسم الكامل</label><input id="${px}-name" autocomplete="name" placeholder="مثلا: محمد العلوي" value="${esc(saved.name)}"><div class="err">دخل الاسم والنسب</div></div>
+  FS[px]=Date.now();
+  return `<div style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden" aria-hidden="true"><label for="${px}-web">Website</label><input id="${px}-web" name="website" tabindex="-1" autocomplete="off"></div><div class="f" id="${px}-f-name"><label for="${px}-name">الاسم الكامل</label><input id="${px}-name" autocomplete="name" placeholder="مثلا: محمد العلوي" value="${esc(saved.name)}"><div class="err">دخل الاسم والنسب</div></div>
   <div class="f" id="${px}-f-phone"><label for="${px}-phone">رقم الهاتف</label><input id="${px}-phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="06XXXXXXXX" dir="ltr" style="text-align:right" value="${esc(saved.phone)}"><div class="err">الرقم خاصو 10 أرقام ويبدا بـ 05، 06 ولا 07</div></div>
   <div class="f" id="${px}-f-city"><label for="${px}-city">المدينة</label><input id="${px}-city" list="cities" autocomplete="address-level2" placeholder="الدار البيضاء، الرباط، فاس…" value="${esc(saved.city)}"><div class="err">دخل المدينة</div></div>
   <div class="f" id="${px}-f-address"><label for="${px}-address">العنوان الكامل</label><textarea id="${px}-address" autocomplete="street-address" rows="2" placeholder="الحي، الزنقة، رقم الدار، شي علامة قريبة…">${saved.address||''}</textarea><div class="err">دخل العنوان باش يوصلك الليفرور بلا مشاكل</div></div>`;
@@ -463,14 +467,19 @@ function readFields(px){
   const chk=(id,ok)=>{ $('#'+px+'-f-'+id).classList.toggle('bad',!ok); return ok; };
   const ok=[chk('name',f.name.split(/\s+/).length>=2&&f.name.length>=5),chk('phone',/^0[567]\d{8}$/.test(f.phone)),chk('city',f.city.length>=2),chk('address',f.address.length>=6)].every(Boolean);
   if(!ok){ const el=document.querySelector('.f.bad input,.f.bad textarea'); el&&el.focus(); return null; }
+  const hp=$('#'+px+'-web'); f._bot={hp:hp?hp.value:'',t:Date.now()-(FS[px]||Date.now()),human:HUMAN};
   return f;
 }
 function placeOrder(list,f){
+  const bot=f._bot||{}; delete f._bot;
   const t=totals(list), id='DD'+Date.now().toString().slice(-7);
+  // limite par appareil : 4 commandes / 24 h
+  let hist=[]; try{ hist=JSON.parse(localStorage.getItem('dd_oh')||'[]').filter(x=>Date.now()-x<864e5); }catch(e){}
+  const capped=hist.length>=4; hist.push(Date.now()); try{ localStorage.setItem('dd_oh',JSON.stringify(hist)); }catch(e){}
   saved=f; try{ localStorage.setItem('dd_cust',JSON.stringify(f)); }catch(e){}
   lastOrder={id,date:new Date().toISOString(),...f,items:list.map(l=>({sku:byId(l.id).sku,name:byId(l.id).name,qty:l.qty,variant:l.variant,mode:l.mode,line:lineTotal(l)})),subtotal:t.sub,discount:t.gift,total:t.total,source:new URLSearchParams(location.search).get('utm_source')||'direct',upsell:null};
-  sendOrder({type:'order',...lastOrder});
-  track('Purchase',{value:t.total,currency:'MAD',num_items:t.items});
+  if(!capped) sendOrder({type:'order',...lastOrder,hp:bot.hp,t:bot.t,human:bot.human,page:location.pathname,device:matchMedia('(max-width:760px)').matches?'mobile':'desktop'});
+  if(!capped&&!bot.hp) track('Purchase',{value:t.total,currency:'MAD',num_items:t.items,content_ids:list.map(l=>byId(l.id).sku),content_type:'product'},{eventID:id});
   location.hash='merci';
 }
 
@@ -526,12 +535,13 @@ function sendOrder(payload){
   if(!CONFIG.ORDER_WEBHOOK) return;
   try{ fetch(CONFIG.ORDER_WEBHOOK,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify(payload)}); }catch(e){}
 }
+let SUBMITTING=false;
 function submitCheckout(e){
-  e.preventDefault(); const f=readFields('c'); if(!f) return;
+  e.preventDefault(); if(SUBMITTING) return; const f=readFields('c'); if(!f) return; SUBMITTING=true; setTimeout(()=>SUBMITTING=false,4000);
   const list=coList(); cart=[]; bumpOn=false; save(); renderCount(); placeOrder(list,f);
 }
 function submitQuick(e){
-  e.preventDefault(); const f=readFields('q'); if(!f) return;
+  e.preventDefault(); if(SUBMITTING) return; const f=readFields('q'); if(!f) return; SUBMITTING=true; setTimeout(()=>SUBMITTING=false,4000);
   placeOrder([{key:pdp.id+'|normal|'+pdp.variant,id:pdp.id,qty:pdp.qty,variant:pdp.variant,mode:'normal'}],f);
 }
 /* =================== THANK YOU + POST-PURCHASE UPSELL =================== */
