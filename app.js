@@ -16,7 +16,7 @@ const CONFIG = {
 /* =================== CATALOGUE =================== */
 const IMG = (k,n)=>Array.from({length:n},(_,i)=>`/img/${k}_${i}.jpg`);
 const P = [
- { id:"robinet", sku:"TJ-940", cat:"دار", catL:"الدار", name:"حنفية الما السخون الكهربائية", short:"ما سخون فـ 3 ثواني، بلا بوطة", price:299, compare:499, badge:"الأكثر طلبا", img:IMG("robinet",4),
+ { id:"robinet", sku:"TJ-940", cat:"دار", catL:"الدار", name:"حنفية الما السخون الكهربائية", short:"ما سخون فـ 3 ثواني، بلا بوطة", price:290, compare:490, badge:"الأكثر طلبا", img:IMG("robinet",4),
    hook:"ما تبقاش تتوضا بالما البارد فهاد البرد",
    lead:"حنفية كهربائية كتسخن الما فـ 3 حتى 5 ثواني. للوضوء، الدوش ولا الماعن — بلا بوطة، بلا شوفو، بلا ما تسنا.",
    bullets:["ما سخون فـ 3 حتى 5 ثواني","شاشة رقمية كتبين الحرارة","بلا بوطة غاز وبلا خزان","كتركب على الروبيني فالحيط ولا فوق المغسلة"],
@@ -27,7 +27,7 @@ const P = [
    notice:"ركبها مع بريز فيها الأرض (terre)، بعيدة على رشان الما المباشر. خاص ضغط ديال الما مزيان باش تسخن بحال خاصها.",
    faq:[["واش التركيب صعيب؟","كتركب على مخرج الما بحال روبيني عادي والبراغي جايين معاها. إلا ما عندكش التجربة فالضو، عيط لتريسيان."],["واش كتصرف الضو بزاف؟","كتجبد الضو غير ملي كيدوز الما فيها وكتطفى بوحدها ملي كتسدها."]],
    xs:["seche","pieds"] },
- { id:"seche", sku:"TJ-793", cat:"دار", catL:"الدار", name:"نشافة الحوايج الكهربائية القابلة للطي", short:"حوايجك ناشفين فساعات، ماشي فأيام", price:449, compare:699, badge:"جديد الشتا", img:IMG("seche",4),
+ { id:"seche", sku:"TJ-793", cat:"دار", catL:"الدار", name:"نشافة الحوايج الكهربائية القابلة للطي", short:"حوايجك ناشفين فساعات، ماشي فأيام", price:390, compare:690, badge:"جديد الشتا", img:IMG("seche",4),
    hook:"فالشتا، الحوايج ما بقاوش كيبقاو 3 أيام مجبدين فالدار",
    lead:"نشافة كهربائية كتدور الهوا السخون 360° على الحوايج. كتعلقهم، كتشعلها، وكتنساهم. ومن بعد كتطويها وكتخبيها فبلاصة صغيرة.",
    bullets:["هوا سخون كيدور 360° على الحوايج","تايمر وشاشة + تيليكوموند","كتطوى وكتخبى ملي ما كتخدمش","مزيانة لحوايج الدراري، الفوطات والإيزارات"],
@@ -38,7 +38,7 @@ const P = [
    notice:"ما تعمرهاش بزاف باش الهوا يدوز مزيان، وبعدها على الما.",
    faq:[["شحال كتاخد باش تنشف؟","على حساب الثوب والكمية؛ الحوايج الخفاف كينشفو أسرع."],["واش كتطوى بصح؟","إيه، الهيكل كيتجمع والقاعدة كتولي صغيرة باش تخبيها."]],
    xs:["robinet","brosse"] },
- { id:"dos", sku:"TJ-1299", cat:"راحة", catL:"الراحة والصحة", name:"حزام دعم أسفل الظهر الاحترافي", short:"سند لظهرك فالخدمة والطريق", price:249, compare:399, badge:"مختار ليك", img:["/img/dos_0.jpg","/img/dos_2.jpg","/img/dos_3.jpg"],
+ { id:"dos", sku:"TJ-1299", cat:"راحة", catL:"الراحة والصحة", name:"حزام دعم أسفل الظهر الاحترافي", short:"سند لظهرك فالخدمة والطريق", price:290, compare:490, badge:"مختار ليك", img:["/img/dos_0.jpg","/img/dos_2.jpg","/img/dos_3.jpg"],
    hook:"ظهرك كيخدم عليك طول النهار… عطيه السند",
    lead:"حزام دعم لأسفل الظهر بصفائح فولاذية مرنة و3 وسادات كتنحاو. كيعاونك تحافظ على وقفة مزيانة وأنت خدام، كتسوق ولا كتهز الثقيل.",
    bullets:["صفائح فولاذية مرنة لثبات أكثر","3 وسادات كتنحاو على حساب الراحة ديالك","تثبيت 360° بلا ما يتزعزع","كيتلبس تحت الحوايج"],
@@ -49,7 +49,7 @@ const P = [
    notice:"منتوج للراحة والسند، ماشي دوا. إلا كان عندك وجع قوي ولا مستمر، شاور الطبيب.",
    faq:[["واش كاين القياسات؟","الحزام كيتضبط بالسكراتش؛ عند التأكيد غادي نسولوك على قياس الكرش."],["واش نقدر نلبسو طول النهار؟","ننصحوك تلبسو فأوقات المجهود وتعطي لظهرك الراحة بين المرات."]],
    xs:["coussin","pieds"] },
- { id:"coussin", sku:"TJ-692", cat:"طوموبيل", catL:"الطوموبيل", name:"طقم وسادة الرقبة والظهر", short:"سوق ساعات بلا ما يتقطع ظهرك", price:249, compare:390, badge:"طقم 2 قطع", img:["/img/coussin_3.jpg","/img/coussin_1.jpg","/img/coussin_2.jpg"],
+ { id:"coussin", sku:"TJ-692", cat:"طوموبيل", catL:"الطوموبيل", name:"طقم وسادة الرقبة والظهر", short:"سوق ساعات بلا ما يتقطع ظهرك", price:290, compare:490, badge:"طقم 2 قطع", img:["/img/coussin_3.jpg","/img/coussin_1.jpg","/img/coussin_2.jpg"],
    hook:"ساعات فالطريق ولا فالبيرو، ورقبتك وظهرك مرتاحين",
    lead:"طقم من وسادة للرقبة ووسادة لأسفل الظهر، فـ Memory Foam كيرجع لشكلو. كيتركبو على كرسي الطوموبيل ولا كرسي البيرو.",
    bullets:["وسادة رقبة + وسادة ظهر فطقم واحد","Memory Foam كيتبع شكل الجسم","كيتركبو فثواني على أي كرسي","غطا ناعم كيتنحى"],
@@ -59,7 +59,7 @@ const P = [
    specs:[["المحتوى","وسادة رقبة + وسادة ظهر"],["المادة","Memory Foam"],["التركيب","سمطة قابلة للتعديل"],["الاستعمال","الطوموبيل، البيرو، الدار"]],
    notice:"", faq:[["واش كيصلحو لكل طوموبيل؟","إيه، السمطة كتضبط على أغلب الكراسي."]],
    xs:["dos","camera"] },
- { id:"pieds", sku:"TJ-9", cat:"راحة", catL:"الراحة والصحة", name:"جهاز تدليك القدمين الكهربائي", short:"15 دقيقة وريجليك يرتاحو", price:179, compare:299, badge:"هدية زوينة", img:IMG("pieds",4),
+ { id:"pieds", sku:"TJ-9", cat:"راحة", catL:"الراحة والصحة", name:"جهاز تدليك القدمين الكهربائي", short:"15 دقيقة وريجليك يرتاحو", price:290, compare:490, badge:"هدية زوينة", img:IMG("pieds",4),
    hook:"نهار طويل؟ 15 دقيقة وريجليك يرتاحو",
    lead:"فراش تدليك كهربائي للرجلين فيه 8 أوضاع و19 مستوى ديال القوة. خفيف، كيتطوى، وكتحطو فين ما بغيتي قدام التلفزة.",
    bullets:["8 أوضاع ديال التدليك","19 مستوى ديال القوة","خفيف وكيتطوى","هدية زوينة للواليدين"],
@@ -69,7 +69,7 @@ const P = [
    specs:[["الأوضاع","8"],["مستويات القوة","19"],["الوزن","خفيف"],["التخزين","كيتطوى"]],
    notice:"ما ننصحوش بيه للحوامل، ولا اللي عندهم جهاز فالقلب (pacemaker).", faq:[["واش كيصلح للكبار فالسن؟","إيه، وكيبدا من مستوى خفيف بزاف."]],
    xs:["dos","canne"] },
- { id:"canne", sku:"TJ-1357", cat:"راحة", catL:"الراحة والصحة", name:"عكاز بمقعد قابل للطي", short:"يمشي ويرتاح فين ما بغا", price:229, compare:349, badge:"للواليدين", img:IMG("canne",4),
+ { id:"canne", sku:"TJ-1357", cat:"راحة", catL:"الراحة والصحة", name:"عكاز بمقعد قابل للطي", short:"يمشي ويرتاح فين ما بغا", price:290, compare:490, badge:"للواليدين", img:IMG("canne",4),
    hook:"هدية للواليدين: يمشيو بأمان، ويجلسو فين ما عياو",
    lead:"عكاز ومقعد فقطعة وحدة. كيتحمل حتى 100 كيلو، 3 رجلين ضد الزلق، وكيتطوى باش يتهز ساهل فالسوق، المسجد ولا السبيطار.",
    bullets:["عكاز + مقعد فقطعة وحدة","كيتحمل حتى 100 كيلو","3 رجلين ضد الزلق","كيتطوى وخفيف"],
@@ -79,7 +79,7 @@ const P = [
    specs:[["الحمولة","حتى 100 كيلو"],["الرجلين","3 ضد الزلق"],["المادة","ألومنيوم + فولاذ"],["التخزين","كيتطوى"]],
    notice:"", faq:[["واش كيصلح للطول ديال بابا؟","العلو تقريبا 75 سنتيم والمقعد 49 سنتيم."]],
    xs:["priere","pieds"] },
- { id:"priere", sku:"TJ-494", cat:"راحة", catL:"الراحة والصحة", name:"كرسي الجلوس بعد السجود", short:"صلي براحتك حتى مع وجع الركابي", price:249, compare:390, badge:"قبل رمضان", img:["/img/priere_0.jpg"],
+ { id:"priere", sku:"TJ-494", cat:"راحة", catL:"الراحة والصحة", name:"كرسي الجلوس بعد السجود", short:"صلي براحتك حتى مع وجع الركابي", price:290, compare:490, badge:"قبل رمضان", img:["/img/priere_0.jpg"],
    hook:"صلي براحتك… حتى إلا كانو الركابي ولا الظهر كيوجعوك",
    lead:"كرسي صغير مريح كيعاونك تجلس وتنوض فالصلاة بلا ضغط على الركابي والكعبين. مثالي للكبار فالسن واللي عندهم وجع الظهر ولا المفاصل.",
    bullets:["كيخفف الضغط على الركابي والكعبين","هيكل حديد ثابت","مقعد مريح","صغير وساهل فالتخزين"],
@@ -89,7 +89,7 @@ const P = [
    specs:[["الهيكل","حديد"],["المقعد","مريح ومبطن"],["الاستعمال","الدار والمسجد"]],
    notice:"", faq:[["واش كيصلح للمسجد؟","إيه، صغير وساهل فالهز."]],
    xs:["canne","pieds"] },
- { id:"grossesse", sku:"TJ-495", cat:"راحة", catL:"الراحة والصحة", name:"حزام الحمل 3 فـ 1", short:"خففي الثقل على ظهرك", price:249, compare:390, badge:"للماما", img:IMG("grossesse",4), variants:["M","L","XL","XXL"],
+ { id:"grossesse", sku:"TJ-495", cat:"راحة", catL:"الراحة والصحة", name:"حزام الحمل 3 فـ 1", short:"خففي الثقل على ظهرك", price:290, compare:490, badge:"للماما", img:IMG("grossesse",4), variants:["M","L","XL","XXL"],
    hook:"خففي الثقل على ظهرك فشهور الحمل",
    lead:"حزام حمل كيتضبط على حساب الكرش من الشهر 3 حتى الشهر 9. كيرفع الكرش بلا ضغط وكيخفف التعب على أسفل الظهر.",
    bullets:["كيتضبط من الشهر 3 حتى 9","كيرفع الكرش بلا ضغط زايد","ثوب كيتنفس","ما كيتلفش وما كيطيحش"],
@@ -100,7 +100,7 @@ const P = [
    notice:"شاوري الطبيبة ديالك قبل الاستعمال إلا كان الحمل فيه شي خصوصية.",
    faq:[["كيفاش نختار المقاس؟","على حساب الدورة ديال الكرش؛ إلا كنتي بين جوج مقاسات، خدي الكبير. نقدرو نعاونوك فالتليفون."]],
    xs:["coussin","pieds"] },
- { id:"camera", sku:"TJ-629", cat:"طوموبيل", catL:"الطوموبيل", name:"كاميرا الطوموبيل 3 عدسات", short:"قدام، اللور وداخل الطوموبيل", price:449, compare:699, badge:"حماية", img:IMG("camera",4),
+ { id:"camera", sku:"TJ-629", cat:"طوموبيل", catL:"الطوموبيل", name:"كاميرا الطوموبيل 3 عدسات", short:"قدام، اللور وداخل الطوموبيل", price:390, compare:690, badge:"حماية", img:IMG("camera",4),
    hook:"فحالة شي حادثة، الكاميرا هي الشاهد ديالك",
    lead:"كاميرا بشاشة 4 بوصة كتسجل القدام، اللور وداخل الطوموبيل فنفس الوقت. Full HD 1080p، رؤية ليلية و G-sensor كيحفظ الفيديو فحالة الصدمة.",
    bullets:["3 عدسات: قدام + اللور + داخل","شاشة 4 بوصة و 1080p","رؤية ليلية","G-sensor كيحفظ الفيديو ملي كتوقع صدمة"],
@@ -111,7 +111,7 @@ const P = [
    notice:"خاص بطاقة ذاكرة (micro SD) إلا ما كانتش مع الكارطونة؛ غادي نأكدو معاك فالتليفون.",
    faq:[["واش التركيب صعيب؟","كتلصق بالشفاط على الجاجة وكتربط فالولاعة؛ الكاميرا ديال اللور كتحتاج كابل."]],
    xs:["coussin","dos"] },
- { id:"brosse", sku:"TJ-1287", cat:"دار", catL:"الدار", name:"فرشاة البخار للقطط والكلاب", short:"شعر القط ما بقاش فالكنابي", price:129, compare:199, badge:"سعر خاص", img:IMG("brosse",4),
+ { id:"brosse", sku:"TJ-1287", cat:"دار", catL:"الدار", name:"فرشاة البخار للقطط والكلاب", short:"شعر القط ما بقاش فالكنابي", price:190, compare:290, badge:"سعر خاص", img:IMG("brosse",4),
    hook:"شعر القط فالكنابي، فالحوايج، وفكل بلاصة؟",
    lead:"فرشاة كتخرج بخار خفيف باش تشد الشعر اللي طايح وتنقي الفرو. القط مرتاح، والدار نقية. كتشارجا بـ USB.",
    bullets:["بخار خفيف كيشد الشعر الطايح","سنان سيليكون ناعمين","كتشارجا بـ USB","للقطط والكلاب"],
@@ -122,7 +122,7 @@ const P = [
    notice:"", faq:[["واش البخار سخون؟","لا، بخار خفيف مناسب للحيوان."]],
    xs:["seche","robinet"] }
 ];
-const FR = {"robinet": {"t": "Robinet chauffant électrique instantané", "d": "Le robinet chauffant électrique instantané Dabadeal fournit de l'eau chaude en 3 à 5 secondes, sans chauffe-eau ni bouteille de gaz butane. Idéal pour les ablutions (wudu) en hiver, la douche des enfants et la vaisselle, il se fixe au mur ou sur le lavabo et affiche la température sur un écran digital. Puissance 3000 à 5500 W, 220 V. Prix 299 DH au Maroc, livraison gratuite à Casablanca, Rabat, Marrakech, Fès, Tanger, Agadir et partout au Maroc, paiement à la livraison."}, "seche": {"t": "Sèche-linge électrique pliable", "d": "Le sèche-linge électrique pliable sèche vos vêtements à l'intérieur grâce à une circulation d'air chaud à 360°, avec minuterie, écran et télécommande. Parfait pour l'hiver et les appartements sans terrasse, il se replie pour se ranger facilement. Prix 449 DH au Maroc, livraison gratuite et paiement à la livraison dans toutes les villes."}, "dos": {"t": "Ceinture lombaire de maintien du dos", "d": "Ceinture de soutien lombaire avec baleines en acier flexibles et 3 coussinets amovibles pour soulager le bas du dos au travail, en conduisant ou en portant des charges. Se porte sous les vêtements. Prix 249 DH, livraison gratuite partout au Maroc et paiement à la livraison."}, "coussin": {"t": "Coussin lombaire et coussin cervical voiture", "d": "Set de 2 coussins ergonomiques en mousse à mémoire de forme : un coussin cervical pour la nuque et un coussin lombaire pour le dos, à fixer sur le siège de voiture ou la chaise de bureau. Idéal pour les chauffeurs et le télétravail. Prix 249 DH au Maroc, livraison gratuite et paiement à la livraison."}, "pieds": {"t": "Masseur de pieds électrique EMS", "d": "Tapis de massage des pieds électrique avec 8 modes et 19 niveaux d'intensité, léger et pliable. 15 minutes le soir pour détendre les jambes fatiguées. Une idée cadeau appréciée des parents. Prix 179 DH au Maroc, livraison gratuite et paiement à la livraison."}, "canne": {"t": "Canne pliante avec siège", "d": "Canne de marche avec siège intégré, pliable et légère, supportant jusqu'à 100 kg, avec 3 pieds antidérapants. Pour les personnes âgées : marcher en sécurité et s'asseoir partout (souk, hôpital, mosquée). Prix 229 DH au Maroc, livraison gratuite et paiement à la livraison."}, "priere": {"t": "Chaise de prière (siège après sujud)", "d": "Petite chaise de prière confortable qui soulage les genoux et les chevilles pendant la position assise de la prière. Structure métallique stable, idéale pour les personnes âgées ou souffrant du dos et des articulations, à la maison ou à la mosquée. Prix 249 DH au Maroc, livraison gratuite et paiement à la livraison."}, "grossesse": {"t": "Ceinture de grossesse 3 en 1", "d": "Ceinture de maintien de grossesse réglable du 3e au 9e mois, qui soutient le ventre sans compression et soulage le bas du dos. Tailles M, L, XL et XXL. Prix 249 DH au Maroc, livraison gratuite et paiement à la livraison."}, "camera": {"t": "Caméra de voiture 3 objectifs (dashcam)", "d": "Dashcam 3 caméras (avant, arrière et habitacle) avec écran 4 pouces, Full HD 1080p, vision nocturne, grand angle 170° et G-sensor qui protège la vidéo en cas de choc. Une preuve fiable en cas d'accident au Maroc. Prix 449 DH, livraison gratuite et paiement à la livraison."}, "brosse": {"t": "Brosse vapeur pour chat et chien", "d": "Brosse à vapeur rechargeable USB qui retient les poils morts de votre chat ou chien avec une brume légère et des picots en silicone doux. Fini les poils sur le canapé. Prix 129 DH au Maroc, livraison gratuite et paiement à la livraison."}};
+const FR = {"robinet": {"t": "Robinet chauffant électrique instantané", "d": "Le robinet chauffant électrique instantané Dabadeal fournit de l'eau chaude en 3 à 5 secondes, sans chauffe-eau ni bouteille de gaz butane. Idéal pour les ablutions (wudu) en hiver, la douche des enfants et la vaisselle, il se fixe au mur ou sur le lavabo et affiche la température sur un écran digital. Puissance 3000 à 5500 W, 220 V. Prix 290 DH au Maroc, livraison gratuite à Casablanca, Rabat, Marrakech, Fès, Tanger, Agadir et partout au Maroc, paiement à la livraison."}, "seche": {"t": "Sèche-linge électrique pliable", "d": "Le sèche-linge électrique pliable sèche vos vêtements à l'intérieur grâce à une circulation d'air chaud à 360°, avec minuterie, écran et télécommande. Parfait pour l'hiver et les appartements sans terrasse, il se replie pour se ranger facilement. Prix 390 DH au Maroc, livraison gratuite et paiement à la livraison dans toutes les villes."}, "dos": {"t": "Ceinture lombaire de maintien du dos", "d": "Ceinture de soutien lombaire avec baleines en acier flexibles et 3 coussinets amovibles pour soulager le bas du dos au travail, en conduisant ou en portant des charges. Se porte sous les vêtements. Prix 290 DH, livraison gratuite partout au Maroc et paiement à la livraison."}, "coussin": {"t": "Coussin lombaire et coussin cervical voiture", "d": "Set de 2 coussins ergonomiques en mousse à mémoire de forme : un coussin cervical pour la nuque et un coussin lombaire pour le dos, à fixer sur le siège de voiture ou la chaise de bureau. Idéal pour les chauffeurs et le télétravail. Prix 290 DH au Maroc, livraison gratuite et paiement à la livraison."}, "pieds": {"t": "Masseur de pieds électrique EMS", "d": "Tapis de massage des pieds électrique avec 8 modes et 19 niveaux d'intensité, léger et pliable. 15 minutes le soir pour détendre les jambes fatiguées. Une idée cadeau appréciée des parents. Prix 290 DH au Maroc, livraison gratuite et paiement à la livraison."}, "canne": {"t": "Canne pliante avec siège", "d": "Canne de marche avec siège intégré, pliable et légère, supportant jusqu'à 100 kg, avec 3 pieds antidérapants. Pour les personnes âgées : marcher en sécurité et s'asseoir partout (souk, hôpital, mosquée). Prix 290 DH au Maroc, livraison gratuite et paiement à la livraison."}, "priere": {"t": "Chaise de prière (siège après sujud)", "d": "Petite chaise de prière confortable qui soulage les genoux et les chevilles pendant la position assise de la prière. Structure métallique stable, idéale pour les personnes âgées ou souffrant du dos et des articulations, à la maison ou à la mosquée. Prix 290 DH au Maroc, livraison gratuite et paiement à la livraison."}, "grossesse": {"t": "Ceinture de grossesse 3 en 1", "d": "Ceinture de maintien de grossesse réglable du 3e au 9e mois, qui soutient le ventre sans compression et soulage le bas du dos. Tailles M, L, XL et XXL. Prix 290 DH au Maroc, livraison gratuite et paiement à la livraison."}, "camera": {"t": "Caméra de voiture 3 objectifs (dashcam)", "d": "Dashcam 3 caméras (avant, arrière et habitacle) avec écran 4 pouces, Full HD 1080p, vision nocturne, grand angle 170° et G-sensor qui protège la vidéo en cas de choc. Une preuve fiable en cas d'accident au Maroc. Prix 390 DH, livraison gratuite et paiement à la livraison."}, "brosse": {"t": "Brosse vapeur pour chat et chien", "d": "Brosse à vapeur rechargeable USB qui retient les poils morts de votre chat ou chien avec une brume légère et des picots en silicone doux. Fini les poils sur le canapé. Prix 190 DH au Maroc, livraison gratuite et paiement à la livraison."}};
 const byId = id => P.find(p=>p.id===id);
 const PAGE = document.body.dataset.page || '';
 const CATSLUG = {'راحة':'raha','دار':'dar','طوموبيل':'tomobil'};
@@ -178,7 +178,7 @@ function renderCount(b){ const c=$('#cartCount'); const n=totals().items; c.text
 function etaText(){
   const d=new Date(); const a=new Date(d); a.setDate(d.getDate()+1); const b=new Date(d); b.setDate(d.getDate()+3);
   const days=['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
-  return `اطلب دابا ويوصلك بين <b>${days[a.getDay()]}</b> و<b>${days[b.getDay()]}</b>`;
+  return `اطلب دابا ويوصلك بين <b>${days[a.getDay()]}</b> و<b>${days[b.getDay()]}</b> فأغلب المدن`;
 }
 const ICON = {
   truck:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h11v10H3z"/><path d="M14 9h4l3 3v4h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg>',
@@ -230,7 +230,7 @@ function renderHome(){
       </div>
       <div class="proof">
         <div><b>0 درهم</b>التوصيل</div>
-        <div><b>24-72 ساعة</b>مدة التوصيل</div>
+        <div><b>24-72 ساعة</b>فأغلب المدن</div>
         <div><b>-20٪</b>على الحبة الثانية</div>
       </div>
     </div>
@@ -243,7 +243,7 @@ function renderHome(){
     <div>${ICON.truck}<span>توصيل مجاني<small>لجميع المدن</small></span></div>
     <div>${ICON.cash}<span>الخلاص عند الاستلام<small>ما كتخلص حتى توصلك</small></span></div>
     <div>${ICON.phone}<span>تأكيد بالتليفون<small>كنعيطو ليك قبل الإرسال</small></span></div>
-    <div>${ICON.swap}<span>استبدال ساهل<small>إلا وصلك شي عيب</small></span></div>
+    <a href="/retour/">${ICON.swap}<span>استبدال بلا مصاريف<small>إلا وصلك شي عيب</small></span></a>
   </div></div>
 
   <section class="sec" id="shop"><div class="container">
@@ -274,7 +274,7 @@ function renderHome(){
     <div class="steps">
       <div class="step"><div class="n">1</div><h3>اختار المنتوج</h3><p>وعمر الاسم، التليفون والعنوان. ما كتخلص والو دابا.</p></div>
       <div class="step"><div class="n">2</div><h3>كنعيطو ليك</h3><p>كنأكدو معاك الطلب والعنوان قبل ما نصيفطوه.</p></div>
-      <div class="step"><div class="n">3</div><h3>خلص ملي توصلك</h3><p>الليفرور كيوصلك فـ 24 حتى 72 ساعة وكتخلصو كاش.</p></div>
+      <div class="step"><div class="n">3</div><h3>خلص ملي توصلك</h3><p>الليفرور كيوصلك فـ 24 حتى 72 ساعة فأغلب المدن، وكتخلصو كاش.</p></div>
     </div>
   </div></section>
 
@@ -283,16 +283,17 @@ function renderHome(){
     <h2 class="h">Dabadeal: متجر إلكتروني مغربي، الخلاص عند الاستلام</h2>
     <p>Dabadeal متجر أونلاين مغربي كيختار ليك منتوجات كتحل مشاكل حقيقية: <a href="/c/raha/">الراحة والصحة</a>، <a href="/c/dar/">الدار</a> و<a href="/c/tomobil/">الطوموبيل</a>. كتطلب فدقيقة، التوصيل مجاني لجميع المدن (الدار البيضاء، الرباط، فاس، مراكش، طنجة، أكادير، مكناس، وجدة، القنيطرة، تطوان…) وكتخلص كاش ملي توصلك السلعة.</p>
     <div lang="fr" dir="ltr" style="margin-top:14px"><h2 class="h" style="font-size:24px">Boutique en ligne au Maroc — paiement à la livraison</h2>
-    <p>Dabadeal est une boutique e-commerce marocaine : <a href="/p/robinet/">robinet chauffant électrique instantané</a>, <a href="/p/seche/">sèche-linge électrique pliable</a>, <a href="/p/dos/">ceinture lombaire</a>, <a href="/p/camera/">caméra de voiture 3 objectifs</a>, <a href="/p/pieds/">masseur de pieds électrique</a>, <a href="/p/canne/">canne avec siège</a>, <a href="/p/priere/">chaise de prière</a> et plus. Livraison gratuite en 24 à 72 h à Casablanca, Rabat, Marrakech, Fès, Tanger, Agadir et dans tout le Maroc, avec paiement cash à la livraison.</p></div>`}
+    <p>Dabadeal est une boutique e-commerce marocaine : <a href="/p/robinet/">robinet chauffant électrique instantané</a>, <a href="/p/seche/">sèche-linge électrique pliable</a>, <a href="/p/dos/">ceinture lombaire</a>, <a href="/p/camera/">caméra de voiture 3 objectifs</a>, <a href="/p/pieds/">masseur de pieds électrique</a>, <a href="/p/canne/">canne avec siège</a>, <a href="/p/priere/">chaise de prière</a> et plus. Livraison gratuite partout au Maroc, en 24 à 72 h dans la plupart des villes (Casablanca, Rabat, Marrakech, Fès, Tanger, Agadir…), avec paiement cash à la livraison.</p></div>`}
   </div></section>
 
   <section class="sec faq" id="faq"><div class="container" style="max-width:820px">
     <div class="sec-h"><h2 class="h">أسئلة <span class="o">كيتعاودو</span></h2></div>
     <details><summary>واش كنخلص قبل؟</summary><p>لا. كتخلص كاش للليفرور ملي توصلك السلعة لباب الدار.</p></details>
-    <details><summary>شحال كياخد التوصيل؟</summary><p>بين 24 و72 ساعة على حساب المدينة، والتوصيل مجاني.</p></details>
+    <details><summary>شحال كياخد التوصيل؟</summary><p>بين 24 و72 ساعة فأغلب المدن، وحتى 5 أيام فالمناطق البعيدة. والتوصيل مجاني.</p></details>
     <details><summary>كيفاش كتخدم -20٪ على الحبة الثانية؟</summary><p>الحبة الأولى بالثمن ديال العرض، وكل حبة زايدة من نفس المنتوج كتنقص عليها 20٪ أوتوماتيكيا.</p></details>
     <details><summary>واش نقدر نطلب بزاف ديال المنتوجات فمرة وحدة؟</summary><p>إيه، زيدهم للسلة وكمل الطلب مرة وحدة. ومن ${CONFIG.GIFT_THRESHOLD} درهم كتاخد -10٪ على الطلب كامل.</p></details>
-    <details><summary>إلا وصلني المنتوج فيه عيب؟</summary><p>عيط لينا ولا صيفط لينا فالواتساب وغادي نبدلوه ليك.</p></details>
+    <details><summary>إلا وصلني المنتوج فيه عيب؟</summary><p>تواصل معانا فـ 7 أيام من الاستلام وصيفط لينا تصويرة ديال العيب، ونبدلوه ليك بلا مصاريف. التفاصيل فـ <a href="/retour/">سياسة الإرجاع والاستبدال</a>.</p></details>
+    <details><summary>كيفاش نتواصل معاكم؟</summary><p>عبر <a href="https://m.me/61596594987899" target="_blank" rel="noopener">ميسنجر</a> ولا <a href="https://www.facebook.com/profile.php?id=61596594987899" target="_blank" rel="noopener">صفحة الفيسبوك</a> ديالنا. شوف <a href="/contact/">كل طرق التواصل</a>.</p></details>
   </div></section>`;
 }
 
@@ -341,7 +342,7 @@ function renderPDP(id){
         <div class="trustrow">
           <div>${ICON.cash}خلص ملي توصلك</div>
           <div>${ICON.truck}توصيل مجاني</div>
-          <div>${ICON.swap}استبدال إلا كان عيب</div>
+          <a href="/retour/">${ICON.swap}استبدال إلا كان عيب</a>
         </div>
 
         <div class="fbt" id="fbt"></div>
@@ -377,7 +378,8 @@ function renderPDP(id){
     <h2 class="h">أسئلة على <span class="o">هاد المنتوج</span></h2>
     ${p.faq.map(f=>`<details><summary>${f[0]}</summary><p>${f[1]}</p></details>`).join('')}
     <details><summary>واش كنخلص قبل؟</summary><p>لا، كتخلص كاش ملي توصلك السلعة.</p></details>
-    <details><summary>شحال كياخد التوصيل؟</summary><p>بين 24 و72 ساعة، والتوصيل مجاني.</p></details>
+    <details><summary>شحال كياخد التوصيل؟</summary><p>بين 24 و72 ساعة فأغلب المدن، وحتى 5 أيام فالمناطق البعيدة. والتوصيل مجاني.</p></details>
+    <details><summary>إلا وصلني المنتوج فيه عيب؟</summary><p>تواصل معانا فـ 7 أيام من الاستلام ونبدلوه ليك بلا مصاريف. شوف <a href="/retour/">سياسة الإرجاع والاستبدال</a>.</p></details>
   </div></section>
 
   <section class="pd-sec seo" lang="fr" dir="ltr"><div class="container" style="max-width:860px">
@@ -578,6 +580,59 @@ function renderThanks(){
   if($('#puT')){ let s=600; clearInterval(puTimer); puTimer=setInterval(()=>{ s--; const el=$('#puT'); if(!el||s<=0){ clearInterval(puTimer); const pu=$('#pu'); if(pu&&s<=0) pu.remove(); return; } el.textContent=`${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`; },1000); }
 }
 
+/* =================== PAGES INFO =================== */
+const FB_URL='https://www.facebook.com/profile.php?id=61596594987899', MSG_URL='https://m.me/61596594987899';
+const ctLink=`<a href="/contact/">صفحة التواصل</a>`;
+const INFO = {
+retour:`<h1 class="h">سياسة <span class="o">الإرجاع والاستبدال</span></h1>
+<p class="lead">ف Dabadeal بغيناك تشري وانت مرتاح. هاد الشروط كتطبق على جميع الطلبات.</p>
+<h2>1. شوف السلعة قبل ما تخلص</h2>
+<p>الخلاص كيكون عند الاستلام. إلا وصلك منتوج ماشي هو اللي طلبتي، ولا الكارطونة مهرسة بشكل واضح، تقدر ترفض الطلب للّيفرور وما كتخلص والو.</p>
+<h2>2. منتوج فيه عيب ولا مكسور</h2>
+<p>إلا لقيتي عيب فالمنتوج، تواصل معانا فـ 7 أيام من نهار الاستلام وصيفط لينا تصويرة ولا فيديو ديال العيب. من بعد ما نتأكدو، كنصيفطو ليك منتوج جديد بلا حتى شي مصاريف.</p>
+<h2>3. الحق فالتراجع (7 أيام)</h2>
+<p>حسب القانون رقم 31.08 المتعلق بحماية المستهلك، عندك 7 أيام من نهار الاستلام باش تتراجع على الشرا بلا ما تعطي سبب، بهاد الشروط:</p>
+<ul><li>المنتوج ما مستعملش وفالباكية ديالو الأصلية مع جميع الإكسسوارات.</li><li>مصاريف إرجاع المنتوج على حساب الزبون.</li><li>كنرجعو ليك الفلوس فـ 15 يوم على الأكثر من نهار ما توصلنا السلعة.</li></ul>
+<h2>4. كيفاش تطلب الإرجاع ولا الاستبدال؟</h2>
+<p>تواصل معانا من ${ctLink} وعطينا رقم الطلب ديالك (كيبدا بـ DD) والسبب، وغادي نشرحو ليك الخطوات.</p>
+<div class="box">المنتوجات اللي تستعملات، ولا تفسدات بسبب سوء الاستعمال، ولا تحيدات منها الباكية الأصلية، ما كتدخلش فالتراجع.</div>
+<div class="fr" lang="fr"><h2>Politique de retour et d'échange (résumé)</h2>
+<p>Paiement à la livraison : vous pouvez refuser le colis s'il ne correspond pas à votre commande ou s'il est visiblement endommagé, sans rien payer. Produit défectueux : contactez-nous sous 7 jours avec une photo ou une vidéo, nous l'échangeons gratuitement. Droit de rétractation de 7 jours (loi n° 31-08) : produit non utilisé, dans son emballage d'origine ; frais de retour à la charge du client ; remboursement sous 15 jours maximum après réception du produit.</p></div>`,
+confidentialite:`<h1 class="h">سياسة <span class="o">الخصوصية</span></h1>
+<p class="lead">كنحتارمو الحياة الخاصة ديالك. هنا كنشرحو شنو كنجمعو من معلومات وعلاش.</p>
+<h2>1. المعلومات اللي كنجمعو</h2>
+<ul><li>الاسم الكامل، رقم الهاتف، المدينة والعنوان.</li><li>المنتوجات اللي طلبتي والمبلغ.</li><li>معلومات تقنية بسيطة: نوع الجهاز والصفحة اللي طلبتي منها.</li></ul>
+<h2>2. علاش كنستعملوها</h2>
+<ul><li>تأكيد الطلب معاك بالتيليفون ولا الواتساب.</li><li>توصيل الطلب وخلاصو عند الاستلام.</li><li>خدمة ما بعد البيع: الاستبدال والإرجاع.</li></ul>
+<p>ما كنبيعوش المعلومات ديالك لحتى شي واحد.</p>
+<h2>3. مع من كنتشاركوها</h2>
+<p>غير مع الشريك ديالنا فالتأكيد واللوجيستيك والتوصيل، وفحدود داكشي اللي ضروري باش يوصلك الطلب.</p>
+<h2>4. الكوكيز و Meta Pixel</h2>
+<p>كنستعملو Meta Pixel (فيسبوك وإنستغرام) باش نقيسو نتائج الإعلانات ديالنا ونوريو إعلانات مناسبة. تقدر تتحكم فهاد الإعلانات من إعدادات الحساب ديالك ف فيسبوك، ولا تمسح الكوكيز من المتصفح ديالك.</p>
+<h2>5. مدة الحفظ</h2>
+<p>كنحتافظو بمعلومات الطلب طول المدة اللازمة لتسيير الطلب، خدمة ما بعد البيع والالتزامات المحاسبية.</p>
+<h2>6. الحقوق ديالك</h2>
+<p>حسب القانون رقم 09.08 المتعلق بحماية الأشخاص الذاتيين تجاه معالجة المعطيات ذات الطابع الشخصي، عندك الحق تطلع على المعلومات ديالك، تصححها ولا تتعرض على استعمالها. تواصل معانا من ${ctLink}.</p>
+<div class="fr" lang="fr"><h2>Politique de confidentialité (résumé)</h2>
+<p>Nous collectons vos nom, téléphone, ville, adresse et le détail de votre commande uniquement pour confirmer, livrer et assurer le service après-vente. Ces données ne sont jamais vendues ; elles sont partagées uniquement avec notre partenaire de confirmation et de livraison. Nous utilisons le Meta Pixel pour mesurer nos publicités. Conformément à la loi n° 09-08, vous disposez d'un droit d'accès, de rectification et d'opposition : contactez-nous via notre page de contact.</p></div>`,
+contact:`<h1 class="h">تواصل <span class="o">معانا</span></h1>
+<p class="lead">عندك سؤال على شي منتوج ولا على الطلب ديالك؟ كنجاوبوك بالدارجة.</p>
+<div class="ctl">
+<span id="ctWa"></span>
+<a href="${MSG_URL}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.4 2 2 6.1 2 11.6c0 2.9 1.2 5.4 3.2 7.1V22l2.9-1.6c1.2.3 2.5.5 3.9.5 5.6 0 10-4.1 10-9.6S17.6 2 12 2zm1 12.9-2.6-2.7-5 2.7 5.5-5.8 2.6 2.7 4.9-2.7-5.4 5.8z"/></svg><span>ميسنجر<small>صيفط لينا ميساج مباشرة</small></span></a>
+<a href="${FB_URL}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 8.5V6.8c0-.8.2-1.3 1.4-1.3H17V2.2C16.6 2.1 15.5 2 14.3 2 11.7 2 10 3.6 10 6.4v2.1H7.3V12H10v10h4V12h2.8l.4-3.5H14z"/></svg><span>صفحة الفيسبوك<small>Dabadeal</small></span></a>
+</div>
+<div class="box">إلا عندك طلب، عطينا رقم الطلب ديالك (كيبدا بـ DD) باش نلقاوه بالزربة.</div>
+<p>شوف حتى <a href="/#faq">الأسئلة اللي كيتعاودو</a> و<a href="/retour/">سياسة الإرجاع والاستبدال</a>.</p>
+<div class="fr" lang="fr"><h2>Nous contacter</h2><p>Une question sur un produit ou sur votre commande ? Écrivez-nous sur Messenger ou sur notre page Facebook Dabadeal, en indiquant votre numéro de commande (DD…). Boutique en ligne marocaine, livraison gratuite et paiement à la livraison partout au Maroc.</p></div>`
+};
+function renderInfo(k){
+  const i=INFO[k]; if(!i){ location.href='/'; return; }
+  app.innerHTML=`<section class="info"><div class="container">${i}</div></section>`;
+  const w=document.getElementById('ctWa');
+  if(w&&CONFIG.WHATSAPP_NUMBER) w.outerHTML=`<a href="https://wa.me/${CONFIG.WHATSAPP_NUMBER}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/></svg><span>واتساب<small>+${CONFIG.WHATSAPP_NUMBER}</small></span></a>`;
+}
+
 /* =================== ROUTER =================== */
 function route(){
   const h=location.hash.replace('#','');
@@ -586,6 +641,7 @@ function route(){
   closeDrawer(); $('#satc').classList.remove('on');
   if(h==='checkout') renderCheckout();
   else if(h==='merci') renderThanks();
+  else if(PAGE.startsWith('i-')) renderInfo(PAGE.slice(2));
   else if(PAGE.startsWith('p-')) renderPDP(PAGE.slice(2));
   else if(pre && !h){ return; }
   else { renderHome(); if(h&&document.getElementById(h)){ setTimeout(()=>document.getElementById(h).scrollIntoView(),30); return; } }

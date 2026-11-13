@@ -18,6 +18,15 @@ CAT_SEO = {
               "كاميرا الطوموبيل 3 عدسات ووسادات الرقبة والظهر. Dashcam Full HD au Maroc, livraison gratuite et paiement à la livraison."),
 }
 
+INFO_SEO = {
+  "retour": ("سياسة الإرجاع والاستبدال | Politique de retour – Dabadeal",
+             "رفض الطلب عند الاستلام، استبدال المنتوج اللي فيه عيب بلا مصاريف، والحق فالتراجع 7 أيام. Retour, échange et rétractation chez Dabadeal Maroc."),
+  "confidentialite": ("سياسة الخصوصية | Politique de confidentialité – Dabadeal",
+             "شنو كنجمعو من معلومات وعلاش، حسب القانون 09.08. Données personnelles et cookies chez Dabadeal Maroc."),
+  "contact": ("تواصل معانا | Contact – Dabadeal",
+             "تواصل مع Dabadeal عبر ميسنجر ولا فيسبوك. Contactez Dabadeal, boutique en ligne au Maroc, paiement à la livraison."),
+}
+
 def write(path, page, head, main=""):
     out = TPL.replace("{{HEAD}}", head).replace("{{PAGE}}", page).replace("{{V}}", V)
     out = out.replace('<main id="app">{{MAIN}}</main>', f'<main id="app"{" data-pre=\"1\"" if main else ""}>{main}</main>')
@@ -60,7 +69,8 @@ def main():
             pg.goto("http://localhost:8799/"); pg.wait_for_timeout(500)
             P = pg.evaluate("P"); FR = pg.evaluate("FR"); CATS = pg.evaluate("CATS"); CATSLUG = pg.evaluate("CATSLUG")
             pages = [("index.html", "", "/")] + [(f"c/{k}/index.html", f"c-{k}", f"/c/{k}/") for k in CATS] + \
-                    [(f"p/{p['id']}/index.html", f"p-{p['id']}", f"/p/{p['id']}/") for p in P]
+                    [(f"p/{p['id']}/index.html", f"p-{p['id']}", f"/p/{p['id']}/") for p in P] + \
+                    [(f"{k}/index.html", f"i-{k}", f"/{k}/") for k in INFO_SEO]
             urls = []
             for path, page, rel in pages:
                 url = SITE + rel; urls.append(url)
@@ -70,6 +80,10 @@ def main():
                     ld = [ORG, WEBSITE, {"@context": "https://schema.org", "@type": "ItemList", "itemListElement": [
                         {"@type": "ListItem", "position": i + 1, "url": f"{SITE}/p/{p['id']}/", "name": p["name"]} for i, p in enumerate(P)]}]
                     img = SITE + "/img/robinet_0.webp"
+                elif page.startswith("i-"):
+                    k = page[2:]; t, d = INFO_SEO[k]
+                    ld = [ORG, crumbs([("الرئيسية", SITE + "/"), (t.split(" | ")[0], url)])]
+                    img = SITE + "/img/logo-dark.png"
                 elif page.startswith("c-"):
                     k = page[2:]; t, d = CAT_SEO[k]; c = CATS[k]
                     items = [p for p in P if p["cat"] == c["key"]]
@@ -96,8 +110,8 @@ def main():
                                               "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "MA"},
                                               "deliveryTime": {"@type": "ShippingDeliveryTime",
                                                   "handlingTime": {"@type": "QuantitativeValue", "minValue": 0, "maxValue": 1, "unitCode": "DAY"},
-                                                  "transitTime": {"@type": "QuantitativeValue", "minValue": 1, "maxValue": 3, "unitCode": "DAY"}}}}}
-                    faqs = p["faq"] + [["واش كنخلص قبل؟", "لا، كتخلص كاش ملي توصلك السلعة."], ["شحال كياخد التوصيل؟", "بين 24 و72 ساعة، والتوصيل مجاني."]]
+                                                  "transitTime": {"@type": "QuantitativeValue", "minValue": 1, "maxValue": 5, "unitCode": "DAY"}}}}}
+                    faqs = p["faq"] + [["واش كنخلص قبل؟", "لا، كتخلص كاش ملي توصلك السلعة."], ["شحال كياخد التوصيل؟", "بين 24 و72 ساعة فأغلب المدن، وحتى 5 أيام فالمناطق البعيدة. والتوصيل مجاني."], ["إلا وصلني المنتوج فيه عيب؟", "تواصل معانا فـ 7 أيام من الاستلام ونبدلوه ليك بلا مصاريف."]]
                     ld = [product,
                           crumbs([("الرئيسية", SITE + "/"), (p["catL"], f"{SITE}/c/{cslug}/"), (p["name"], url)]),
                           {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
@@ -111,7 +125,7 @@ def main():
             b.close()
         sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
         for u in urls:
-            pr = "1.0" if u.endswith(".ma/") else ("0.9" if "/p/" in u else "0.8")
+            pr = "1.0" if u.endswith(".ma/") else ("0.9" if "/p/" in u else ("0.8" if "/c/" in u else "0.3"))
             sm.append(f"<url><loc>{u}</loc><lastmod>{TODAY}</lastmod><changefreq>weekly</changefreq><priority>{pr}</priority></url>")
         sm.append("</urlset>")
         open(os.path.join(ROOT, "sitemap.xml"), "w").write("\n".join(sm) + "\n")
