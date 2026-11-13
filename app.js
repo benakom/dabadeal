@@ -162,14 +162,14 @@ function addToCart(id, qty=1, opts={}){
   const ex = cart.find(l=>l.key===key);
   if (ex) ex.qty += qty; else cart.push({key,id,qty,variant,mode});
   save(); renderCount(true);
-  track('AddToCart',{content_ids:[byId(id).sku],value:byId(id).price,currency:'MAD'});
+  track('AddToCart',{content_ids:[byId(id).sku],content_type:'product',content_name:byId(id).name,value:byId(id).price*qty,currency:'MAD'});
 }
 function setQty(key, q){ const l=cart.find(x=>x.key===key); if(!l) return; l.qty=q; if(l.qty<=0) cart=cart.filter(x=>x.key!==key); save(); renderCount(); renderDrawer(); }
 
 /* =================== UTILS =================== */
 const $ = s=>document.querySelector(s);
 const app = $('#app');
-function track(ev,data,opt){ try{ if(window.fbq) fbq('track',ev,data||{},opt||{}); if(window.ttq) ttq.track(ev,data||{}); }catch(e){} }
+function track(ev,data,opt,custom){ try{ if(window.fbq) fbq(custom?'trackCustom':'track',ev,data||{},opt||{}); if(window.ttq&&!custom) ttq.track(ev,data||{}); }catch(e){} }
 /* anti-bot : signaux humains + temps de remplissage */
 let HUMAN=false; const FS={};
 ['pointerdown','keydown','touchstart'].forEach(ev=>addEventListener(ev,()=>{HUMAN=true},{passive:true,once:true}));
@@ -301,7 +301,7 @@ let pdp = {id:null, qty:1, variant:'', img:0, fbt:{}};
 function renderPDP(id){
   const p = byId(id); if(!p){ location.hash=''; return; }
   if (pdp.id!==id) pdp = {id, qty:1, variant:p.variants?p.variants[1]:'', img:0, fbt:Object.fromEntries(p.xs.map(x=>[x,true]))};
-  track('ViewContent',{content_ids:[p.sku],value:p.price,currency:'MAD'});
+  track('ViewContent',{content_ids:[p.sku],content_type:'product',content_name:p.name,value:p.price,currency:'MAD'});
   const tiers=[1,2,3].map(q=>({q, tot:p.price+(q-1)*tierUnit(p), cmp:p.compare*q}));
   app.innerHTML = `
   <div class="container">
@@ -623,7 +623,7 @@ document.addEventListener('click',e=>{
   if(t.id==='puYes'){ const up=byId(t.dataset.up); const price=Math.round(up.price*(1-CONFIG.POST_UPSELL_DISCOUNT));
     lastOrder.items.push({sku:up.sku,name:up.name,qty:1,variant:'',mode:'upsell',line:price}); lastOrder.total+=price; lastOrder.upsell=up.id;
     sendOrder({type:'upsell',order_id:lastOrder.id,sku:up.sku,name:up.name,price,new_total:lastOrder.total});
-    track('Purchase',{value:price,currency:'MAD',num_items:1}); clearInterval(puTimer); renderThanks(); toast('تزاد للطلب ديالك ✓'); }
+    track('UpsellAccepted',{value:price,currency:'MAD',content_ids:[up.sku],content_type:'product',order_id:lastOrder.id},{eventID:lastOrder.id+'-up'},true); clearInterval(puTimer); renderThanks(); toast('تزاد للطلب ديالك ✓'); }
   if(t.id==='puNo'){ clearInterval(puTimer); $('#pu').remove(); }
 });
 document.addEventListener('submit',e=>{ if(e.target.id==='coForm') submitCheckout(e); if(e.target.id==='qf') submitQuick(e); });
