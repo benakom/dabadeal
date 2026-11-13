@@ -306,7 +306,7 @@ function renderPDP(id){
     <div class="pdp">
       <div class="gal">
         <div class="main"><img id="mainImg" src="${W(p.img[pdp.img])}" srcset="${S(p.img[pdp.img])} 400w, ${W(p.img[pdp.img])} 800w" sizes="(max-width:980px) 92vw, 560px" alt="${p.name}" width="800" height="800" fetchpriority="high"><span class="bd-off">-${off(p)}%<small>عرض الشتا</small></span></div>
-        ${p.img.length>1?`<div class="thumbs">${p.img.map((s,i)=>`<button class="${i===pdp.img?'on':''}" data-thumb="${i}"><img src="${S(s)}" alt="" width="74" height="74" loading="lazy" decoding="async"></button>`).join('')}</div>`:''}
+        ${p.img.length>1?`<div class="thumbs">${p.img.map((s,i)=>`<button class="${i===pdp.img?'on':''}" data-thumb="${i}" aria-label="صورة ${i+1}"><img src="${S(s)}" alt="" width="74" height="74" loading="lazy" decoding="async"></button>`).join('')}</div>`:''}
       </div>
       <div class="pinfo">
         <span class="cat">${p.catL} • ${p.badge}</span>
@@ -395,7 +395,7 @@ function renderFBT(){
   const sel=p.xs.filter(x=>pdp.fbt[x]);
   const tot=p.price+sel.reduce((s,x)=>s+bundleUnit(byId(x)),0);
   const cmp=p.compare+sel.reduce((s,x)=>s+byId(x).compare,0);
-  box.innerHTML = `<h3>كيشريوهم مع بعض <span class="o">ب -15٪</span></h3>
+  box.innerHTML = `<h2 class="fbt-t">كيشريوهم مع بعض <span class="o">ب -15٪</span></h2>
     ${items.map((it,i)=>`<div class="fbt-row" ${i?`data-fbt="${it.id}"`:''} style="${i?'cursor:pointer':''}">
       <span class="cb ${i===0||pdp.fbt[it.id]?'on':''} ${i===0?'lock':''}"></span>
       <img src="${S(it.img[0])}" alt="" width="58" height="58" loading="lazy" decoding="async">
