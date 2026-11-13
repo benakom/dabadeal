@@ -14,7 +14,7 @@ const CONFIG = {
 };
 
 /* =================== CATALOGUE =================== */
-const IMG = (k,n)=>Array.from({length:n},(_,i)=>`img/${k}_${i}.jpg`);
+const IMG = (k,n)=>Array.from({length:n},(_,i)=>`/img/${k}_${i}.jpg`);
 const P = [
  { id:"robinet", sku:"TJ-940", cat:"دار", catL:"الدار", name:"حنفية الما السخون الكهربائية", short:"ما سخون فـ 3 ثواني، بلا بوطة", price:299, compare:499, badge:"الأكثر طلبا", img:IMG("robinet",4),
    hook:"ما تبقاش تتوضا بالما البارد فهاد البرد",
@@ -38,7 +38,7 @@ const P = [
    notice:"ما تعمرهاش بزاف باش الهوا يدوز مزيان، وبعدها على الما.",
    faq:[["شحال كتاخد باش تنشف؟","على حساب الثوب والكمية؛ الحوايج الخفاف كينشفو أسرع."],["واش كتطوى بصح؟","إيه، الهيكل كيتجمع والقاعدة كتولي صغيرة باش تخبيها."]],
    xs:["robinet","brosse"] },
- { id:"dos", sku:"TJ-1299", cat:"راحة", catL:"الراحة والصحة", name:"حزام دعم أسفل الظهر الاحترافي", short:"سند لظهرك فالخدمة والطريق", price:249, compare:399, badge:"مختار ليك", img:["img/dos_0.jpg","img/dos_2.jpg","img/dos_3.jpg"],
+ { id:"dos", sku:"TJ-1299", cat:"راحة", catL:"الراحة والصحة", name:"حزام دعم أسفل الظهر الاحترافي", short:"سند لظهرك فالخدمة والطريق", price:249, compare:399, badge:"مختار ليك", img:["/img/dos_0.jpg","/img/dos_2.jpg","/img/dos_3.jpg"],
    hook:"ظهرك كيخدم عليك طول النهار… عطيه السند",
    lead:"حزام دعم لأسفل الظهر بصفائح فولاذية مرنة و3 وسادات كتنحاو. كيعاونك تحافظ على وقفة مزيانة وأنت خدام، كتسوق ولا كتهز الثقيل.",
    bullets:["صفائح فولاذية مرنة لثبات أكثر","3 وسادات كتنحاو على حساب الراحة ديالك","تثبيت 360° بلا ما يتزعزع","كيتلبس تحت الحوايج"],
@@ -49,7 +49,7 @@ const P = [
    notice:"منتوج للراحة والسند، ماشي دوا. إلا كان عندك وجع قوي ولا مستمر، شاور الطبيب.",
    faq:[["واش كاين القياسات؟","الحزام كيتضبط بالسكراتش؛ عند التأكيد غادي نسولوك على قياس الكرش."],["واش نقدر نلبسو طول النهار؟","ننصحوك تلبسو فأوقات المجهود وتعطي لظهرك الراحة بين المرات."]],
    xs:["coussin","pieds"] },
- { id:"coussin", sku:"TJ-692", cat:"طوموبيل", catL:"الطوموبيل", name:"طقم وسادة الرقبة والظهر", short:"سوق ساعات بلا ما يتقطع ظهرك", price:249, compare:390, badge:"طقم 2 قطع", img:["img/coussin_3.jpg","img/coussin_1.jpg","img/coussin_2.jpg"],
+ { id:"coussin", sku:"TJ-692", cat:"طوموبيل", catL:"الطوموبيل", name:"طقم وسادة الرقبة والظهر", short:"سوق ساعات بلا ما يتقطع ظهرك", price:249, compare:390, badge:"طقم 2 قطع", img:["/img/coussin_3.jpg","/img/coussin_1.jpg","/img/coussin_2.jpg"],
    hook:"ساعات فالطريق ولا فالبيرو، ورقبتك وظهرك مرتاحين",
    lead:"طقم من وسادة للرقبة ووسادة لأسفل الظهر، فـ Memory Foam كيرجع لشكلو. كيتركبو على كرسي الطوموبيل ولا كرسي البيرو.",
    bullets:["وسادة رقبة + وسادة ظهر فطقم واحد","Memory Foam كيتبع شكل الجسم","كيتركبو فثواني على أي كرسي","غطا ناعم كيتنحى"],
@@ -79,7 +79,7 @@ const P = [
    specs:[["الحمولة","حتى 100 كيلو"],["الرجلين","3 ضد الزلق"],["المادة","ألومنيوم + فولاذ"],["التخزين","كيتطوى"]],
    notice:"", faq:[["واش كيصلح للطول ديال بابا؟","العلو تقريبا 75 سنتيم والمقعد 49 سنتيم."]],
    xs:["priere","pieds"] },
- { id:"priere", sku:"TJ-494", cat:"راحة", catL:"الراحة والصحة", name:"كرسي الجلوس بعد السجود", short:"صلي براحتك حتى مع وجع الركابي", price:249, compare:390, badge:"قبل رمضان", img:["img/priere_0.jpg"],
+ { id:"priere", sku:"TJ-494", cat:"راحة", catL:"الراحة والصحة", name:"كرسي الجلوس بعد السجود", short:"صلي براحتك حتى مع وجع الركابي", price:249, compare:390, badge:"قبل رمضان", img:["/img/priere_0.jpg"],
    hook:"صلي براحتك… حتى إلا كانو الركابي ولا الظهر كيوجعوك",
    lead:"كرسي صغير مريح كيعاونك تجلس وتنوض فالصلاة بلا ضغط على الركابي والكعبين. مثالي للكبار فالسن واللي عندهم وجع الظهر ولا المفاصل.",
    bullets:["كيخفف الضغط على الركابي والكعبين","هيكل حديد ثابت","مقعد مريح","صغير وساهل فالتخزين"],
@@ -122,7 +122,15 @@ const P = [
    notice:"", faq:[["واش البخار سخون؟","لا، بخار خفيف مناسب للحيوان."]],
    xs:["seche","robinet"] }
 ];
+const FR = {"robinet": {"t": "Robinet chauffant électrique instantané", "d": "Le robinet chauffant électrique instantané Dabadeal fournit de l'eau chaude en 3 à 5 secondes, sans chauffe-eau ni bouteille de gaz butane. Idéal pour les ablutions (wudu) en hiver, la douche des enfants et la vaisselle, il se fixe au mur ou sur le lavabo et affiche la température sur un écran digital. Puissance 3000 à 5500 W, 220 V. Prix 299 DH au Maroc, livraison gratuite à Casablanca, Rabat, Marrakech, Fès, Tanger, Agadir et partout au Maroc, paiement à la livraison."}, "seche": {"t": "Sèche-linge électrique pliable", "d": "Le sèche-linge électrique pliable sèche vos vêtements à l'intérieur grâce à une circulation d'air chaud à 360°, avec minuterie, écran et télécommande. Parfait pour l'hiver et les appartements sans terrasse, il se replie pour se ranger facilement. Prix 449 DH au Maroc, livraison gratuite et paiement à la livraison dans toutes les villes."}, "dos": {"t": "Ceinture lombaire de maintien du dos", "d": "Ceinture de soutien lombaire avec baleines en acier flexibles et 3 coussinets amovibles pour soulager le bas du dos au travail, en conduisant ou en portant des charges. Se porte sous les vêtements. Prix 249 DH, livraison gratuite partout au Maroc et paiement à la livraison."}, "coussin": {"t": "Coussin lombaire et coussin cervical voiture", "d": "Set de 2 coussins ergonomiques en mousse à mémoire de forme : un coussin cervical pour la nuque et un coussin lombaire pour le dos, à fixer sur le siège de voiture ou la chaise de bureau. Idéal pour les chauffeurs et le télétravail. Prix 249 DH au Maroc, livraison gratuite et paiement à la livraison."}, "pieds": {"t": "Masseur de pieds électrique EMS", "d": "Tapis de massage des pieds électrique avec 8 modes et 19 niveaux d'intensité, léger et pliable. 15 minutes le soir pour détendre les jambes fatiguées. Une idée cadeau appréciée des parents. Prix 179 DH au Maroc, livraison gratuite et paiement à la livraison."}, "canne": {"t": "Canne pliante avec siège", "d": "Canne de marche avec siège intégré, pliable et légère, supportant jusqu'à 100 kg, avec 3 pieds antidérapants. Pour les personnes âgées : marcher en sécurité et s'asseoir partout (souk, hôpital, mosquée). Prix 229 DH au Maroc, livraison gratuite et paiement à la livraison."}, "priere": {"t": "Chaise de prière (siège après sujud)", "d": "Petite chaise de prière confortable qui soulage les genoux et les chevilles pendant la position assise de la prière. Structure métallique stable, idéale pour les personnes âgées ou souffrant du dos et des articulations, à la maison ou à la mosquée. Prix 249 DH au Maroc, livraison gratuite et paiement à la livraison."}, "grossesse": {"t": "Ceinture de grossesse 3 en 1", "d": "Ceinture de maintien de grossesse réglable du 3e au 9e mois, qui soutient le ventre sans compression et soulage le bas du dos. Tailles M, L, XL et XXL. Prix 249 DH au Maroc, livraison gratuite et paiement à la livraison."}, "camera": {"t": "Caméra de voiture 3 objectifs (dashcam)", "d": "Dashcam 3 caméras (avant, arrière et habitacle) avec écran 4 pouces, Full HD 1080p, vision nocturne, grand angle 170° et G-sensor qui protège la vidéo en cas de choc. Une preuve fiable en cas d'accident au Maroc. Prix 449 DH, livraison gratuite et paiement à la livraison."}, "brosse": {"t": "Brosse vapeur pour chat et chien", "d": "Brosse à vapeur rechargeable USB qui retient les poils morts de votre chat ou chien avec une brume légère et des picots en silicone doux. Fini les poils sur le canapé. Prix 129 DH au Maroc, livraison gratuite et paiement à la livraison."}};
 const byId = id => P.find(p=>p.id===id);
+const PAGE = document.body.dataset.page || '';
+const CATSLUG = {'راحة':'raha','دار':'dar','طوموبيل':'tomobil'};
+const CATS = {
+  raha:{key:'راحة', h1:'منتوجات الراحة والصحة', lead:'حلول عملية لوجع الظهر، الرجلين، الحمل والكبار فالسن. التوصيل مجاني والخلاص عند الاستلام فجميع مدن المغرب.', fr:'Produits bien-être et confort au Maroc : ceinture lombaire, coussin ergonomique, masseur pieds, canne-siège, chaise de prière et ceinture de grossesse. Livraison gratuite partout au Maroc et paiement à la livraison.'},
+  dar:{key:'دار', h1:'منتوجات الدار', lead:'منتوجات كتسهل الحياة فالدار فالشتا وفكل نهار. التوصيل مجاني والخلاص عند الاستلام.', fr:'Équipements maison au Maroc : robinet chauffant électrique instantané, sèche-linge électrique pliable et brosse vapeur pour chats et chiens. Livraison gratuite et paiement à la livraison dans toutes les villes du Maroc.'},
+  tomobil:{key:'طوموبيل', h1:'منتوجات الطوموبيل', lead:'الأمان والراحة فالطريق: كاميرا السيارة ووسادات الراحة. التوصيل مجاني والخلاص عند الاستلام.', fr:'Accessoires auto au Maroc : caméra de voiture 3 objectifs (dashcam) et coussins ergonomiques nuque et dos. Livraison gratuite et paiement à la livraison partout au Maroc.'}
+};
 const W = s=>s.replace('.jpg','.webp'), S = s=>s.replace('.jpg','-s.webp');
 const off = p => Math.round((1 - p.price/p.compare)*100);
 const fmt = n => `${Math.round(n)} ${CONFIG.CURRENCY}`;
@@ -181,32 +189,33 @@ const ICON = {
 document.getElementById('ann').innerHTML = Array(2).fill(`<span>🚚 <b>التوصيل مجاني</b> لجميع المدن</span><span>💵 <b>خلص ملي توصلك</b> السلعة</span><span>⚡ <b>-20٪</b> على الحبة الثانية</span><span>🎁 من ${CONFIG.GIFT_THRESHOLD} درهم: <b>-10٪</b> على الطلب كامل</span>`).join('');
 
 /* =================== HOME =================== */
-let homeCat = 'all';
+let homeCat = PAGE.startsWith('c-') ? CATS[PAGE.slice(2)].key : 'all';
 function cardHTML(p){
   return `<article class="card">
-    <a href="#p-${p.id}" class="ph">
+    <a href="/p/${p.id}/" class="ph">
       <img src="${S(p.img[0])}" alt="${p.name}" width="400" height="400" loading="lazy" decoding="async">${p.img[1]?`<img class="alt" src="${S(p.img[1])}" alt="" width="400" height="400" loading="lazy" decoding="async">`:''}
       <div class="badges"><span class="bd k">${p.badge}</span></div>
       <span class="bd-off">-${off(p)}%</span>
     </a>
     <div class="body">
       <span class="cat">${p.catL}</span>
-      <a href="#p-${p.id}"><h3>${p.name}</h3></a>
+      <a href="/p/${p.id}/"><h3>${p.name}</h3></a>
       <p class="hook">${p.short}</p>
       <div class="price"><span class="now">${fmt(p.price)}</span><s>${fmt(p.compare)}</s></div>
       <div class="add">
-        <a class="btn btn-o" href="#p-${p.id}">اطلب دابا</a>
+        <a class="btn btn-o" href="/p/${p.id}/">اطلب دابا</a>
         <button class="btn btn-ghost" data-quick="${p.id}" aria-label="زيد للسلة"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
       </div>
     </div>
   </article>`;
 }
 function renderHome(){
-  document.title = 'Dabadeal — ديالك دابا، خلص ملي يوصلك';
+  const C = PAGE.startsWith('c-') ? CATS[PAGE.slice(2)] : null;
   const list = homeCat==='all'?P:P.filter(p=>p.cat===homeCat);
   const b1=byId('dos'), b2=byId('coussin'), b3=byId('pieds');
   const bSum=b1.price+bundleUnit(b2)+bundleUnit(b3), bCmp=b1.compare+b2.compare+b3.compare;
   app.innerHTML = `
+  ${C?`<section class="cathead"><div class="container"><div class="crumbs" style="color:#BDBDC4"><a href="/">الرئيسية</a> / <span>${C.h1}</span></div><h1 class="h">${C.h1}</h1><p>${C.lead}</p></div></section>`:`
   <section class="hero"><div class="container in">
     <div>
       <span class="pill"><i></i> عروض الشتا • الكمية محدودة</span>
@@ -214,7 +223,7 @@ function renderHome(){
       <p>منتوجات مختارة وحدة بوحدة للراحة، الدار والطوموبيل. كتطلب فدقيقة، وكتخلص غير ملي كتوصلك السلعة.</p>
       <div class="ctas">
         <a class="btn btn-o" href="#" data-scroll="shop">${ICON.zap} شوف العروض</a>
-        <a class="btn btn-ghost" style="background:rgba(255,255,255,.1);color:#fff" href="#p-robinet">الأكثر طلبا هاد الشتا</a>
+        <a class="btn btn-ghost" style="background:rgba(255,255,255,.1);color:#fff" href="/p/robinet/">الأكثر طلبا هاد الشتا</a>
       </div>
       <div class="proof">
         <div><b>0 درهم</b>التوصيل</div>
@@ -223,9 +232,10 @@ function renderHome(){
       </div>
     </div>
     <div class="mosaic">
-      ${['robinet','seche','dos','camera'].map(id=>{const p=byId(id);return `<a href="#p-${id}"><img src="${S(p.img[0])}" alt="${p.name}" width="400" height="400" decoding="async"><span>${fmt(p.price)}</span></a>`}).join('')}
+      ${['robinet','seche','dos','camera'].map(id=>{const p=byId(id);return `<a href="/p/${id}/"><img src="${S(p.img[0])}" alt="${p.name}" width="400" height="400" decoding="async"><span>${fmt(p.price)}</span></a>`}).join('')}
     </div>
   </div></section>
+  `}
   <div class="usp"><div class="container in">
     <div>${ICON.truck}<span>توصيل مجاني<small>لجميع المدن</small></span></div>
     <div>${ICON.cash}<span>الخلاص عند الاستلام<small>ما كتخلص حتى توصلك</small></span></div>
@@ -265,6 +275,14 @@ function renderHome(){
     </div>
   </div></section>
 
+  <section class="sec seo-home"><div class="container" style="max-width:900px">
+    ${C?`<div lang="fr" dir="ltr"><h2 class="h">${C.h1.replace('منتوجات','')} — Dabadeal Maroc</h2><p>${C.fr}</p></div>`:`
+    <h2 class="h">Dabadeal: متجر إلكتروني مغربي، الخلاص عند الاستلام</h2>
+    <p>Dabadeal متجر أونلاين مغربي كيختار ليك منتوجات كتحل مشاكل حقيقية: <a href="/c/raha/">الراحة والصحة</a>، <a href="/c/dar/">الدار</a> و<a href="/c/tomobil/">الطوموبيل</a>. كتطلب فدقيقة، التوصيل مجاني لجميع المدن (الدار البيضاء، الرباط، فاس، مراكش، طنجة، أكادير، مكناس، وجدة، القنيطرة، تطوان…) وكتخلص كاش ملي توصلك السلعة.</p>
+    <div lang="fr" dir="ltr" style="margin-top:14px"><h2 class="h" style="font-size:24px">Boutique en ligne au Maroc — paiement à la livraison</h2>
+    <p>Dabadeal est une boutique e-commerce marocaine : <a href="/p/robinet/">robinet chauffant électrique instantané</a>, <a href="/p/seche/">sèche-linge électrique pliable</a>, <a href="/p/dos/">ceinture lombaire</a>, <a href="/p/camera/">caméra de voiture 3 objectifs</a>, <a href="/p/pieds/">masseur de pieds électrique</a>, <a href="/p/canne/">canne avec siège</a>, <a href="/p/priere/">chaise de prière</a> et plus. Livraison gratuite en 24 à 72 h à Casablanca, Rabat, Marrakech, Fès, Tanger, Agadir et dans tout le Maroc, avec paiement cash à la livraison.</p></div>`}
+  </div></section>
+
   <section class="sec faq" id="faq"><div class="container" style="max-width:820px">
     <div class="sec-h"><h2 class="h">أسئلة <span class="o">كيتعاودو</span></h2></div>
     <details><summary>واش كنخلص قبل؟</summary><p>لا. كتخلص كاش للليفرور ملي توصلك السلعة لباب الدار.</p></details>
@@ -280,12 +298,11 @@ let pdp = {id:null, qty:1, variant:'', img:0, fbt:{}};
 function renderPDP(id){
   const p = byId(id); if(!p){ location.hash=''; return; }
   if (pdp.id!==id) pdp = {id, qty:1, variant:p.variants?p.variants[1]:'', img:0, fbt:Object.fromEntries(p.xs.map(x=>[x,true]))};
-  document.title = `${p.name} — Dabadeal`;
   track('ViewContent',{content_ids:[p.sku],value:p.price,currency:'MAD'});
   const tiers=[1,2,3].map(q=>({q, tot:p.price+(q-1)*tierUnit(p), cmp:p.compare*q}));
   app.innerHTML = `
   <div class="container">
-    <div class="crumbs"><a href="#" data-go="home">الرئيسية</a> / <a href="#" data-cat="${p.cat}">${p.catL}</a> / ${p.name}</div>
+    <div class="crumbs"><a href="/">الرئيسية</a> / <a href="/c/${CATSLUG[p.cat]}/" data-cat="${p.cat}">${p.catL}</a> / <span>${p.name}</span></div>
     <div class="pdp">
       <div class="gal">
         <div class="main"><img id="mainImg" src="${W(p.img[pdp.img])}" srcset="${S(p.img[pdp.img])} 400w, ${W(p.img[pdp.img])} 800w" sizes="(max-width:980px) 92vw, 560px" alt="${p.name}" width="800" height="800" fetchpriority="high"><span class="bd-off">-${off(p)}%<small>عرض الشتا</small></span></div>
@@ -358,6 +375,11 @@ function renderPDP(id){
     ${p.faq.map(f=>`<details><summary>${f[0]}</summary><p>${f[1]}</p></details>`).join('')}
     <details><summary>واش كنخلص قبل؟</summary><p>لا، كتخلص كاش ملي توصلك السلعة.</p></details>
     <details><summary>شحال كياخد التوصيل؟</summary><p>بين 24 و72 ساعة، والتوصيل مجاني.</p></details>
+  </div></section>
+
+  <section class="pd-sec seo" lang="fr" dir="ltr"><div class="container" style="max-width:860px">
+    <h2 class="h">${FR[p.id].t} au Maroc</h2>
+    <p>${FR[p.id].d}</p>
   </div></section>
 
   <section class="pd-sec" style="background:var(--sand)"><div class="container">
@@ -549,14 +571,15 @@ function renderThanks(){
 /* =================== ROUTER =================== */
 function route(){
   const h=location.hash.replace('#','');
-  if(h||!app.dataset.pre) delete app.dataset.pre;
+  if(h.startsWith('p-')&&byId(h.slice(2))){ location.replace('/p/'+h.slice(2)+'/'); return; }
+  const pre=app.dataset.pre; delete app.dataset.pre;
   closeDrawer(); $('#satc').classList.remove('on');
-  if(h.startsWith('p-')) renderPDP(h.slice(2));
-  else if(h==='checkout') renderCheckout();
+  if(h==='checkout') renderCheckout();
   else if(h==='merci') renderThanks();
-  else if(app.dataset.pre){ delete app.dataset.pre; return; }
-  else renderHome();
-  window.scrollTo({top:0,behavior:'instant'});
+  else if(PAGE.startsWith('p-')) renderPDP(PAGE.slice(2));
+  else if(pre && !h){ return; }
+  else { renderHome(); if(h&&document.getElementById(h)){ setTimeout(()=>document.getElementById(h).scrollIntoView(),30); return; } }
+  if(h==='checkout'||h==='merci'||!pre) window.scrollTo({top:0,behavior:'instant'});
 }
 window.addEventListener('hashchange',route);
 window.addEventListener('scroll',()=>{
@@ -568,9 +591,9 @@ window.addEventListener('scroll',()=>{
 document.addEventListener('click',e=>{
   const t=e.target.closest('[data-go],[data-cat],[data-scroll],[data-chip],[data-quick],[data-bundle],[data-thumb],[data-tier],[data-variant],[data-fbt],#fbtAdd,#buyNow,#addCart,#satcBuy,[data-close],[data-q],[data-rm],[data-xs],#bump,#puYes,#puNo,[data-opencart],#cartBtn,#scrim');
   if(!t) return;
-  if(t.matches('[data-go]')){ e.preventDefault(); if(location.hash&&location.hash!=='#') location.hash=''; else route(); }
-  if(t.matches('[data-cat]')){ e.preventDefault(); homeCat=t.dataset.cat; if(location.hash&&location.hash!=='#'){ location.hash=''; setTimeout(()=>document.getElementById('shop').scrollIntoView({behavior:'smooth'}),60);} else { renderHome(); document.getElementById('shop').scrollIntoView({behavior:'smooth'}); } }
-  if(t.matches('[data-scroll]')){ e.preventDefault(); const id=t.dataset.scroll; if(id==='top'){ window.scrollTo({top:0,behavior:'smooth'}); return; } const go=()=>{ const el=document.getElementById(id); el&&el.scrollIntoView({behavior:'smooth'}); }; if(!document.getElementById(id)){ location.hash=''; setTimeout(go,80);} else go(); }
+  if(t.matches('[data-go]')){ e.preventDefault(); if(PAGE!==''){ location.href='/'; } else if(location.hash&&location.hash!=='#') location.hash=''; else route(); }
+  if(t.matches('[data-cat]')){ if(PAGE===''&&!location.hash){ e.preventDefault(); homeCat=t.dataset.cat; renderHome(); document.getElementById('shop').scrollIntoView({behavior:'smooth'}); } }
+  if(t.matches('[data-scroll]')){ e.preventDefault(); const id=t.dataset.scroll; if(id==='top'){ window.scrollTo({top:0,behavior:'smooth'}); return; } const go=()=>{ const el=document.getElementById(id); el&&el.scrollIntoView({behavior:'smooth'}); }; if(!document.getElementById(id)){ if(PAGE!==''){ location.href='/#'+id; return; } location.hash=''; setTimeout(go,80);} else go(); }
   if(t.matches('[data-chip]')){ homeCat=t.dataset.chip; const y=window.scrollY; renderHome(); window.scrollTo(0,y); }
   if(t.matches('[data-quick]')){ e.preventDefault(); addToCart(t.dataset.quick,1,{variant:(byId(t.dataset.quick).variants||[''])[1]||''}); openDrawer(); }
   if(t.matches('[data-bundle]')){ const ids=t.dataset.bundle.split(','); addToCart(ids[0],1); ids.slice(1).forEach(id=>addToCart(id,1,{mode:'bundle'})); openDrawer(); }
