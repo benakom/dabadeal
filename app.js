@@ -16,7 +16,7 @@ const CONFIG = {
 /* =================== CATALOGUE =================== */
 const IMG = (k,n)=>Array.from({length:n},(_,i)=>`/img/${k}_${i}.jpg`);
 const P = [
- { id:"robinet", sku:"TJ-940", cat:"دار", catL:"الدار", name:"حنفية الما السخون الكهربائية", short:"ما سخون فـ 3 ثواني، بلا بوطة", price:290, compare:490, badge:"الأكثر طلبا", img:["/img/robinet_0.jpg","/img/robinet_4.jpg","/img/robinet_5.jpg","/img/robinet_6.jpg","/img/robinet_1.jpg","/img/robinet_2.jpg","/img/robinet_3.jpg"],
+ { id:"robinet", sku:"TJ-940", cat:"دار", catL:"الدار", name:"حنفية الما السخون الكهربائية", short:"ما سخون فـ 3 ثواني، بلا بوطة", price:299, compare:499, badge:"الأكثر طلبا", img:["/img/robinet_0.jpg","/img/robinet_4.jpg","/img/robinet_5.jpg","/img/robinet_6.jpg","/img/robinet_1.jpg","/img/robinet_2.jpg","/img/robinet_3.jpg"],
    hook:"ما تبقاش تتوضا بالما البارد فهاد البرد",
    lead:"حنفية كهربائية كتسخن الما فـ 3 حتى 5 ثواني. للوضوء، الدوش ولا الماعن — بلا بوطة، بلا شوفو، بلا ما تسنا.",
    bullets:["ما سخون فـ 3 حتى 5 ثواني","شاشة رقمية كتبين الحرارة","بلا بوطة غاز وبلا خزان","كتركب على الروبيني فالحيط ولا فوق المغسلة"],
@@ -27,7 +27,7 @@ const P = [
    notice:"ركبها مع بريز فيها الأرض (terre)، بعيدة على رشان الما المباشر. خاص ضغط ديال الما مزيان باش تسخن بحال خاصها.",
    faq:[["واش التركيب صعيب؟","كتركب على مخرج الما بحال روبيني عادي والبراغي جايين معاها. إلا ما عندكش التجربة فالضو، عيط لتريسيان."],["واش كتصرف الضو بزاف؟","كتجبد الضو غير ملي كيدوز الما فيها وكتطفى بوحدها ملي كتسدها."]],
    xs:["seche","pieds"] },
- { id:"seche", sku:"TJ-793", cat:"دار", catL:"الدار", name:"نشافة الحوايج الكهربائية القابلة للطي", short:"حوايجك ناشفين فساعات، ماشي فأيام", price:390, compare:690, badge:"جديد الشتا", img:["/img/seche_0.jpg","/img/seche_4.jpg","/img/seche_5.jpg","/img/seche_6.jpg","/img/seche_1.jpg","/img/seche_2.jpg","/img/seche_3.jpg"],
+ { id:"seche", sku:"TJ-793", cat:"دار", catL:"الدار", name:"نشافة الحوايج الكهربائية القابلة للطي", short:"حوايجك ناشفين فساعات، ماشي فأيام", price:399, compare:699, badge:"جديد الشتا", img:["/img/seche_0.jpg","/img/seche_4.jpg","/img/seche_5.jpg","/img/seche_6.jpg","/img/seche_1.jpg","/img/seche_2.jpg","/img/seche_3.jpg"],
    hook:"فالشتا، الحوايج ما بقاوش كيبقاو 3 أيام مجبدين فالدار",
    lead:"نشافة كهربائية كتدور الهوا السخون 360° على الحوايج. كتعلقهم، كتشعلها، وكتنساهم. ومن بعد كتطويها وكتخبيها فبلاصة صغيرة.",
    bullets:["هوا سخون كيدور 360° على الحوايج","تايمر وشاشة + تيليكوموند","كتطوى وكتخبى ملي ما كتخدمش","مزيانة لحوايج الدراري، الفوطات والإيزارات"],
@@ -38,7 +38,7 @@ const P = [
    notice:"ما تعمرهاش بزاف باش الهوا يدوز مزيان، وبعدها على الما.",
    faq:[["شحال كتاخد باش تنشف؟","على حساب الثوب والكمية؛ الحوايج الخفاف كينشفو أسرع."],["واش كتطوى بصح؟","إيه، الهيكل كيتجمع والقاعدة كتولي صغيرة باش تخبيها."]],
    xs:["robinet","brosse"] },
- { id:"dos", sku:"TJ-1299", cat:"راحة", catL:"الراحة والصحة", name:"حزام دعم أسفل الظهر الاحترافي", short:"سند لظهرك فالخدمة والطريق", price:290, compare:490, badge:"مختار ليك", img:["/img/dos_0.jpg","/img/dos_4.jpg","/img/dos_5.jpg","/img/dos_6.jpg","/img/dos_2.jpg"],
+ { id:"dos", sku:"TJ-1299", cat:"راحة", catL:"الراحة والصحة", name:"حزام دعم أسفل الظهر الاحترافي", short:"سند لظهرك فالخدمة والطريق", price:299, compare:499, badge:"مختار ليك", img:["/img/dos_0.jpg","/img/dos_4.jpg","/img/dos_5.jpg","/img/dos_6.jpg","/img/dos_2.jpg"],
    hook:"ظهرك كيخدم عليك طول النهار… عطيه السند",
    lead:"حزام دعم لأسفل الظهر بصفائح فولاذية مرنة و3 وسادات كتنحاو. كيعاونك تحافظ على وقفة مزيانة وأنت خدام، كتسوق ولا كتهز الثقيل.",
    bullets:["صفائح فولاذية مرنة لثبات أكثر","3 وسادات كتنحاو على حساب الراحة ديالك","تثبيت 360° بلا ما يتزعزع","كيتلبس تحت الحوايج"],
@@ -49,7 +49,7 @@ const P = [
    notice:"منتوج للراحة والسند، ماشي دوا. إلا كان عندك وجع قوي ولا مستمر، شاور الطبيب.",
    faq:[["واش كاين القياسات؟","الحزام كيتضبط بالسكراتش؛ عند التأكيد غادي نسولوك على قياس الكرش."],["واش نقدر نلبسو طول النهار؟","ننصحوك تلبسو فأوقات المجهود وتعطي لظهرك الراحة بين المرات."]],
    xs:["coussin","pieds"] },
- { id:"coussin", sku:"TJ-692", cat:"طوموبيل", catL:"الطوموبيل", name:"طقم وسادة الرقبة والظهر", short:"سوق ساعات بلا ما يتقطع ظهرك", price:290, compare:490, badge:"طقم 2 قطع", img:["/img/coussin_3.jpg","/img/coussin_4.jpg","/img/coussin_5.jpg","/img/coussin_6.jpg","/img/coussin_1.jpg","/img/coussin_2.jpg"],
+ { id:"coussin", sku:"TJ-692", cat:"طوموبيل", catL:"الطوموبيل", name:"طقم وسادة الرقبة والظهر", short:"سوق ساعات بلا ما يتقطع ظهرك", price:299, compare:499, badge:"طقم 2 قطع", img:["/img/coussin_3.jpg","/img/coussin_4.jpg","/img/coussin_5.jpg","/img/coussin_6.jpg","/img/coussin_1.jpg","/img/coussin_2.jpg"],
    hook:"ساعات فالطريق ولا فالبيرو، ورقبتك وظهرك مرتاحين",
    lead:"طقم من وسادة للرقبة ووسادة لأسفل الظهر، فـ Memory Foam كيرجع لشكلو. كيتركبو على كرسي الطوموبيل ولا كرسي البيرو.",
    bullets:["وسادة رقبة + وسادة ظهر فطقم واحد","Memory Foam كيتبع شكل الجسم","كيتركبو فثواني على أي كرسي","غطا ناعم كيتنحى"],
@@ -59,7 +59,7 @@ const P = [
    specs:[["المحتوى","وسادة رقبة + وسادة ظهر"],["المادة","Memory Foam"],["التركيب","سمطة قابلة للتعديل"],["الاستعمال","الطوموبيل، البيرو، الدار"]],
    notice:"", faq:[["واش كيصلحو لكل طوموبيل؟","إيه، السمطة كتضبط على أغلب الكراسي."]],
    xs:["dos","camera"] },
- { id:"pieds", sku:"TJ-9", cat:"راحة", catL:"الراحة والصحة", name:"جهاز تدليك القدمين الكهربائي", short:"15 دقيقة وريجليك يرتاحو", price:290, compare:490, badge:"هدية زوينة", img:["/img/pieds_0.jpg","/img/pieds_4.jpg","/img/pieds_5.jpg","/img/pieds_6.jpg","/img/pieds_1.jpg","/img/pieds_2.jpg","/img/pieds_3.jpg"],
+ { id:"pieds", sku:"TJ-9", cat:"راحة", catL:"الراحة والصحة", name:"جهاز تدليك القدمين الكهربائي", short:"15 دقيقة وريجليك يرتاحو", price:199, compare:299, badge:"هدية زوينة", img:["/img/pieds_0.jpg","/img/pieds_4.jpg","/img/pieds_5.jpg","/img/pieds_6.jpg","/img/pieds_1.jpg","/img/pieds_2.jpg","/img/pieds_3.jpg"],
    hook:"نهار طويل؟ 15 دقيقة وريجليك يرتاحو",
    lead:"فراش تدليك كهربائي للرجلين فيه 8 أوضاع و19 مستوى ديال القوة. خفيف، كيتطوى، وكتحطو فين ما بغيتي قدام التلفزة.",
    bullets:["8 أوضاع ديال التدليك","19 مستوى ديال القوة","خفيف وكيتطوى","هدية زوينة للواليدين"],
@@ -69,7 +69,7 @@ const P = [
    specs:[["الأوضاع","8"],["مستويات القوة","19"],["الوزن","خفيف"],["التخزين","كيتطوى"]],
    notice:"ما ننصحوش بيه للحوامل، ولا اللي عندهم جهاز فالقلب (pacemaker).", faq:[["واش كيصلح للكبار فالسن؟","إيه، وكيبدا من مستوى خفيف بزاف."]],
    xs:["dos","canne"] },
- { id:"canne", sku:"TJ-1357", cat:"راحة", catL:"الراحة والصحة", name:"عكاز بمقعد قابل للطي", short:"يمشي ويرتاح فين ما بغا", price:290, compare:490, badge:"للواليدين", img:["/img/canne_0.jpg","/img/canne_4.jpg","/img/canne_5.jpg","/img/canne_6.jpg","/img/canne_1.jpg","/img/canne_2.jpg","/img/canne_3.jpg"],
+ { id:"canne", sku:"TJ-1357", cat:"راحة", catL:"الراحة والصحة", name:"عكاز بمقعد قابل للطي", short:"يمشي ويرتاح فين ما بغا", price:299, compare:499, badge:"للواليدين", img:["/img/canne_0.jpg","/img/canne_4.jpg","/img/canne_5.jpg","/img/canne_6.jpg","/img/canne_1.jpg","/img/canne_2.jpg","/img/canne_3.jpg"],
    hook:"هدية للواليدين: يمشيو بأمان، ويجلسو فين ما عياو",
    lead:"عكاز ومقعد فقطعة وحدة. كيتحمل حتى 100 كيلو، 3 رجلين ضد الزلق، وكيتطوى باش يتهز ساهل فالسوق، المسجد ولا السبيطار.",
    bullets:["عكاز + مقعد فقطعة وحدة","كيتحمل حتى 100 كيلو","3 رجلين ضد الزلق","كيتطوى وخفيف"],
@@ -79,7 +79,7 @@ const P = [
    specs:[["الحمولة","حتى 100 كيلو"],["الرجلين","3 ضد الزلق"],["المادة","ألومنيوم + فولاذ"],["التخزين","كيتطوى"]],
    notice:"", faq:[["واش كيصلح للطول ديال بابا؟","العلو تقريبا 75 سنتيم والمقعد 49 سنتيم."]],
    xs:["priere","pieds"] },
- { id:"priere", sku:"TJ-494", cat:"راحة", catL:"الراحة والصحة", name:"كرسي الجلوس بعد السجود", short:"صلي براحتك حتى مع وجع الركابي", price:290, compare:490, badge:"قبل رمضان", img:["/img/priere_0.jpg","/img/priere_4.jpg","/img/priere_5.jpg","/img/priere_6.jpg"],
+ { id:"priere", sku:"TJ-494", cat:"راحة", catL:"الراحة والصحة", name:"كرسي الجلوس بعد السجود", short:"صلي براحتك حتى مع وجع الركابي", price:299, compare:499, badge:"قبل رمضان", img:["/img/priere_0.jpg","/img/priere_4.jpg","/img/priere_5.jpg","/img/priere_6.jpg"],
    hook:"صلي براحتك… حتى إلا كانو الركابي ولا الظهر كيوجعوك",
    lead:"كرسي صغير مريح كيعاونك تجلس وتنوض فالصلاة بلا ضغط على الركابي والكعبين. مثالي للكبار فالسن واللي عندهم وجع الظهر ولا المفاصل.",
    bullets:["كيخفف الضغط على الركابي والكعبين","هيكل حديد ثابت","مقعد مريح","صغير وساهل فالتخزين"],
@@ -89,7 +89,7 @@ const P = [
    specs:[["الهيكل","حديد"],["المقعد","مريح ومبطن"],["الاستعمال","الدار والمسجد"]],
    notice:"", faq:[["واش كيصلح للمسجد؟","إيه، صغير وساهل فالهز."]],
    xs:["canne","pieds"] },
- { id:"grossesse", sku:"TJ-495", cat:"راحة", catL:"الراحة والصحة", name:"حزام الحمل 3 فـ 1", short:"خففي الثقل على ظهرك", price:290, compare:490, badge:"للماما", img:["/img/grossesse_0.jpg","/img/grossesse_4.jpg","/img/grossesse_5.jpg","/img/grossesse_6.jpg","/img/grossesse_1.jpg","/img/grossesse_2.jpg","/img/grossesse_3.jpg"], variants:["M","L","XL","XXL"],
+ { id:"grossesse", sku:"TJ-495", cat:"راحة", catL:"الراحة والصحة", name:"حزام الحمل 3 فـ 1", short:"خففي الثقل على ظهرك", price:299, compare:499, badge:"للماما", img:["/img/grossesse_0.jpg","/img/grossesse_4.jpg","/img/grossesse_5.jpg","/img/grossesse_6.jpg","/img/grossesse_1.jpg","/img/grossesse_2.jpg","/img/grossesse_3.jpg"], variants:["M","L","XL","XXL"],
    hook:"خففي الثقل على ظهرك فشهور الحمل",
    lead:"حزام حمل كيتضبط على حساب الكرش من الشهر 3 حتى الشهر 9. كيرفع الكرش بلا ضغط وكيخفف التعب على أسفل الظهر.",
    bullets:["كيتضبط من الشهر 3 حتى 9","كيرفع الكرش بلا ضغط زايد","ثوب كيتنفس","ما كيتلفش وما كيطيحش"],
@@ -100,7 +100,7 @@ const P = [
    notice:"شاوري الطبيبة ديالك قبل الاستعمال إلا كان الحمل فيه شي خصوصية.",
    faq:[["كيفاش نختار المقاس؟","على حساب الدورة ديال الكرش؛ إلا كنتي بين جوج مقاسات، خدي الكبير. نقدرو نعاونوك فالتليفون."]],
    xs:["coussin","pieds"] },
- { id:"camera", sku:"TJ-629", cat:"طوموبيل", catL:"الطوموبيل", name:"كاميرا الطوموبيل 3 عدسات", short:"قدام، اللور وداخل الطوموبيل", price:390, compare:690, badge:"حماية", img:["/img/camera_0.jpg","/img/camera_4.jpg","/img/camera_5.jpg","/img/camera_6.jpg","/img/camera_1.jpg","/img/camera_2.jpg","/img/camera_3.jpg"],
+ { id:"camera", sku:"TJ-629", cat:"طوموبيل", catL:"الطوموبيل", name:"كاميرا الطوموبيل 3 عدسات", short:"قدام، اللور وداخل الطوموبيل", price:399, compare:699, badge:"حماية", img:["/img/camera_0.jpg","/img/camera_4.jpg","/img/camera_5.jpg","/img/camera_6.jpg","/img/camera_1.jpg","/img/camera_2.jpg","/img/camera_3.jpg"],
    hook:"فحالة شي حادثة، الكاميرا هي الشاهد ديالك",
    lead:"كاميرا بشاشة 4 بوصة كتسجل القدام، اللور وداخل الطوموبيل فنفس الوقت. Full HD 1080p، رؤية ليلية و G-sensor كيحفظ الفيديو فحالة الصدمة.",
    bullets:["3 عدسات: قدام + اللور + داخل","شاشة 4 بوصة و 1080p","رؤية ليلية","G-sensor كيحفظ الفيديو ملي كتوقع صدمة"],
@@ -111,7 +111,7 @@ const P = [
    notice:"خاص بطاقة ذاكرة (micro SD) إلا ما كانتش مع الكارطونة؛ غادي نأكدو معاك فالتليفون.",
    faq:[["واش التركيب صعيب؟","كتلصق بالشفاط على الجاجة وكتربط فالولاعة؛ الكاميرا ديال اللور كتحتاج كابل."]],
    xs:["coussin","dos"] },
- { id:"brosse", sku:"TJ-1287", cat:"دار", catL:"الدار", name:"فرشاة البخار للقطط والكلاب", short:"شعر القط ما بقاش فالكنابي", price:190, compare:290, badge:"سعر خاص", img:["/img/brosse_0.jpg","/img/brosse_4.jpg","/img/brosse_5.jpg","/img/brosse_6.jpg","/img/brosse_1.jpg","/img/brosse_2.jpg","/img/brosse_3.jpg"],
+ { id:"brosse", sku:"TJ-1287", cat:"دار", catL:"الدار", name:"فرشاة البخار للقطط والكلاب", short:"شعر القط ما بقاش فالكنابي", price:199, compare:299, badge:"سعر خاص", img:["/img/brosse_0.jpg","/img/brosse_4.jpg","/img/brosse_5.jpg","/img/brosse_6.jpg","/img/brosse_1.jpg","/img/brosse_2.jpg","/img/brosse_3.jpg"],
    hook:"شعر القط فالكنابي، فالحوايج، وفكل بلاصة؟",
    lead:"فرشاة كتخرج بخار خفيف باش تشد الشعر اللي طايح وتنقي الفرو. القط مرتاح، والدار نقية. كتشارجا بـ USB.",
    bullets:["بخار خفيف كيشد الشعر الطايح","سنان سيليكون ناعمين","كتشارجا بـ USB","للقطط والكلاب"],
@@ -122,7 +122,7 @@ const P = [
    notice:"", faq:[["واش البخار سخون؟","لا، بخار خفيف مناسب للحيوان."]],
    xs:["seche","robinet"] }
 ];
-const FR = {"robinet": {"t": "Robinet chauffant électrique instantané", "d": "Le robinet chauffant électrique instantané Dabadeal fournit de l'eau chaude en 3 à 5 secondes, sans chauffe-eau ni bouteille de gaz butane. Idéal pour les ablutions (wudu) en hiver, la douche des enfants et la vaisselle, il se fixe au mur ou sur le lavabo et affiche la température sur un écran digital. Puissance 3000 à 5500 W, 220 V. Prix 290 DH au Maroc, livraison gratuite à Casablanca, Rabat, Marrakech, Fès, Tanger, Agadir et partout au Maroc, paiement à la livraison."}, "seche": {"t": "Sèche-linge électrique pliable", "d": "Le sèche-linge électrique pliable sèche vos vêtements à l'intérieur grâce à une circulation d'air chaud à 360°, avec minuterie, écran et télécommande. Parfait pour l'hiver et les appartements sans terrasse, il se replie pour se ranger facilement. Prix 390 DH au Maroc, livraison gratuite et paiement à la livraison dans toutes les villes."}, "dos": {"t": "Ceinture lombaire de maintien du dos", "d": "Ceinture de soutien lombaire avec baleines en acier flexibles et 3 coussinets amovibles pour soulager le bas du dos au travail, en conduisant ou en portant des charges. Se porte sous les vêtements. Prix 290 DH, livraison gratuite partout au Maroc et paiement à la livraison."}, "coussin": {"t": "Coussin lombaire et coussin cervical voiture", "d": "Set de 2 coussins ergonomiques en mousse à mémoire de forme : un coussin cervical pour la nuque et un coussin lombaire pour le dos, à fixer sur le siège de voiture ou la chaise de bureau. Idéal pour les chauffeurs et le télétravail. Prix 290 DH au Maroc, livraison gratuite et paiement à la livraison."}, "pieds": {"t": "Masseur de pieds électrique EMS", "d": "Tapis de massage des pieds électrique avec 8 modes et 19 niveaux d'intensité, léger et pliable. 15 minutes le soir pour détendre les jambes fatiguées. Une idée cadeau appréciée des parents. Prix 290 DH au Maroc, livraison gratuite et paiement à la livraison."}, "canne": {"t": "Canne pliante avec siège", "d": "Canne de marche avec siège intégré, pliable et légère, supportant jusqu'à 100 kg, avec 3 pieds antidérapants. Pour les personnes âgées : marcher en sécurité et s'asseoir partout (souk, hôpital, mosquée). Prix 290 DH au Maroc, livraison gratuite et paiement à la livraison."}, "priere": {"t": "Chaise de prière (siège après sujud)", "d": "Petite chaise de prière confortable qui soulage les genoux et les chevilles pendant la position assise de la prière. Structure métallique stable, idéale pour les personnes âgées ou souffrant du dos et des articulations, à la maison ou à la mosquée. Prix 290 DH au Maroc, livraison gratuite et paiement à la livraison."}, "grossesse": {"t": "Ceinture de grossesse 3 en 1", "d": "Ceinture de maintien de grossesse réglable du 3e au 9e mois, qui soutient le ventre sans compression et soulage le bas du dos. Tailles M, L, XL et XXL. Prix 290 DH au Maroc, livraison gratuite et paiement à la livraison."}, "camera": {"t": "Caméra de voiture 3 objectifs (dashcam)", "d": "Dashcam 3 caméras (avant, arrière et habitacle) avec écran 4 pouces, Full HD 1080p, vision nocturne, grand angle 170° et G-sensor qui protège la vidéo en cas de choc. Une preuve fiable en cas d'accident au Maroc. Prix 390 DH, livraison gratuite et paiement à la livraison."}, "brosse": {"t": "Brosse vapeur pour chat et chien", "d": "Brosse à vapeur rechargeable USB qui retient les poils morts de votre chat ou chien avec une brume légère et des picots en silicone doux. Fini les poils sur le canapé. Prix 190 DH au Maroc, livraison gratuite et paiement à la livraison."}};
+const FR = {"robinet": {"t": "Robinet chauffant électrique instantané", "d": "Le robinet chauffant électrique instantané Dabadeal fournit de l'eau chaude en 3 à 5 secondes, sans chauffe-eau ni bouteille de gaz butane. Idéal pour les ablutions (wudu) en hiver, la douche des enfants et la vaisselle, il se fixe au mur ou sur le lavabo et affiche la température sur un écran digital. Puissance 3000 à 5500 W, 220 V. Prix 299 DH au Maroc, livraison gratuite à Casablanca, Rabat, Marrakech, Fès, Tanger, Agadir et partout au Maroc, paiement à la livraison."}, "seche": {"t": "Sèche-linge électrique pliable", "d": "Le sèche-linge électrique pliable sèche vos vêtements à l'intérieur grâce à une circulation d'air chaud à 360°, avec minuterie, écran et télécommande. Parfait pour l'hiver et les appartements sans terrasse, il se replie pour se ranger facilement. Prix 399 DH au Maroc, livraison gratuite et paiement à la livraison dans toutes les villes."}, "dos": {"t": "Ceinture lombaire de maintien du dos", "d": "Ceinture de soutien lombaire avec baleines en acier flexibles et 3 coussinets amovibles pour soulager le bas du dos au travail, en conduisant ou en portant des charges. Se porte sous les vêtements. Prix 299 DH, livraison gratuite partout au Maroc et paiement à la livraison."}, "coussin": {"t": "Coussin lombaire et coussin cervical voiture", "d": "Set de 2 coussins ergonomiques en mousse à mémoire de forme : un coussin cervical pour la nuque et un coussin lombaire pour le dos, à fixer sur le siège de voiture ou la chaise de bureau. Idéal pour les chauffeurs et le télétravail. Prix 299 DH au Maroc, livraison gratuite et paiement à la livraison."}, "pieds": {"t": "Masseur de pieds électrique EMS", "d": "Tapis de massage des pieds électrique avec 8 modes et 19 niveaux d'intensité, léger et pliable. 15 minutes le soir pour détendre les jambes fatiguées. Une idée cadeau appréciée des parents. Prix 199 DH au Maroc, livraison gratuite et paiement à la livraison."}, "canne": {"t": "Canne pliante avec siège", "d": "Canne de marche avec siège intégré, pliable et légère, supportant jusqu'à 100 kg, avec 3 pieds antidérapants. Pour les personnes âgées : marcher en sécurité et s'asseoir partout (souk, hôpital, mosquée). Prix 299 DH au Maroc, livraison gratuite et paiement à la livraison."}, "priere": {"t": "Chaise de prière (siège après sujud)", "d": "Petite chaise de prière confortable qui soulage les genoux et les chevilles pendant la position assise de la prière. Structure métallique stable, idéale pour les personnes âgées ou souffrant du dos et des articulations, à la maison ou à la mosquée. Prix 299 DH au Maroc, livraison gratuite et paiement à la livraison."}, "grossesse": {"t": "Ceinture de grossesse 3 en 1", "d": "Ceinture de maintien de grossesse réglable du 3e au 9e mois, qui soutient le ventre sans compression et soulage le bas du dos. Tailles M, L, XL et XXL. Prix 299 DH au Maroc, livraison gratuite et paiement à la livraison."}, "camera": {"t": "Caméra de voiture 3 objectifs (dashcam)", "d": "Dashcam 3 caméras (avant, arrière et habitacle) avec écran 4 pouces, Full HD 1080p, vision nocturne, grand angle 170° et G-sensor qui protège la vidéo en cas de choc. Une preuve fiable en cas d'accident au Maroc. Prix 399 DH, livraison gratuite et paiement à la livraison."}, "brosse": {"t": "Brosse vapeur pour chat et chien", "d": "Brosse à vapeur rechargeable USB qui retient les poils morts de votre chat ou chien avec une brume légère et des picots en silicone doux. Fini les poils sur le canapé. Prix 199 DH au Maroc, livraison gratuite et paiement à la livraison."}};
 const byId = id => P.find(p=>p.id===id);
 const PAGE = document.body.dataset.page || '';
 const CATSLUG = {'راحة':'raha','دار':'dar','طوموبيل':'tomobil'};
