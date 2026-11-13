@@ -41,8 +41,8 @@ a{color:inherit;text-decoration:none}
 .ann b{color:var(--o2)}
 @keyframes marq{from{transform:translateX(0)}to{transform:translateX(50%)}}
 header.top{position:sticky;top:0;z-index:40;background:#fff;border-bottom:1px solid var(--line)}
-.top .in{display:flex;align-items:center;justify-content:space-between;height:66px;gap:12px}
-.logo img{height:34px;width:auto}
+.top .in{display:flex;align-items:center;justify-content:space-between;height:80px;gap:12px}
+.logo img{height:56px;width:auto}
 .nav{display:flex;gap:22px;font-weight:700;font-size:15px}
 .nav a:hover{color:var(--o)}
 .iconbtn{position:relative;width:44px;height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:var(--sand)}
@@ -155,7 +155,7 @@ header.top{position:sticky;top:0;z-index:40;background:#fff;border-bottom:1px so
 
 footer.ft{background:var(--k);color:#BDBDC4;padding:40px 0 110px;margin-top:20px}
 .ft .cols{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:26px}
-.ft img{height:34px;width:auto;margin-bottom:10px}
+.ft img{height:44px;width:auto;margin-bottom:10px}
 .ft .fh{color:#fff;font-size:15px;margin-bottom:8px}
 .ft a{display:block;padding:3px 0;font-size:14px}
 .ft a:hover{color:#fff}
@@ -165,7 +165,7 @@ footer.ft{background:var(--k);color:#BDBDC4;padding:40px 0 110px;margin-top:20px
 .crumbs{font-size:13px;color:var(--mut);font-weight:700;padding:14px 0}
 .crumbs a:hover{color:var(--o)}
 .pdp{display:grid;grid-template-columns:1.05fr .95fr;gap:36px;align-items:start}
-.gal{position:sticky;top:84px}
+.gal{position:sticky;top:92px}
 .gal .main{position:relative;border-radius:24px;overflow:hidden;background:var(--sand);aspect-ratio:1/1}
 .gal .main img{width:100%;height:100%;object-fit:contain;background:#fff}
 .gal .main .bd-off{position:absolute;top:14px;left:14px;background:var(--o);color:#fff;font-family:var(--hf);font-weight:800;border-radius:16px;padding:8px 12px;font-size:20px;line-height:1.1;text-align:center}
@@ -305,7 +305,7 @@ footer.ft{background:var(--k);color:#BDBDC4;padding:40px 0 110px;margin-top:20px
 .co{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:start;padding:22px 0 60px}
 .co h1{font-size:30px}
 .co .card-co{border:1px solid var(--line);border-radius:22px;padding:20px;background:#fff}
-.co .sumcard{position:sticky;top:84px;background:var(--sand);border:0}
+.co .sumcard{position:sticky;top:92px;background:var(--sand);border:0}
 .f{margin-top:12px}
 .f label{display:block;font-weight:800;font-size:14.5px;margin-bottom:5px}
 .f input,.f textarea,.f select{width:100%;font-family:inherit;font-size:16px;padding:13px 14px;border:1.5px solid #D9D5CE;border-radius:13px;background:#fff;outline:none;transition:.15s}
@@ -374,8 +374,10 @@ footer.ft{background:var(--k);color:#BDBDC4;padding:40px 0 110px;margin-top:20px
 .waf svg{width:28px;height:28px}
 @media (max-width:560px){
   .container{padding:0 14px}
-  .top .in{height:58px}
-  .logo img{height:30px}
+  .top .in{height:66px}
+  .logo img{height:46px}
+  .ann .track{animation:none;transform:none;width:100%;justify-content:center}
+  .ann .track span:not(:first-child){display:none}
   .hero .in{padding:22px 14px 24px;gap:18px}
   .hero h1{font-size:30px;margin:10px 0 8px}
   .hero p{font-size:15.5px}
@@ -454,7 +456,7 @@ footer.ft{background:var(--k);color:#BDBDC4;padding:40px 0 110px;margin-top:20px
 <div class="ann"><div class="track" id="ann"></div></div>
 <header class="top">
   <div class="container in">
-    <a href="#" class="logo" data-go="home" aria-label="Dabadeal"><img src="img/logo-dark.webp" alt="Dabadeal" width="360" height="116" fetchpriority="high"></a>
+    <a href="#" class="logo" data-go="home" aria-label="Dabadeal"><img src="img/logo-dark.webp" alt="Dabadeal" width="540" height="175" fetchpriority="high"></a>
     <nav class="nav">
       <a href="#" data-go="home">الرئيسية</a>
       <a href="#" data-cat="راحة">الراحة والصحة</a>
@@ -717,6 +719,6 @@ footer.ft{background:var(--k);color:#BDBDC4;padding:40px 0 110px;margin-top:20px
 <aside class="drawer" id="drawer" aria-label="السلة"></aside>
 <div class="toast" id="toast"></div>
 
-<script src="app.js?v=5" defer></script>
+<script src="app.js?v=6" defer></script>
 </body>
 </html>
