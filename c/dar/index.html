@@ -19,7 +19,7 @@
 <link rel="preload" href="/fonts/cairo-ar.woff2" as="font" type="font/woff2" crossorigin>
 
 <!-- Meta Pixel — Dabadeal Pixel (chargé après le rendu pour garder la vitesse du site) -->
-<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];function L(){if(t)return;t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}addEventListener('load',function(){setTimeout(L,1500)});['pointerdown','touchstart','scroll','keydown'].forEach(function(x){addEventListener(x,L,{once:!0,passive:!0})})}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1600537651821693');fbq('track','PageView');</script>
+<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];function L(){if(t)return;t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}L()}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1600537651821693');fbq('track','PageView');</script>
 <noscript><img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=1600537651821693&ev=PageView&noscript=1"></noscript>
 <style>
 @font-face{font-family:'Baloo Bhaijaan 2';font-style:normal;font-weight:800;font-display:optional;src:url(/fonts/baloo-ar.woff2) format('woff2');unicode-range:U+0600-06FF, U+0750-077F, U+0870-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC}
@@ -396,8 +396,14 @@ footer.ft{background:var(--k);color:#BDBDC4;padding:40px 0 110px;margin-top:20px
 .qf .f textarea{min-height:58px}
 .qf #buyNow{margin-top:12px}
 .qf #addCart{margin-top:6px;padding:11px;font-size:14.5px}
-.waf{position:fixed;left:16px;bottom:88px;z-index:35;width:54px;height:54px;border-radius:50%;background:#1FAF55;color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 24px rgba(0,0,0,.2)}
-.waf svg{width:28px;height:28px}
+.waf{position:fixed;right:18px;bottom:24px;z-index:35;display:flex;align-items:center;gap:10px;direction:ltr}
+.waf-b{position:relative;width:60px;height:60px;border-radius:50%;background:var(--wa,#25D366);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 28px rgba(18,140,126,.45)}
+.waf-b:before{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid #25D366;animation:wafPulse 2.2s infinite}
+.waf-b svg{width:32px;height:32px}
+.waf-l{background:#fff;color:#075E54;font-weight:800;font-size:14px;padding:9px 14px;border-radius:14px;box-shadow:0 8px 22px rgba(11,11,12,.16);direction:rtl;white-space:nowrap}
+.waf:hover .waf-b{transform:scale(1.06)}
+@keyframes wafPulse{0%{transform:scale(1);opacity:.8}100%{transform:scale(1.55);opacity:0}}
+@media (max-width:980px){.waf{right:14px;bottom:88px}.waf-l{display:none}.waf-b{width:56px;height:56px}}
 @media (max-width:560px){
   .container{padding:0 14px}
   .top .in{height:66px}
@@ -448,11 +454,90 @@ footer.ft{background:var(--k);color:#BDBDC4;padding:40px 0 110px;margin-top:20px
 .cathead{background:var(--k);color:#fff;padding:26px 0 30px}
 .cathead h1{font-size:40px;margin:4px 0 8px}
 .cathead p{color:#CFCFD4;max-width:640px}
-.seo-home p,.seo p{color:var(--mut);font-size:15px;line-height:1.8}
-.seo-home a{color:var(--k);font-weight:700;text-decoration:underline}
-.seo-home h2{font-size:26px;margin-bottom:8px}
 [dir=ltr] p{text-align:left}
-@media (max-width:560px){.cathead h1{font-size:30px}.seo-home h2{font-size:21px}}
+@media (max-width:560px){.cathead h1{font-size:30px}}
+
+/* ===== WHATSAPP ===== */
+:root{--wa:#25D366;--wa2:#1EBE5B;--wad:#128C7E;--wak:#075E54;--wal:#E8FBEF;--wab:#BDEFD0;--wabub:#DCF8C6}
+.wa-i{width:22px;height:22px;flex:none}
+.btn-wa{background:var(--wa);color:#fff;box-shadow:0 10px 24px rgba(37,211,102,.35)}
+.btn-wa:hover{background:var(--wa2)}
+.btn-lg{font-size:18px;padding:16px 26px}
+.ann .ann-wa{display:inline-flex;align-items:center;gap:6px;color:#fff}
+.ann .ann-wa b{color:#4BE38A}
+.ann .ann-wa .wa-i{width:16px;height:16px;color:#4BE38A}
+.hact{display:flex;align-items:center;gap:10px}
+.hwa{display:inline-flex;align-items:center;gap:8px;background:var(--wal);color:var(--wak);border:1px solid var(--wab);border-radius:14px;padding:6px 12px 6px 14px;transition:background .15s, transform .15s}
+.hwa:hover{background:#D7F7E3}
+.hwa svg{width:26px;height:26px;color:var(--wa);flex:none}
+.hwa span{display:flex;flex-direction:column;line-height:1.15}
+.hwa b{font-size:13.5px;font-weight:800;white-space:nowrap}
+.hwa bdi{font-size:12.5px;font-weight:700;color:var(--wad)}
+.hero-wa{display:inline-flex;align-items:center;gap:12px;margin-top:14px;padding:10px 14px 10px 18px;border-radius:16px;background:rgba(37,211,102,.12);border:1px solid rgba(37,211,102,.35);color:#E9FFF1;font-size:14.5px;font-weight:700;transition:background .15s}
+.hero-wa:hover{background:rgba(37,211,102,.2)}
+.hero-wa .ic{width:38px;height:38px;border-radius:50%;background:var(--wa);color:#fff;display:flex;align-items:center;justify-content:center;flex:none;box-shadow:0 0 0 5px rgba(37,211,102,.18)}
+.hero-wa b{color:#4BE38A}
+.hero-wa small{display:block;font-size:13px;color:#BFF5D3;font-weight:800}
+.wa-link{color:var(--wad);font-weight:800;text-decoration:underline}
+.wa-sec{padding-top:10px}
+.wa-card{display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:center;background:linear-gradient(135deg,#063F38 0%,var(--wak) 45%,var(--wad) 100%);color:#fff;border-radius:28px;padding:40px;position:relative;overflow:hidden}
+.wa-card:before{content:"";position:absolute;inset:-40% auto auto -20%;width:520px;height:520px;background:radial-gradient(circle,rgba(37,211,102,.35),transparent 62%);pointer-events:none}
+.wa-txt{position:relative}
+.wa-live{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:6px 14px;font-size:13px;font-weight:800}
+.wa-live i,.wabox-h small i{width:8px;height:8px;border-radius:50%;background:#4BE38A;box-shadow:0 0 0 4px rgba(75,227,138,.25);animation:waLive 1.8s infinite}
+@keyframes waLive{50%{box-shadow:0 0 0 7px rgba(75,227,138,0)}}
+.wa-card h2{font-size:38px;margin:14px 0 10px}
+.wa-card h2 span{color:#4BE38A}
+.wa-card p{color:#CFEDE3;font-size:16.5px;max-width:480px;margin-bottom:20px}
+.wa-num{display:flex;align-items:center;gap:8px;margin-top:14px;font-family:var(--hf);font-size:22px;font-weight:800;letter-spacing:.5px}
+.wa-num svg{width:20px;height:20px;color:#4BE38A}
+.wa-chat{position:relative;background:#ECE5DD;border-radius:22px;overflow:hidden;box-shadow:0 24px 50px rgba(0,0,0,.35);max-width:380px;justify-self:center;width:100%;color:var(--ink)}
+.wa-chat-h{display:flex;align-items:center;gap:10px;background:var(--wak);color:#fff;padding:12px 14px}
+.wa-chat-h .av{width:36px;height:36px;border-radius:50%;background:var(--o);display:flex;align-items:center;justify-content:center;font-family:var(--hf);font-weight:800}
+.wa-chat-h div{flex:1;line-height:1.2}
+.wa-chat-h small{display:block;font-size:12px;color:#BFF5D3}
+.wa-chat-h .wa-i{width:20px;height:20px;opacity:.9}
+.wa-chat-b{display:flex;flex-direction:column;gap:8px;padding:16px 12px 18px}
+.bub{max-width:85%;padding:8px 12px;border-radius:12px;font-size:14px;line-height:1.55;box-shadow:0 1px 1px rgba(0,0,0,.08)}
+.bub.me{background:var(--wabub);align-self:flex-start;border-top-right-radius:4px}
+.bub.them{background:#fff;align-self:flex-end;border-top-left-radius:4px}
+.waor{display:flex;align-items:center;gap:12px;color:var(--mut);font-weight:700;font-size:14px;margin:16px 0 12px}
+.waor:before,.waor:after{content:"";flex:1;height:1px;background:var(--line)}
+.wabox{border:1.5px solid var(--wab);background:linear-gradient(180deg,#F2FDF6,#fff);border-radius:var(--r);padding:14px}
+.wabox-h{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.wabox-h .av{width:44px;height:44px;border-radius:50%;background:var(--wa);color:#fff;display:flex;align-items:center;justify-content:center;flex:none}
+.wabox-h .av .wa-i{width:26px;height:26px}
+.wabox-h b{display:block;font-size:16px;font-weight:800}
+.wabox-h small{display:flex;align-items:center;gap:8px;color:var(--wad);font-weight:700;font-size:13px}
+.wabox .btn-wa{font-size:18px;padding:15px}
+.wabox-f{text-align:center;color:var(--mut);font-size:13px;font-weight:600;margin-top:8px}
+.wabox-f bdi,.wa-num bdi,.hero-wa small,.ann-wa bdi{white-space:nowrap}
+.satc-on .waf{opacity:0;pointer-events:none;transform:translateY(20px)}
+.waf{transition:opacity .25s, transform .25s}
+.satc-wa{width:46px;height:46px;border-radius:14px;background:var(--wa);color:#fff;display:flex;align-items:center;justify-content:center;flex:none;box-shadow:0 8px 18px rgba(37,211,102,.35)}
+.satc-wa .wa-i{width:26px;height:26px}
+.ft-wa{display:inline-flex!important;align-items:center;gap:10px;background:rgba(37,211,102,.12);border:1px solid rgba(37,211,102,.3);border-radius:12px;padding:8px 12px!important;margin-bottom:6px;color:#fff}
+.ft-wa .wa-i{color:#4BE38A}
+.ft-wa span{display:flex;flex-direction:column;line-height:1.25;font-weight:800}
+.ft-wa bdi{font-weight:700;color:#BFF5D3;font-size:13px}
+.ctl a.ct-wa{background:var(--wal);border:1px solid var(--wab)}
+.ctl a.ct-wa .wa-i{flex:0 0 40px;width:40px;height:40px;padding:8px;border-radius:12px;background:var(--wa);color:#fff}
+@media (max-width:980px){
+  .wa-card{grid-template-columns:1fr;padding:28px 20px}
+  .wa-chat{max-width:420px}
+}
+@media (max-width:560px){
+  .hwa{padding:6px 10px}
+  .hwa bdi{display:none}
+  .hwa b{font-size:13px}
+  .hwa svg{width:24px;height:24px}
+  .hero-wa{width:100%;font-size:14px}
+  .wa-card{border-radius:22px}
+  .wa-card h2{font-size:28px}
+  .wa-card .btn-wa{width:100%}
+  .wa-num{justify-content:center}
+  .ann .track>*:not(:first-child){display:none}
+}
 /* ===== RESPONSIVE ===== */
 @media (max-width:980px){
   .grid{grid-template-columns:repeat(2,1fr);gap:12px}
@@ -499,10 +584,16 @@ footer.ft{background:var(--k);color:#BDBDC4;padding:40px 0 110px;margin-top:20px
       <a href="/c/tomobil/" data-cat="طوموبيل">الطوموبيل</a>
       <a href="/#faq" data-scroll="faq">أسئلة</a>
     </nav>
-    <button class="iconbtn" id="cartBtn" aria-label="السلة">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l-1 13H7L6 7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
-      <span class="count" id="cartCount">0</span>
-    </button>
+    <div class="hact">
+      <a class="hwa" href="https://wa.me/212703934816?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%F0%9F%91%8B%20%D8%A8%D8%BA%D9%8A%D8%AA%20%D9%86%D8%B7%D9%84%D8%A8%20%D9%85%D9%86%20Dabadeal" target="_blank" rel="noopener" aria-label="اطلب عبر واتساب 07 03 93 48 16">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7a11.6 11.6 0 0 1-4.5-4c-.4-.5-1-1.6-1-2.7s.6-1.7.8-1.9c.2-.2.5-.3.6-.3h.5c.1 0 .4 0 .6.4l.8 2c.1.2.1.4 0 .5l-.4.6-.3.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.1.1.7-.1 1.3z"/></svg>
+        <span><b>اطلب عبر واتساب</b><bdi dir="ltr">07 03 93 48 16</bdi></span>
+      </a>
+      <button class="iconbtn" id="cartBtn" aria-label="السلة">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l-1 13H7L6 7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+        <span class="count" id="cartCount">0</span>
+      </button>
+    </div>
   </div>
 </header>
 
@@ -589,14 +680,31 @@ footer.ft{background:var(--k);color:#BDBDC4;padding:40px 0 110px;margin-top:20px
   <section class="sec" id="how" style="background:var(--sand)"><div class="container">
     <div class="sec-h"><h2 class="h">كيفاش <span class="o">كتطلب</span>؟</h2></div>
     <div class="steps">
-      <div class="step"><div class="n">1</div><h3>اختار المنتوج</h3><p>وعمر الاسم، التليفون والعنوان. ما كتخلص والو دابا.</p></div>
+      <div class="step"><div class="n">1</div><h3>اختار المنتوج</h3><p>وعمر الاسم، التليفون والعنوان، ولا <a class="wa-link" href="https://wa.me/212703934816?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%F0%9F%91%8B%20%D8%A8%D8%BA%D9%8A%D8%AA%20%D9%86%D8%B7%D9%84%D8%A8%20%D9%85%D9%86%20Dabadeal" target="_blank" rel="noopener">صيفط لينا فواتساب</a>. ما كتخلص والو دابا.</p></div>
       <div class="step"><div class="n">2</div><h3>كنعيطو ليك</h3><p>كنأكدو معاك الطلب والعنوان قبل ما نصيفطوه.</p></div>
       <div class="step"><div class="n">3</div><h3>خلص ملي توصلك</h3><p>الليفرور كيوصلك فـ 24 حتى 72 ساعة فأغلب المدن، وكتخلصو كاش.</p></div>
     </div>
   </div></section>
 
-  <section class="sec seo-home"><div class="container" style="max-width:900px">
-    <div lang="fr" dir="ltr"><h2 class="h"> الدار — Dabadeal Maroc</h2><p>Équipements maison au Maroc : robinet chauffant électrique instantané, sèche-linge électrique pliable et brosse vapeur pour chats et chiens. Livraison gratuite et paiement à la livraison dans toutes les villes du Maroc.</p></div>
+  <section class="sec wa-sec" id="whatsapp"><div class="container">
+    <div class="wa-card">
+      <div class="wa-txt">
+        <span class="wa-live"><i></i> متصلين دابا • كنجاوبو فدقايق</span>
+        <h2 class="h">ما بغيتيش تعمر الفورم؟<br><span>اطلب عبر واتساب</span></h2>
+        <p>صيفط لينا ميساج، نعاونوك تختار المنتوج المناسب ونسجلو ليك الطلب فدقيقة. الخلاص عند الاستلام والتوصيل مجاني لجميع المدن.</p>
+        <a class="btn btn-wa btn-lg" href="https://wa.me/212703934816?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%F0%9F%91%8B%20%D8%A8%D8%BA%D9%8A%D8%AA%20%D9%86%D8%B7%D9%84%D8%A8%20%D9%85%D9%86%20Dabadeal" target="_blank" rel="noopener"><svg class="wa-i" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7a11.6 11.6 0 0 1-4.5-4c-.4-.5-1-1.6-1-2.7s.6-1.7.8-1.9c.2-.2.5-.3.6-.3h.5c.1 0 .4 0 .6.4l.8 2c.1.2.1.4 0 .5l-.4.6-.3.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.1.1.7-.1 1.3z"></path></svg> اطلب دابا عبر واتساب</a>
+        <div class="wa-num"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"></path></svg><bdi dir="ltr">07 03 93 48 16</bdi></div>
+      </div>
+      <div class="wa-chat" aria-hidden="true">
+        <div class="wa-chat-h"><span class="av">D</span><div><b>Dabadeal</b><small>متصل</small></div><svg class="wa-i" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7a11.6 11.6 0 0 1-4.5-4c-.4-.5-1-1.6-1-2.7s.6-1.7.8-1.9c.2-.2.5-.3.6-.3h.5c.1 0 .4 0 .6.4l.8 2c.1.2.1.4 0 .5l-.4.6-.3.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.1.1.7-.1 1.3z"></path></svg></div>
+        <div class="wa-chat-b">
+          <div class="bub me">السلام، بغيت الحنفية ديال الما السخون 🙏</div>
+          <div class="bub them">مرحبا بيك 👋 الحنفية بـ <b>299 درهم</b> بلاصة 499، التوصيل مجاني والخلاص عند الاستلام. نسجلو ليك الطلب؟</div>
+          <div class="bub me">إيه، صيفطها لكازا</div>
+          <div class="bub them">✅ تسجل الطلب ديالك! غادي نعيطو ليك نأكدو قبل الإرسال.</div>
+        </div>
+      </div>
+    </div>
   </div></section>
 
   <section class="sec faq" id="faq"><div class="container" style="max-width:820px">
@@ -606,7 +714,7 @@ footer.ft{background:var(--k);color:#BDBDC4;padding:40px 0 110px;margin-top:20px
     <details><summary>كيفاش كتخدم -20٪ على الحبة الثانية؟</summary><p>الحبة الأولى بالثمن ديال العرض، وكل حبة زايدة من نفس المنتوج كتنقص عليها 20٪ أوتوماتيكيا.</p></details>
     <details><summary>واش نقدر نطلب بزاف ديال المنتوجات فمرة وحدة؟</summary><p>إيه، زيدهم للسلة وكمل الطلب مرة وحدة. ومن 700 درهم كتاخد -10٪ على الطلب كامل.</p></details>
     <details><summary>إلا وصلني المنتوج فيه عيب؟</summary><p>تواصل معانا فـ 7 أيام من الاستلام وصيفط لينا تصويرة ديال العيب، ونبدلوه ليك بلا مصاريف. التفاصيل فـ <a href="/retour/">سياسة الإرجاع والاستبدال</a>.</p></details>
-    <details><summary>كيفاش نتواصل معاكم؟</summary><p>عبر <a href="https://m.me/61596594987899" target="_blank" rel="noopener">ميسنجر</a> ولا <a href="https://www.facebook.com/profile.php?id=61596594987899" target="_blank" rel="noopener">صفحة الفيسبوك</a> ديالنا. شوف <a href="/contact/">كل طرق التواصل</a>.</p></details>
+    <details><summary>كيفاش نتواصل معاكم؟</summary><p>عبر <a href="https://wa.me/212703934816?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%F0%9F%91%8B%20%D8%A8%D8%BA%D9%8A%D8%AA%20%D9%86%D8%B7%D9%84%D8%A8%20%D9%85%D9%86%20Dabadeal" target="_blank" rel="noopener">واتساب (<bdi dir="ltr">07 03 93 48 16</bdi>)</a>، عبر <a href="https://m.me/61596594987899" target="_blank" rel="noopener">ميسنجر</a> ولا <a href="https://www.facebook.com/profile.php?id=61596594987899" target="_blank" rel="noopener">صفحة الفيسبوك</a> ديالنا. شوف <a href="/contact/">كل طرق التواصل</a>.</p></details>
   </div></section></main>
 <datalist id="cities"></datalist>
 
@@ -630,6 +738,6 @@ footer.ft{background:var(--k);color:#BDBDC4;padding:40px 0 110px;margin-top:20px
 <aside class="drawer" id="drawer" aria-label="السلة"></aside>
 <div class="toast" id="toast"></div>
 
-<script src="/app.js?v=582196" defer></script>
+<script src="/app.js?v=670337" defer></script>
 </body>
 </html>
