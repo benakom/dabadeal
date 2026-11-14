@@ -3,7 +3,8 @@
 const CONFIG = {
   STORE: "Dabadeal",
   CURRENCY: "درهم",
-  WHATSAPP_NUMBER: "",          // ex: 2126XXXXXXXX (sans + ni 0) — affiche le bouton WhatsApp
+  WHATSAPP_NUMBER: "212703934816",   // ex: 2126XXXXXXXX (sans + ni 0) — affiche le bouton WhatsApp
+  WHATSAPP_DISPLAY: "07 03 93 48 16", // numéro tel qu'il s'affiche sur le site
   ORDER_WEBHOOK: "https://script.google.com/macros/s/AKfycbyWud_WSQbNotT96EAojhqnH4fid28wpe6MXvAmG2LbY0lAbRHS8EAk0G497X9eBaqdMg/exec",            // URL Google Apps Script / Make / n8n qui enregistre les commandes
   TIER_DISCOUNT: 0.20,          // -20% sur chaque unité au-delà de la 1re
   BUNDLE_DISCOUNT: 0.15,        // -15% sur les produits ajoutés via "Ka-yechriwhom m3a ba3d"
@@ -200,9 +201,18 @@ const ICON = {
   swap:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h13l-3-3M20 17H7l3 3"/></svg>',
   check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>',
   zap:'<svg class="zap" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z"/></svg>',
-  lock:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>'
+  lock:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>',
+  wa:'<svg class="wa-i" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7a11.6 11.6 0 0 1-4.5-4c-.4-.5-1-1.6-1-2.7s.6-1.7.8-1.9c.2-.2.5-.3.6-.3h.5c.1 0 .4 0 .6.4l.8 2c.1.2.1.4 0 .5l-.4.6-.3.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.1.1.7-.1 1.3z"/></svg>'
 };
-document.getElementById('ann').innerHTML = Array(2).fill(`<span>🚚 <b>التوصيل مجاني</b> لجميع المدن</span><span>💵 <b>خلص ملي توصلك</b> السلعة</span><span>⚡ <b>-20٪</b> على الحبة الثانية</span><span>🎁 من ${CONFIG.GIFT_THRESHOLD} درهم: <b>-10٪</b> على الطلب كامل</span>`).join('');
+/* =================== WHATSAPP =================== */
+const WA_ON = !!CONFIG.WHATSAPP_NUMBER, WA_SHOW = CONFIG.WHATSAPP_DISPLAY || ('+'+CONFIG.WHATSAPP_NUMBER);
+function waLink(msg){ return `https://wa.me/${CONFIG.WHATSAPP_NUMBER}${msg?'?text='+encodeURIComponent(msg):''}`; }
+const WA_HELLO = 'السلام 👋 بغيت نطلب من Dabadeal';
+function waPdpMsg(){ const p=byId(pdp.id); const q=pdp.qty;
+  return `السلام 👋 بغيت نطلب من Dabadeal:\n• ${p.name}\n• ${q===1?'حبة وحدة':q===2?'جوج حبات':'3 حبات'} — ${fmt(pdpSelectionTotal())}${pdp.variant?`\n• المقاس: ${pdp.variant}`:''}\nhttps://dabadeal.ma/p/${p.id}/`; }
+function waCartMsg(){ const t=totals();
+  return `السلام 👋 بغيت نطلب من Dabadeal:\n${cart.map(l=>`• ${l.qty} × ${byId(l.id).name}${l.variant?' ('+l.variant+')':''} — ${fmt(lineTotal(l))}`).join('\n')}\nالمجموع: ${fmt(t.total)} (الخلاص عند الاستلام)`; }
+document.getElementById('ann').innerHTML = Array(2).fill(`${WA_ON?`<a href="${waLink(WA_HELLO)}" target="_blank" rel="noopener" class="ann-wa">${ICON.wa} <b>اطلب عبر واتساب</b> <bdi dir="ltr">${WA_SHOW}</bdi></a>`:''}<span>🚚 <b>التوصيل مجاني</b> لجميع المدن</span><span>💵 <b>خلص ملي توصلك</b> السلعة</span><span>⚡ <b>-20٪</b> على الحبة الثانية</span><span>🎁 من ${CONFIG.GIFT_THRESHOLD} درهم: <b>-10٪</b> على الطلب كامل</span>`).join('');
 
 /* =================== HOME =================== */
 let homeCat = PAGE.startsWith('c-') ? CATS[PAGE.slice(2)].key : 'all';
@@ -241,6 +251,7 @@ function renderHome(){
         <a class="btn btn-o" href="#" data-scroll="shop">${ICON.zap} شوف العروض</a>
         <a class="btn btn-ghost" style="background:rgba(255,255,255,.1);color:#fff" href="/p/robinet/">الأكثر طلبا هاد الشتا</a>
       </div>
+      ${WA_ON?`<a class="hero-wa" href="${waLink(WA_HELLO)}" target="_blank" rel="noopener"><span class="ic">${ICON.wa}</span><span>ما بغيتيش تعمر الفورم؟ <b>اطلب ديريكت عبر واتساب</b><small dir="ltr">${WA_SHOW}</small></span></a>`:''}
       <div class="proof">
         <div><b>0 درهم</b>التوصيل</div>
         <div><b>24-72 ساعة</b>فأغلب المدن</div>
@@ -285,19 +296,32 @@ function renderHome(){
   <section class="sec" id="how" style="background:var(--sand)"><div class="container">
     <div class="sec-h"><h2 class="h">كيفاش <span class="o">كتطلب</span>؟</h2></div>
     <div class="steps">
-      <div class="step"><div class="n">1</div><h3>اختار المنتوج</h3><p>وعمر الاسم، التليفون والعنوان. ما كتخلص والو دابا.</p></div>
+      <div class="step"><div class="n">1</div><h3>اختار المنتوج</h3><p>وعمر الاسم، التليفون والعنوان${WA_ON?`، ولا <a class="wa-link" href="${waLink(WA_HELLO)}" target="_blank" rel="noopener">صيفط لينا فواتساب</a>`:''}. ما كتخلص والو دابا.</p></div>
       <div class="step"><div class="n">2</div><h3>كنعيطو ليك</h3><p>كنأكدو معاك الطلب والعنوان قبل ما نصيفطوه.</p></div>
       <div class="step"><div class="n">3</div><h3>خلص ملي توصلك</h3><p>الليفرور كيوصلك فـ 24 حتى 72 ساعة فأغلب المدن، وكتخلصو كاش.</p></div>
     </div>
   </div></section>
 
-  <section class="sec seo-home"><div class="container" style="max-width:900px">
-    ${C?`<div lang="fr" dir="ltr"><h2 class="h">${C.h1.replace('منتوجات','')} — Dabadeal Maroc</h2><p>${C.fr}</p></div>`:`
-    <h2 class="h">Dabadeal: متجر إلكتروني مغربي، الخلاص عند الاستلام</h2>
-    <p>Dabadeal متجر أونلاين مغربي كيختار ليك منتوجات كتحل مشاكل حقيقية: <a href="/c/raha/">الراحة والصحة</a>، <a href="/c/dar/">الدار</a> و<a href="/c/tomobil/">الطوموبيل</a>. كتطلب فدقيقة، التوصيل مجاني لجميع المدن (الدار البيضاء، الرباط، فاس، مراكش، طنجة، أكادير، مكناس، وجدة، القنيطرة، تطوان…) وكتخلص كاش ملي توصلك السلعة.</p>
-    <div lang="fr" dir="ltr" style="margin-top:14px"><h2 class="h" style="font-size:24px">Boutique en ligne au Maroc — paiement à la livraison</h2>
-    <p>Dabadeal est une boutique e-commerce marocaine : <a href="/p/robinet/">robinet chauffant électrique instantané</a>, <a href="/p/seche/">sèche-linge électrique pliable</a>, <a href="/p/dos/">ceinture lombaire</a>, <a href="/p/camera/">caméra de voiture 3 objectifs</a>, <a href="/p/pieds/">masseur de pieds électrique</a>, <a href="/p/canne/">canne avec siège</a>, <a href="/p/priere/">chaise de prière</a> et plus. Livraison gratuite partout au Maroc, en 24 à 72 h dans la plupart des villes (Casablanca, Rabat, Marrakech, Fès, Tanger, Agadir…), avec paiement cash à la livraison.</p></div>`}
-  </div></section>
+  ${WA_ON?`<section class="sec wa-sec" id="whatsapp"><div class="container">
+    <div class="wa-card">
+      <div class="wa-txt">
+        <span class="wa-live"><i></i> متصلين دابا • كنجاوبو فدقايق</span>
+        <h2 class="h">ما بغيتيش تعمر الفورم؟<br><span>اطلب عبر واتساب</span></h2>
+        <p>صيفط لينا ميساج، نعاونوك تختار المنتوج المناسب ونسجلو ليك الطلب فدقيقة. الخلاص عند الاستلام والتوصيل مجاني لجميع المدن.</p>
+        <a class="btn btn-wa btn-lg" href="${waLink(WA_HELLO)}" target="_blank" rel="noopener">${ICON.wa} اطلب دابا عبر واتساب</a>
+        <div class="wa-num">${ICON.phone}<bdi dir="ltr">${WA_SHOW}</bdi></div>
+      </div>
+      <div class="wa-chat" aria-hidden="true">
+        <div class="wa-chat-h"><span class="av">D</span><div><b>Dabadeal</b><small>متصل</small></div>${ICON.wa}</div>
+        <div class="wa-chat-b">
+          <div class="bub me">السلام، بغيت الحنفية ديال الما السخون 🙏</div>
+          <div class="bub them">مرحبا بيك 👋 الحنفية بـ <b>299 درهم</b> بلاصة 499، التوصيل مجاني والخلاص عند الاستلام. نسجلو ليك الطلب؟</div>
+          <div class="bub me">إيه، صيفطها لكازا</div>
+          <div class="bub them">✅ تسجل الطلب ديالك! غادي نعيطو ليك نأكدو قبل الإرسال.</div>
+        </div>
+      </div>
+    </div>
+  </div></section>`:''}
 
   <section class="sec faq" id="faq"><div class="container" style="max-width:820px">
     <div class="sec-h"><h2 class="h">أسئلة <span class="o">كيتعاودو</span></h2></div>
@@ -306,7 +330,7 @@ function renderHome(){
     <details><summary>كيفاش كتخدم -20٪ على الحبة الثانية؟</summary><p>الحبة الأولى بالثمن ديال العرض، وكل حبة زايدة من نفس المنتوج كتنقص عليها 20٪ أوتوماتيكيا.</p></details>
     <details><summary>واش نقدر نطلب بزاف ديال المنتوجات فمرة وحدة؟</summary><p>إيه، زيدهم للسلة وكمل الطلب مرة وحدة. ومن ${CONFIG.GIFT_THRESHOLD} درهم كتاخد -10٪ على الطلب كامل.</p></details>
     <details><summary>إلا وصلني المنتوج فيه عيب؟</summary><p>تواصل معانا فـ 7 أيام من الاستلام وصيفط لينا تصويرة ديال العيب، ونبدلوه ليك بلا مصاريف. التفاصيل فـ <a href="/retour/">سياسة الإرجاع والاستبدال</a>.</p></details>
-    <details><summary>كيفاش نتواصل معاكم؟</summary><p>عبر <a href="https://m.me/61596594987899" target="_blank" rel="noopener">ميسنجر</a> ولا <a href="https://www.facebook.com/profile.php?id=61596594987899" target="_blank" rel="noopener">صفحة الفيسبوك</a> ديالنا. شوف <a href="/contact/">كل طرق التواصل</a>.</p></details>
+    <details><summary>كيفاش نتواصل معاكم؟</summary><p>${WA_ON?`عبر <a href="${waLink(WA_HELLO)}" target="_blank" rel="noopener">واتساب (<bdi dir="ltr">${WA_SHOW}</bdi>)</a>، `:''}عبر <a href="https://m.me/61596594987899" target="_blank" rel="noopener">ميسنجر</a> ولا <a href="https://www.facebook.com/profile.php?id=61596594987899" target="_blank" rel="noopener">صفحة الفيسبوك</a> ديالنا. شوف <a href="/contact/">كل طرق التواصل</a>.</p></details>
   </div></section>`;
 }
 
@@ -351,6 +375,12 @@ function renderPDP(id){
           <button type="submit" class="btn btn-o btn-block btn-col" id="buyNow" style="font-size:19px;padding:15px"><span>أكد الطلب • <span id="qTot">${fmt(pdpSelectionTotal())}</span></span><span class="sub">الخلاص عند الاستلام • التوصيل مجاني</span></button>
           <button type="button" class="btn btn-ghost btn-block" id="addCart">أو زيدو للسلة وكمل التسوق</button>
         </form>
+        ${WA_ON?`<div class="waor"><span>ولا</span></div>
+        <div class="wabox">
+          <div class="wabox-h"><span class="av">${ICON.wa}</span><div><b>اطلب هاد المنتوج عبر واتساب</b><small><i></i> متصلين دابا • كنجاوبو فدقايق</small></div></div>
+          <a class="btn btn-wa btn-block" id="waPdp" href="${waLink(waPdpMsg())}" target="_blank" rel="noopener">${ICON.wa} اطلب عبر واتساب</a>
+          <div class="wabox-f">بلا فورم: صيفط ميساج ونسجلو ليك الطلب • <bdi dir="ltr">${WA_SHOW}</bdi></div>
+        </div>`:''}
         <div class="ship-eta">🚚 ${etaText()}</div>
         <div class="trustrow">
           <div>${ICON.cash}خلص ملي توصلك</div>
@@ -395,10 +425,6 @@ function renderPDP(id){
     <details><summary>إلا وصلني المنتوج فيه عيب؟</summary><p>تواصل معانا فـ 7 أيام من الاستلام ونبدلوه ليك بلا مصاريف. شوف <a href="/retour/">سياسة الإرجاع والاستبدال</a>.</p></details>
   </div></section>
 
-  <section class="pd-sec seo" lang="fr" dir="ltr"><div class="container" style="max-width:860px">
-    <h2 class="h">${FR[p.id].t} au Maroc</h2>
-    <p>${FR[p.id].d}</p>
-  </div></section>
 
   <section class="pd-sec" style="background:var(--sand)"><div class="container">
     <div class="sec-h"><h2 class="h">حتى هادو <span class="o">كيطلبوهم بزاف</span></h2></div>
@@ -427,6 +453,7 @@ function renderSATC(p){
   $('#satc').innerHTML = `<div class="container in">
     <img src="${S(p.img[0])}" alt="" width="74" height="74" decoding="async">
     <div class="t"><b>${p.name}</b><span>${fmt(pdpSelectionTotal())}</span></div>
+    ${WA_ON?`<a class="satc-wa" id="satcWa" href="${waLink(waPdpMsg())}" target="_blank" rel="noopener" aria-label="اطلب عبر واتساب">${ICON.wa}</a>`:''}
     <button class="btn btn-o" id="satcBuy">اطلب دابا</button></div>`;
 }
 
@@ -460,6 +487,7 @@ function renderDrawer(){
        <div class="disc" style="justify-content:center">وفرتي ${fmt(t.saved)} 🔥</div>
      </div>
      <a class="btn btn-o btn-block btn-col" href="#checkout" data-close>كمل الطلب<span class="sub">الخلاص عند الاستلام</span></a>
+     ${WA_ON?`<a class="btn btn-wa btn-block" style="margin-top:8px" href="${waLink(waCartMsg())}" target="_blank" rel="noopener">${ICON.wa} ولا صيفط الطلب عبر واتساب</a>`:''}
    </div>`:''}`;
 }
 function openDrawer(){ renderDrawer(); $('#drawer').classList.add('on'); $('#scrim').classList.add('on'); }
@@ -658,13 +686,13 @@ contact:`<h1 class="h">تواصل <span class="o">معانا</span></h1>
 </div>
 <div class="box">إلا عندك طلب، عطينا رقم الطلب ديالك (كيبدا بـ DD) باش نلقاوه بالزربة.</div>
 <p>شوف حتى <a href="/#faq">الأسئلة اللي كيتعاودو</a> و<a href="/retour/">سياسة الإرجاع والاستبدال</a>.</p>
-<div class="fr" lang="fr"><h2>Nous contacter</h2><p>Une question sur un produit ou sur votre commande ? Écrivez-nous sur Messenger ou sur notre page Facebook Dabadeal, en indiquant votre numéro de commande (DD…). Boutique en ligne marocaine, livraison gratuite et paiement à la livraison partout au Maroc.</p></div>`
+<div class="fr" lang="fr"><h2>Nous contacter</h2><p>Une question sur un produit ou sur votre commande ? Écrivez-nous sur WhatsApp (07 03 93 48 16), sur Messenger ou sur notre page Facebook Dabadeal, en indiquant votre numéro de commande (DD…). Boutique en ligne marocaine, livraison gratuite et paiement à la livraison partout au Maroc.</p></div>`
 };
 function renderInfo(k){
   const i=INFO[k]; if(!i){ location.href='/'; return; }
   app.innerHTML=`<section class="info"><div class="container">${i}</div></section>`;
   const w=document.getElementById('ctWa');
-  if(w&&CONFIG.WHATSAPP_NUMBER) w.outerHTML=`<a href="https://wa.me/${CONFIG.WHATSAPP_NUMBER}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/></svg><span>واتساب<small>+${CONFIG.WHATSAPP_NUMBER}</small></span></a>`;
+  if(w&&WA_ON) w.outerHTML=`<a class="ct-wa" href="${waLink(WA_HELLO)}" target="_blank" rel="noopener">${ICON.wa}<span>واتساب — الطريقة الأسرع<small><bdi dir="ltr">${WA_SHOW}</bdi> • كنجاوبو فدقايق، وتقدر تطلب ديريكت</small></span></a>`;
 }
 
 /* =================== ROUTER =================== */
@@ -672,7 +700,7 @@ function route(){
   const h=location.hash.replace('#','');
   if(h.startsWith('p-')&&byId(h.slice(2))){ location.replace('/p/'+h.slice(2)+'/'); return; }
   const pre=app.dataset.pre; delete app.dataset.pre;
-  closeDrawer(); $('#satc').classList.remove('on');
+  closeDrawer(); $('#satc').classList.remove('on'); document.body.classList.remove('satc-on');
   if(h==='checkout') renderCheckout();
   else if(h==='merci') renderThanks();
   else if(PAGE.startsWith('i-')) renderInfo(PAGE.slice(2));
@@ -683,8 +711,8 @@ function route(){
 }
 window.addEventListener('hashchange',route);
 window.addEventListener('scroll',()=>{
-  const s=$('#satc'); const b=$('#buyNow'); if(!b){ s.classList.remove('on'); return; }
-  s.classList.toggle('on', b.getBoundingClientRect().bottom<0);
+  const s=$('#satc'); const b=$('#buyNow'); if(!b){ s.classList.remove('on'); document.body.classList.remove('satc-on'); return; }
+  const on=b.getBoundingClientRect().bottom<0; s.classList.toggle('on', on); document.body.classList.toggle('satc-on', on);
 },{passive:true});
 
 /* =================== EVENTS =================== */
@@ -698,8 +726,8 @@ document.addEventListener('click',e=>{
   if(t.matches('[data-quick]')){ e.preventDefault(); addToCart(t.dataset.quick,1,{variant:(byId(t.dataset.quick).variants||[''])[1]||''}); openDrawer(); }
   if(t.matches('[data-bundle]')){ const ids=t.dataset.bundle.split(','); addToCart(ids[0],1); ids.slice(1).forEach(id=>addToCart(id,1,{mode:'bundle'})); openDrawer(); }
   if(t.matches('[data-thumb]')){ pdp.img=+t.dataset.thumb; {const m=$('#mainImg'),s0=byId(pdp.id).img[pdp.img]; m.srcset=`${S(s0)} 400w, ${W(s0)} 800w`; m.src=W(s0);} document.querySelectorAll('[data-thumb]').forEach(b=>b.classList.toggle('on',b===t)); }
-  if(t.matches('[data-tier]')){ pdp.qty=+t.dataset.tier; document.querySelectorAll('[data-tier]').forEach(b=>b.classList.toggle('on',b===t)); renderSATC(byId(pdp.id)); $('#qTot').textContent=fmt(pdpSelectionTotal()); }
-  if(t.matches('[data-variant]')){ pdp.variant=t.dataset.variant; document.querySelectorAll('[data-variant]').forEach(b=>b.classList.toggle('on',b===t)); }
+  if(t.matches('[data-tier]')){ pdp.qty=+t.dataset.tier; document.querySelectorAll('[data-tier]').forEach(b=>b.classList.toggle('on',b===t)); renderSATC(byId(pdp.id)); $('#qTot').textContent=fmt(pdpSelectionTotal()); updWaPdp(); }
+  if(t.matches('[data-variant]')){ pdp.variant=t.dataset.variant; document.querySelectorAll('[data-variant]').forEach(b=>b.classList.toggle('on',b===t)); updWaPdp(); renderSATC(byId(pdp.id)); }
   if(t.matches('[data-fbt]')){ pdp.fbt[t.dataset.fbt]=!pdp.fbt[t.dataset.fbt]; renderFBT(); }
   if(t.id==='fbtAdd'){ const p=byId(pdp.id); addToCart(p.id,1,{variant:pdp.variant}); p.xs.filter(x=>pdp.fbt[x]).forEach(x=>addToCart(x,1,{mode:'bundle'})); openDrawer(); }
   if(t.id==='satcBuy'){ const q=$('#qf'); q.scrollIntoView({behavior:'smooth',block:'center'}); setTimeout(()=>{ const n=$('#q-name'); if(n&&!n.value) n.focus({preventScroll:true}); },450); }
@@ -717,7 +745,16 @@ document.addEventListener('click',e=>{
   if(t.id==='puNo'){ clearInterval(puTimer); $('#pu').remove(); }
 });
 document.addEventListener('submit',e=>{ if(e.target.id==='coForm') submitCheckout(e); if(e.target.id==='qf') submitQuick(e); });
-if(CONFIG.WHATSAPP_NUMBER){ const a=document.createElement('a'); a.className='waf'; a.href='https://wa.me/'+CONFIG.WHATSAPP_NUMBER; a.setAttribute('aria-label','واتساب'); a.innerHTML='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7a11.6 11.6 0 0 1-4.5-4c-.4-.5-1-1.6-1-2.7s.6-1.7.8-1.9c.2-.2.5-.3.6-.3h.5c.1 0 .4 0 .6.4l.8 2c.1.2.1.4 0 .5l-.4.6-.3.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.1.1.7-.1 1.3z"/></svg>'; document.body.appendChild(a); }
-if(CONFIG.WHATSAPP_NUMBER) $('#ftWa').innerHTML=`<a href="https://wa.me/${CONFIG.WHATSAPP_NUMBER}">واتساب: +${CONFIG.WHATSAPP_NUMBER}</a>`;
+function updWaPdp(){ const a=$('#waPdp'); if(a&&pdp.id) a.href=waLink(waPdpMsg()); }
+/* chaque clic WhatsApp = événement Contact (Meta / TikTok) pour mesurer les commandes WhatsApp */
+document.addEventListener('click',e=>{ const a=e.target.closest('a[href^="https://wa.me/"]'); if(!a) return;
+  track('Contact',{content_name:'whatsapp',content_category:PAGE||'home',content_ids:PAGE.startsWith('p-')?[byId(PAGE.slice(2)).sku]:[]}); },true);
+if(WA_ON){
+  const a=document.createElement('a'); a.className='waf'; a.href=waLink(WA_HELLO); a.target='_blank'; a.rel='noopener'; a.setAttribute('aria-label','اطلب عبر واتساب');
+  a.innerHTML=`<span class="waf-l">اطلب عبر واتساب</span><span class="waf-b">${ICON.wa}</span>`;
+  a.addEventListener('click',()=>{ if(PAGE.startsWith('p-')&&pdp.id) a.href=waLink(waPdpMsg()); });
+  document.body.appendChild(a);
+  $('#ftWa').innerHTML=`<a class="ft-wa" href="${waLink(WA_HELLO)}" target="_blank" rel="noopener">${ICON.wa}<span>واتساب<bdi dir="ltr">${WA_SHOW}</bdi></span></a>`;
+}
 $('#cities').innerHTML=CITIES.map(c=>`<option value="${c}">`).join('');
 renderCount(); route();
