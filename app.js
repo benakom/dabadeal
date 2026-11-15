@@ -262,11 +262,11 @@ const ICON = {
 /* =================== WHATSAPP =================== */
 const WA_ON = !!CONFIG.WHATSAPP_NUMBER, WA_SHOW = CONFIG.WHATSAPP_DISPLAY || ('+'+CONFIG.WHATSAPP_NUMBER);
 function waLink(msg){ return `https://wa.me/${CONFIG.WHATSAPP_NUMBER}${msg?'?text='+encodeURIComponent(msg):''}`; }
-const WA_HELLO = 'السلام 👋 بغيت نطلب من Dabadeal';
+const WA_HELLO = 'السلام، بغيت نطلب من Dabadeal';
 function waPdpMsg(){ const p=byId(pdp.id); const q=pdp.qty;
-  return `السلام 👋 بغيت نطلب من Dabadeal:\n• ${p.name}\n• ${q===1?'حبة وحدة':q===2?'جوج حبات':'3 حبات'} — ${fmt(pdpSelectionTotal())}${pdp.variant?`\n• المقاس: ${pdp.variant}`:''}\nhttps://dabadeal.ma/p/${p.id}/`; }
+  return `السلام، بغيت نطلب من Dabadeal:\n• ${p.name}\n• ${q===1?'حبة وحدة':q===2?'جوج حبات':'3 حبات'} — ${fmt(pdpSelectionTotal())}${pdp.variant?`\n• المقاس: ${pdp.variant}`:''}\nhttps://dabadeal.ma/p/${p.id}/`; }
 function waCartMsg(){ const t=totals();
-  return `السلام 👋 بغيت نطلب من Dabadeal:\n${cart.map(l=>`• ${l.qty} × ${byId(l.id).name}${l.variant?' ('+l.variant+')':''} — ${fmt(lineTotal(l))}`).join('\n')}\nالمجموع: ${fmt(t.total)} (الخلاص عند الاستلام)`; }
+  return `السلام، بغيت نطلب من Dabadeal:\n${cart.map(l=>`• ${l.qty} × ${byId(l.id).name}${l.variant?' ('+l.variant+')':''} — ${fmt(lineTotal(l))}`).join('\n')}\nالمجموع: ${fmt(t.total)} (الخلاص عند الاستلام)`; }
 document.getElementById('ann').innerHTML = Array(2).fill(`${WA_ON?`<a href="${waLink(WA_HELLO)}" target="_blank" rel="noopener" class="ann-wa">${ICON.wa} <b>اطلب عبر واتساب</b> <bdi dir="ltr">${WA_SHOW}</bdi></a>`:''}<span>🚚 <b>التوصيل مجاني</b> لجميع المدن</span><span>💵 <b>خلص ملي توصلك</b> السلعة</span><span>⚡ <b>-20٪</b> على الحبة الثانية</span><span>🎁 من ${CONFIG.GIFT_THRESHOLD} درهم: <b>-10٪</b> على الطلب كامل</span>`).join('');
 
 /* =================== HOME =================== */
