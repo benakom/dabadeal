@@ -11,11 +11,11 @@ TODAY = datetime.date.today().isoformat()
 
 CAT_SEO = {
   "raha":    ("منتوجات الراحة والصحة | Produits bien-être et confort au Maroc – Dabadeal",
-              "حزام الظهر، وسادة الطوموبيل، جهاز تدليك الرجلين، عكاز بمقعد، كرسي الصلاة وحزام الحمل. Livraison gratuite au Maroc et paiement à la livraison."),
-  "dar":     ("منتوجات الدار | Robinet chauffant, sèche-linge pliable – Dabadeal Maroc",
-              "حنفية الما السخون الكهربائية، نشافة الحوايج القابلة للطي وفرشاة البخار للقطط. Livraison gratuite partout au Maroc, paiement à la livraison."),
-  "tomobil": ("منتوجات الطوموبيل | Caméra voiture 3 objectifs, coussins auto – Dabadeal",
-              "كاميرا الطوموبيل 3 عدسات ووسادات الرقبة والظهر. Dashcam Full HD au Maroc, livraison gratuite et paiement à la livraison."),
+              "حزام الظهر، وسادة الطوموبيل، جهاز تدليك الرجلين، عكاز بمقعد، كرسي الصلاة، حزام الحمل وبودرة تغطية الشيب. Livraison gratuite au Maroc et paiement à la livraison."),
+  "dar":     ("منتوجات الدار | Robinet chauffant, sèche-linge, balai autonettoyant – Dabadeal",
+              "حنفية الما السخون، نشافة الحوايج، الكراطة اللي كتنقي راسها، قطاعة الخضرة، بروجكتور النجوم وفرشاة البخار للقطط. Livraison gratuite partout au Maroc, paiement à la livraison."),
+  "tomobil": ("منتوجات الطوموبيل | Caméra voiture, coffret outils CR-V, coussins – Dabadeal",
+              "كاميرا الطوموبيل 3 عدسات، بواطة الصاروت 46 قطعة ووسادات الرقبة والظهر. Dashcam Full HD au Maroc, livraison gratuite et paiement à la livraison."),
 }
 
 INFO_SEO = {
@@ -29,7 +29,8 @@ INFO_SEO = {
 
 def write(path, page, head, main=""):
     out = TPL.replace("{{HEAD}}", head).replace("{{PAGE}}", page).replace("{{V}}", V)
-    out = out.replace('<main id="app">{{MAIN}}</main>', f'<main id="app"{" data-pre=\"1\"" if main else ""}>{main}</main>')
+    pre = ' data-pre="1"' if main else ''
+    out = out.replace('<main id="app">{{MAIN}}</main>', f'<main id="app"{pre}>{main}</main>')
     full = os.path.join(ROOT, path)
     os.makedirs(os.path.dirname(full) or ROOT, exist_ok=True)
     open(full, "w", encoding="utf-8").write(out)
