@@ -3,8 +3,8 @@
 const CONFIG = {
   STORE: "Dabadeal",
   CURRENCY: "درهم",
-  WHATSAPP_NUMBER: "212703934816",   // ex: 2126XXXXXXXX (sans + ni 0) — affiche le bouton WhatsApp
-  WHATSAPP_DISPLAY: "07 03 93 48 16", // numéro tel qu'il s'affiche sur le site
+  WHATSAPP_NUMBER: "",   // ex: 2126XXXXXXXX (sans + ni 0) — affiche le bouton WhatsApp
+  WHATSAPP_DISPLAY: "", // numéro tel qu'il s'affiche sur le site
   ORDER_WEBHOOK: "https://script.google.com/macros/s/AKfycbyWud_WSQbNotT96EAojhqnH4fid28wpe6MXvAmG2LbY0lAbRHS8EAk0G497X9eBaqdMg/exec",            // URL Google Apps Script / Make / n8n qui enregistre les commandes
   TIER_DISCOUNT: 0.20,          // -20% sur chaque unité au-delà de la 1re
   BUNDLE_DISCOUNT: 0.15,        // -15% sur les produits ajoutés via "Ka-yechriwhom m3a ba3d"
@@ -720,7 +720,7 @@ confidentialite:`<h1 class="h">سياسة <span class="o">الخصوصية</span
 <h2>1. المعلومات اللي كنجمعو</h2>
 <ul><li>الاسم الكامل، رقم الهاتف، المدينة والعنوان.</li><li>المنتوجات اللي طلبتي والمبلغ.</li><li>معلومات تقنية بسيطة: نوع الجهاز والصفحة اللي طلبتي منها.</li></ul>
 <h2>2. علاش كنستعملوها</h2>
-<ul><li>تأكيد الطلب معاك بالتيليفون ولا الواتساب.</li><li>توصيل الطلب وخلاصو عند الاستلام.</li><li>خدمة ما بعد البيع: الاستبدال والإرجاع.</li></ul>
+<ul><li>تأكيد الطلب معاك بالتيليفون.</li><li>توصيل الطلب وخلاصو عند الاستلام.</li><li>خدمة ما بعد البيع: الاستبدال والإرجاع.</li></ul>
 <p>ما كنبيعوش المعلومات ديالك لحتى شي واحد.</p>
 <h2>3. مع من كنتشاركوها</h2>
 <p>غير مع الشريك ديالنا فالتأكيد واللوجيستيك والتوصيل، وفحدود داكشي اللي ضروري باش يوصلك الطلب.</p>
@@ -741,7 +741,7 @@ contact:`<h1 class="h">تواصل <span class="o">معانا</span></h1>
 </div>
 <div class="box">إلا عندك طلب، عطينا رقم الطلب ديالك (كيبدا بـ DD) باش نلقاوه بالزربة.</div>
 <p>شوف حتى <a href="/#faq">الأسئلة اللي كيتعاودو</a> و<a href="/retour/">سياسة الإرجاع والاستبدال</a>.</p>
-<div class="fr" lang="fr"><h2>Nous contacter</h2><p>Une question sur un produit ou sur votre commande ? Écrivez-nous sur WhatsApp (07 03 93 48 16), sur Messenger ou sur notre page Facebook Dabadeal, en indiquant votre numéro de commande (DD…). Boutique en ligne marocaine, livraison gratuite et paiement à la livraison partout au Maroc.</p></div>`
+<div class="fr" lang="fr"><h2>Nous contacter</h2><p>Une question sur un produit ou sur votre commande ? Écrivez-nous sur Messenger ou sur notre page Facebook Dabadeal, en indiquant votre numéro de commande (DD…). Boutique en ligne marocaine, livraison gratuite et paiement à la livraison partout au Maroc.</p></div>`
 };
 function renderInfo(k){
   const i=INFO[k]; if(!i){ location.href='/'; return; }
