@@ -863,24 +863,11 @@ function cbDefault(){ return byId(CB_DEFAULT)||null; }
 async function cbMenu(){
   cbNoInput();
   const cur=cbDefault();
-  const opts=[];
   /* le robinet est proposé par défaut ; « منتوج آخر » ouvre le catalogue */
   if(cur){
     await cbBot(`<div class="dbot-card"><img src="${S(cur.img[0])}" alt="" width="64" height="64"><div><b>${cur.name}</b><span><em>${fmt(cur.price)}</em> <s>${fmt(cur.compare)}</s></span></div></div>بغيتي تطلب هاد المنتوج؟ الخلاص عند الاستلام والتوصيل مجاني.`);
-    cbChips([[`✅ إيه، نطلبو`,()=>cbPick(cur.id),'pri'],['منتوج آخر',cbList],['❓ عندي سؤال',cbQuestions]]); return; }
-  opts.push(['🛒 نطلب منتوج',cbList,'pri'],['🚚 التوصيل',()=>cbFaq('ship')],['💵 الخلاص',()=>cbFaq('pay')],['🔄 الإرجاع',()=>cbFaq('ret')]);
-  await cbBot('شنو بغيتي دير؟'); cbChips(opts);
-}
-async function cbQuestions(){
-  await cbBot('على شنو بغيتي تسول؟');
-  cbChips([['🚚 التوصيل',()=>cbFaq('ship')],['💵 الخلاص',()=>cbFaq('pay')],['🔄 الإرجاع',()=>cbFaq('ret')]]);
-}
-async function cbFaq(k){
-  const A={ship:'التوصيل <b>مجاني</b> لجميع المدن، بين <b>24 و72 ساعة</b> فأغلب المدن وحتى 5 أيام فالمناطق البعيدة.',
-           pay:'ما كتخلص والو دابا: كتخلص <b>كاش للليفرور</b> ملي توصلك السلعة وتشوفها.',
-           ret:'إلا وصلك المنتوج فيه عيب، تواصل معانا فـ <b>7 أيام</b> ونبدلوه ليك بلا مصاريف.'};
-  await cbBot(A[k]); const cur=cbDefault();
-  cbChips([['🛒 نطلب دابا',cur?()=>cbPick(cur.id):cbList,'pri'],['سؤال آخر',cbQuestions]]);
+    cbChips([[`✅ إيه، نطلبو`,()=>cbPick(cur.id),'pri'],['منتوج آخر',cbList]]); return; }
+  cbList();
 }
 async function cbList(){
   cbNoInput(); await cbBot('اختار المنتوج 👇'); cbC.innerHTML='';
