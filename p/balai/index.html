@@ -572,6 +572,11 @@ footer.ft{background:var(--k);color:#BDBDC4;padding:40px 0 110px;margin-top:20px
   .two{grid-template-columns:1fr}
 }
 
+.req{color:var(--o);font-weight:800}
+.dbot-card{display:flex;align-items:center;gap:10px;background:var(--sand);border-radius:12px;padding:6px;margin-bottom:8px}
+.dbot-card img{width:64px;height:64px;border-radius:10px;object-fit:cover;flex:none}
+.dbot-card b{display:block;font-size:14px;line-height:1.35}
+.dbot-card em{font-style:normal;color:var(--o);font-weight:800}.dbot-card s{color:var(--mut);font-size:13px}
 /* ===== CHATBOT DE COMMANDE ===== */
 .dbot-fab{position:fixed;right:18px;bottom:24px;z-index:45;display:flex;align-items:center;gap:10px;direction:ltr}
 .dbot-fb{position:relative;width:60px;height:60px;border-radius:50%;background:var(--o);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 28px rgba(217,48,0,.42);transition:transform .15s}
@@ -687,10 +692,10 @@ footer.ft{background:var(--k);color:#BDBDC4;padding:40px 0 110px;margin-top:20px
 
         <form class="qf" id="qf" novalidate="">
           <div class="qf-h"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="6" width="19" height="12" rx="2"></rect><circle cx="12" cy="12" r="2.6"></circle><path d="M6 9.5v5M18 9.5v5"></path></svg><div><b>اطلب دابا وخلص ملي توصلك</b><span>عمر المعلومات ونعيطو ليك نأكدو</span></div></div>
-          <div style="position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap" aria-hidden="true"><label for="q-web">Website</label><input id="q-web" name="website" tabindex="-1" autocomplete="off"></div><div class="f" id="q-f-name"><label for="q-name">الاسم الكامل</label><input id="q-name" required="" minlength="3" maxlength="60" autocomplete="name" placeholder="مثلا: محمد العلوي" value=""><div class="err">دخل الاسم والنسب (بلا أرقام)</div></div>
-  <div class="f" id="q-f-phone"><label for="q-phone">رقم الهاتف</label><input id="q-phone" type="tel" inputmode="numeric" required="" maxlength="20" autocomplete="tel" placeholder="06XXXXXXXX ولا 07XXXXXXXX" dir="ltr" style="text-align:right" value=""><div class="err">رقم البورطابل خاصو 10 أرقام ويبدا بـ 06 ولا 07</div></div>
-  <div class="f" id="q-f-city"><label for="q-city">المدينة</label><input id="q-city" required="" minlength="2" maxlength="40" list="cities" autocomplete="address-level2" placeholder="الدار البيضاء، الرباط، فاس…" value=""><div class="err">دخل المدينة</div></div>
-  <div class="f" id="q-f-address"><label for="q-address">العنوان الكامل</label><textarea id="q-address" required="" minlength="5" maxlength="200" autocomplete="street-address" rows="2" placeholder="الحي، الزنقة، رقم الدار، شي علامة قريبة…"></textarea><div class="err">دخل العنوان كامل (الحي، الزنقة، الرقم) باش يوصلك الليفرور</div></div>
+          <div style="position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap" aria-hidden="true"><label for="q-web">Website</label><input id="q-web" name="website" tabindex="-1" autocomplete="off"></div><div class="f" id="q-f-name"><label for="q-name">الاسم الكامل <span class="req" aria-hidden="true">*</span></label><input id="q-name" required="" minlength="3" maxlength="60" autocomplete="name" placeholder="مثلا: محمد العلوي" value=""><div class="err">دخل الاسم والنسب (بلا أرقام)</div></div>
+  <div class="f" id="q-f-phone"><label for="q-phone">رقم الهاتف <span class="req" aria-hidden="true">*</span></label><input id="q-phone" type="tel" inputmode="numeric" required="" maxlength="20" autocomplete="tel" placeholder="06XXXXXXXX" dir="ltr" style="text-align:right" value=""><div class="err">رقم البورطابل خاصو 10 أرقام ويبدا بـ 06 ولا 07</div></div>
+  <div class="f" id="q-f-city"><label for="q-city">المدينة <span class="req" aria-hidden="true">*</span></label><input id="q-city" required="" minlength="2" maxlength="40" list="cities" autocomplete="address-level2" placeholder="الدار البيضاء، الرباط، فاس…" value=""><div class="err">دخل المدينة</div></div>
+  <div class="f" id="q-f-address"><label for="q-address">العنوان الكامل <span class="req" aria-hidden="true">*</span></label><textarea id="q-address" required="" minlength="5" maxlength="200" autocomplete="street-address" rows="2" placeholder="الحي، الزنقة، رقم الدار، شي علامة قريبة…"></textarea><div class="err">دخل العنوان كامل (الحي، الزنقة، الرقم) باش يوصلك الليفرور</div></div>
           <button type="submit" class="btn btn-o btn-block btn-col" id="buyNow" style="font-size:19px;padding:15px"><span>أكد الطلب • <span id="qTot">299 درهم</span></span><span class="sub">الخلاص عند الاستلام • التوصيل مجاني</span></button>
           <button type="button" class="btn btn-ghost btn-block" id="addCart">أو زيدو للسلة وكمل التسوق</button>
         </form>
@@ -848,6 +853,6 @@ footer.ft{background:var(--k);color:#BDBDC4;padding:40px 0 110px;margin-top:20px
 <aside class="drawer" id="drawer" aria-label="السلة"></aside>
 <div class="toast" id="toast"></div>
 
-<script src="/app.js?v=800348" defer></script>
+<script src="/app.js?v=801194" defer></script>
 </body>
 </html>

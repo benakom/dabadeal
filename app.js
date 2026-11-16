@@ -554,10 +554,10 @@ let saved={}; try{ saved=JSON.parse(localStorage.getItem('dd_cust')||'{}'); }cat
 const esc=v=>(v||'').replace(/"/g,'&quot;');
 function fieldsHTML(px){
   FS[px]=Date.now();
-  return `<div style="position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap" aria-hidden="true"><label for="${px}-web">Website</label><input id="${px}-web" name="website" tabindex="-1" autocomplete="off"></div><div class="f" id="${px}-f-name"><label for="${px}-name">الاسم الكامل</label><input id="${px}-name" required minlength="3" maxlength="60" autocomplete="name" placeholder="مثلا: محمد العلوي" value="${esc(saved.name)}"><div class="err">دخل الاسم والنسب (بلا أرقام)</div></div>
-  <div class="f" id="${px}-f-phone"><label for="${px}-phone">رقم الهاتف</label><input id="${px}-phone" type="tel" inputmode="numeric" required maxlength="20" autocomplete="tel" placeholder="06XXXXXXXX ولا 07XXXXXXXX" dir="ltr" style="text-align:right" value="${esc(saved.phone)}"><div class="err">رقم البورطابل خاصو 10 أرقام ويبدا بـ 06 ولا 07</div></div>
-  <div class="f" id="${px}-f-city"><label for="${px}-city">المدينة</label><input id="${px}-city" required minlength="2" maxlength="40" list="cities" autocomplete="address-level2" placeholder="الدار البيضاء، الرباط، فاس…" value="${esc(saved.city)}"><div class="err">دخل المدينة</div></div>
-  <div class="f" id="${px}-f-address"><label for="${px}-address">العنوان الكامل</label><textarea id="${px}-address" required minlength="5" maxlength="200" autocomplete="street-address" rows="2" placeholder="الحي، الزنقة، رقم الدار، شي علامة قريبة…">${saved.address||''}</textarea><div class="err">دخل العنوان كامل (الحي، الزنقة، الرقم) باش يوصلك الليفرور</div></div>`;
+  return `<div style="position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap" aria-hidden="true"><label for="${px}-web">Website</label><input id="${px}-web" name="website" tabindex="-1" autocomplete="off"></div><div class="f" id="${px}-f-name"><label for="${px}-name">الاسم الكامل <span class="req" aria-hidden="true">*</span></label><input id="${px}-name" required minlength="3" maxlength="60" autocomplete="name" placeholder="مثلا: محمد العلوي" value="${esc(saved.name)}"><div class="err">دخل الاسم والنسب (بلا أرقام)</div></div>
+  <div class="f" id="${px}-f-phone"><label for="${px}-phone">رقم الهاتف <span class="req" aria-hidden="true">*</span></label><input id="${px}-phone" type="tel" inputmode="numeric" required maxlength="20" autocomplete="tel" placeholder="06XXXXXXXX" dir="ltr" style="text-align:right" value="${esc(saved.phone)}"><div class="err">رقم البورطابل خاصو 10 أرقام ويبدا بـ 06 ولا 07</div></div>
+  <div class="f" id="${px}-f-city"><label for="${px}-city">المدينة <span class="req" aria-hidden="true">*</span></label><input id="${px}-city" required minlength="2" maxlength="40" list="cities" autocomplete="address-level2" placeholder="الدار البيضاء، الرباط، فاس…" value="${esc(saved.city)}"><div class="err">دخل المدينة</div></div>
+  <div class="f" id="${px}-f-address"><label for="${px}-address">العنوان الكامل <span class="req" aria-hidden="true">*</span></label><textarea id="${px}-address" required minlength="5" maxlength="200" autocomplete="street-address" rows="2" placeholder="الحي، الزنقة، رقم الدار، شي علامة قريبة…">${saved.address||''}</textarea><div class="err">دخل العنوان كامل (الحي، الزنقة، الرقم) باش يوصلك الليفرور</div></div>`;
 }
 function readFields(px){
   const v=id=>$('#'+px+'-'+id).value.trim();
@@ -854,22 +854,33 @@ setTimeout(()=>{ let seen=''; try{ seen=sessionStorage.getItem('dd_cb'); }catch(
 
 async function cbStart(){
   CB.d={};
-  await cbBot('السلام 👋 أنا المساعدة ديال <b>Dabadeal</b>. نقدر نسجل ليك الطلب ديالك هنا، والخلاص <b>عند الاستلام</b> والتوصيل <b>مجاني</b>.');
+  await cbBot(cbDefault()?'السلام 👋 أنا المساعدة ديال <b>Dabadeal</b>، نسجل ليك الطلب هنا فدقيقة.':'السلام 👋 أنا المساعدة ديال <b>Dabadeal</b>. نقدر نسجل ليك الطلب ديالك هنا، والخلاص <b>عند الاستلام</b> والتوصيل <b>مجاني</b>.');
   cbMenu();
 }
+/* produit proposé par défaut : celui de la fiche ouverte, sinon le robinet (https://dabadeal.ma/p/robinet/) */
+const CB_DEFAULT='robinet';
+function cbDefault(){ return (PAGE.startsWith('p-')&&byId(PAGE.slice(2)))||byId(CB_DEFAULT)||null; }
 async function cbMenu(){
   cbNoInput();
-  const cur=PAGE.startsWith('p-')?byId(PAGE.slice(2)):null;
+  const cur=cbDefault();
   const opts=[];
-  if(cur) opts.push([`🛒 نطلب ${cur.name}`,()=>cbPick(cur.id),'pri']);
-  opts.push([cur?'منتوج آخر':'🛒 نطلب منتوج',cbList,cur?'':'pri'],['🚚 التوصيل',()=>cbFaq('ship')],['💵 الخلاص',()=>cbFaq('pay')],['🔄 الإرجاع',()=>cbFaq('ret')]);
+  /* sur une fiche produit (ex. /p/robinet/) : ce produit est proposé par défaut */
+  if(cur){
+    await cbBot(`<div class="dbot-card"><img src="${S(cur.img[0])}" alt="" width="64" height="64"><div><b>${cur.name}</b><span><em>${fmt(cur.price)}</em> <s>${fmt(cur.compare)}</s></span></div></div>بغيتي تطلب هاد المنتوج؟ الخلاص عند الاستلام والتوصيل مجاني.`);
+    cbChips([[`✅ إيه، نطلبو`,()=>cbPick(cur.id),'pri'],['منتوج آخر',cbList],['❓ عندي سؤال',cbQuestions]]); return; }
+  opts.push(['🛒 نطلب منتوج',cbList,'pri'],['🚚 التوصيل',()=>cbFaq('ship')],['💵 الخلاص',()=>cbFaq('pay')],['🔄 الإرجاع',()=>cbFaq('ret')]);
   await cbBot('شنو بغيتي دير؟'); cbChips(opts);
+}
+async function cbQuestions(){
+  await cbBot('على شنو بغيتي تسول؟');
+  cbChips([['🚚 التوصيل',()=>cbFaq('ship')],['💵 الخلاص',()=>cbFaq('pay')],['🔄 الإرجاع',()=>cbFaq('ret')]]);
 }
 async function cbFaq(k){
   const A={ship:'التوصيل <b>مجاني</b> لجميع المدن، بين <b>24 و72 ساعة</b> فأغلب المدن وحتى 5 أيام فالمناطق البعيدة.',
            pay:'ما كتخلص والو دابا: كتخلص <b>كاش للليفرور</b> ملي توصلك السلعة وتشوفها.',
            ret:'إلا وصلك المنتوج فيه عيب، تواصل معانا فـ <b>7 أيام</b> ونبدلوه ليك بلا مصاريف.'};
-  await cbBot(A[k]); cbChips([['🛒 نطلب دابا',cbList,'pri'],['سؤال آخر',cbMenu]]);
+  await cbBot(A[k]); const cur=cbDefault();
+  cbChips([['🛒 نطلب دابا',cur?()=>cbPick(cur.id):cbList,'pri'],['سؤال آخر',cbQuestions]]);
 }
 async function cbList(){
   cbNoInput(); await cbBot('اختار المنتوج 👇'); cbC.innerHTML='';
@@ -897,7 +908,7 @@ async function cbCustomer(){
   cbName();
 }
 async function cbName(){ await cbBot('شنو سميتك الكاملة؟ (الاسم والنسب)'); cbAsk('name','مثلا: محمد العلوي'); }
-async function cbPhone(){ await cbBot('عطيني رقم البورطابل باش نعيطو ليك نأكدو الطلب 📞'); cbAsk('phone','06XXXXXXXX ولا 07XXXXXXXX','tel'); }
+async function cbPhone(){ await cbBot('عطيني رقم البورطابل باش نعيطو ليك نأكدو الطلب 📞'); cbAsk('phone','06XXXXXXXX','tel'); }
 async function cbCity(){ await cbBot('فاش من مدينة؟'); cbAsk('city','الدار البيضاء، الرباط، فاس…','city'); }
 async function cbAddr(){ await cbBot('العنوان الكامل: الحي، الزنقة، رقم الدار، ولا شي علامة قريبة 🏠'); cbAsk('address','الحي، الزنقة، رقم الدار…'); }
 async function cbRecap(){
