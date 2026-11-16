@@ -857,14 +857,14 @@ async function cbStart(){
   await cbBot(cbDefault()?'السلام 👋 أنا المساعدة ديال <b>Dabadeal</b>، نسجل ليك الطلب هنا فدقيقة.':'السلام 👋 أنا المساعدة ديال <b>Dabadeal</b>. نقدر نسجل ليك الطلب ديالك هنا، والخلاص <b>عند الاستلام</b> والتوصيل <b>مجاني</b>.');
   cbMenu();
 }
-/* produit proposé par défaut : celui de la fiche ouverte, sinon le robinet (https://dabadeal.ma/p/robinet/) */
+/* produit proposé par défaut dans le chatbot, sur toutes les pages : le robinet (https://dabadeal.ma/p/robinet/) */
 const CB_DEFAULT='robinet';
-function cbDefault(){ return (PAGE.startsWith('p-')&&byId(PAGE.slice(2)))||byId(CB_DEFAULT)||null; }
+function cbDefault(){ return byId(CB_DEFAULT)||null; }
 async function cbMenu(){
   cbNoInput();
   const cur=cbDefault();
   const opts=[];
-  /* sur une fiche produit (ex. /p/robinet/) : ce produit est proposé par défaut */
+  /* le robinet est proposé par défaut ; « منتوج آخر » ouvre le catalogue */
   if(cur){
     await cbBot(`<div class="dbot-card"><img src="${S(cur.img[0])}" alt="" width="64" height="64"><div><b>${cur.name}</b><span><em>${fmt(cur.price)}</em> <s>${fmt(cur.compare)}</s></span></div></div>بغيتي تطلب هاد المنتوج؟ الخلاص عند الاستلام والتوصيل مجاني.`);
     cbChips([[`✅ إيه، نطلبو`,()=>cbPick(cur.id),'pri'],['منتوج آخر',cbList],['❓ عندي سؤال',cbQuestions]]); return; }
