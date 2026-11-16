@@ -554,16 +554,16 @@ let saved={}; try{ saved=JSON.parse(localStorage.getItem('dd_cust')||'{}'); }cat
 const esc=v=>(v||'').replace(/"/g,'&quot;');
 function fieldsHTML(px){
   FS[px]=Date.now();
-  return `<div style="position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap" aria-hidden="true"><label for="${px}-web">Website</label><input id="${px}-web" name="website" tabindex="-1" autocomplete="off"></div><div class="f" id="${px}-f-name"><label for="${px}-name">الاسم الكامل</label><input id="${px}-name" autocomplete="name" placeholder="مثلا: محمد العلوي" value="${esc(saved.name)}"><div class="err">دخل الاسم والنسب</div></div>
-  <div class="f" id="${px}-f-phone"><label for="${px}-phone">رقم الهاتف</label><input id="${px}-phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="06XXXXXXXX" dir="ltr" style="text-align:right" value="${esc(saved.phone)}"><div class="err">الرقم خاصو 10 أرقام ويبدا بـ 05، 06 ولا 07</div></div>
-  <div class="f" id="${px}-f-city"><label for="${px}-city">المدينة</label><input id="${px}-city" list="cities" autocomplete="address-level2" placeholder="الدار البيضاء، الرباط، فاس…" value="${esc(saved.city)}"><div class="err">دخل المدينة</div></div>
-  <div class="f" id="${px}-f-address"><label for="${px}-address">العنوان الكامل</label><textarea id="${px}-address" autocomplete="street-address" rows="2" placeholder="الحي، الزنقة، رقم الدار، شي علامة قريبة…">${saved.address||''}</textarea><div class="err">دخل العنوان باش يوصلك الليفرور بلا مشاكل</div></div>`;
+  return `<div style="position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap" aria-hidden="true"><label for="${px}-web">Website</label><input id="${px}-web" name="website" tabindex="-1" autocomplete="off"></div><div class="f" id="${px}-f-name"><label for="${px}-name">الاسم الكامل</label><input id="${px}-name" required minlength="3" maxlength="60" autocomplete="name" placeholder="مثلا: محمد العلوي" value="${esc(saved.name)}"><div class="err">دخل الاسم والنسب (بلا أرقام)</div></div>
+  <div class="f" id="${px}-f-phone"><label for="${px}-phone">رقم الهاتف</label><input id="${px}-phone" type="tel" inputmode="numeric" required maxlength="20" autocomplete="tel" placeholder="06XXXXXXXX ولا 07XXXXXXXX" dir="ltr" style="text-align:right" value="${esc(saved.phone)}"><div class="err">رقم البورطابل خاصو 10 أرقام ويبدا بـ 06 ولا 07</div></div>
+  <div class="f" id="${px}-f-city"><label for="${px}-city">المدينة</label><input id="${px}-city" required minlength="2" maxlength="40" list="cities" autocomplete="address-level2" placeholder="الدار البيضاء، الرباط، فاس…" value="${esc(saved.city)}"><div class="err">دخل المدينة</div></div>
+  <div class="f" id="${px}-f-address"><label for="${px}-address">العنوان الكامل</label><textarea id="${px}-address" required minlength="5" maxlength="200" autocomplete="street-address" rows="2" placeholder="الحي، الزنقة، رقم الدار، شي علامة قريبة…">${saved.address||''}</textarea><div class="err">دخل العنوان كامل (الحي، الزنقة، الرقم) باش يوصلك الليفرور</div></div>`;
 }
 function readFields(px){
   const v=id=>$('#'+px+'-'+id).value.trim();
   const f={name:v('name'),phone:normPhone(v('phone')),city:v('city'),address:v('address')};
   const chk=(id,ok)=>{ $('#'+px+'-f-'+id).classList.toggle('bad',!ok); return ok; };
-  const ok=[chk('name',f.name.length>=3),chk('phone',/^0[567]\d{8}$/.test(f.phone)),chk('city',f.city.length>=2),chk('address',f.address.length>=4)].every(Boolean);
+  const ok=[chk('name',validName(f.name)),chk('phone',validPhone(f.phone)),chk('city',f.city.length>=2&&!/\d/.test(f.city)),chk('address',f.address.length>=5)].every(Boolean);
   if(!ok){ const el=document.querySelector('.f.bad input,.f.bad textarea'); el&&el.focus(); return null; }
   const hp=$('#'+px+'-web'); f._bot={hp:hp?hp.value:'',t:Date.now()-(FS[px]||Date.now()),human:HUMAN,prefilled:!!(saved.phone&&saved.phone===f.phone)};
   return f;
@@ -579,7 +579,7 @@ function placeOrder(list,f){
   if(prev&&prev.sig===sig&&Date.now()-prev.ts<18e5&&lastOrder&&lastOrder.id===prev.id){ location.hash='merci'; return; }
   lastOrder={id,date:new Date().toISOString(),...f,items,subtotal:t.sub,discount:t.gift,total:t.total,source:ATTR.source||new URLSearchParams(location.search).get('utm_source')||'direct',upsell:null};
   try{ localStorage.setItem('dd_last',JSON.stringify({sig,id,ts:Date.now()})); }catch(e){}
-  const payload={type:'order',...lastOrder,hp:bot.hp,t:bot.t,human:bot.human,prefilled:bot.prefilled,page:location.pathname,device:matchMedia('(max-width:760px)').matches?'mobile':'desktop',
+  const payload={type:'order',...lastOrder,hp:bot.hp,t:bot.t,human:bot.human,prefilled:bot.prefilled,page:location.pathname+(bot.via?' (chatbot)':''),device:matchMedia('(max-width:760px)').matches?'mobile':'desktop',
     campaign:ATTR.campaign||'',content:ATTR.content||'',...metaIds(),dup_of:(prev&&prev.sig===sig&&Date.now()-prev.ts<18e5)?prev.id:''};
   const fire=()=>{ if(bot.hp||isTest(f)) return; matchUser(f);
     track('Purchase',{value:t.total,currency:'MAD',num_items:t.items,content_ids:items.map(i=>i.sku),content_type:'product'},{eventID:id}); };
@@ -635,7 +635,10 @@ function renderCoSummary(){
     <a href="#" data-opencart style="display:block;text-align:center;font-weight:800;font-size:14px;text-decoration:underline;margin-top:6px">بدل السلة</a>`;
   const ct=$('#coTot'); if(ct) ct.textContent=fmt(t.total);
 }
-function normPhone(v){ let d=(v||'').replace(/[^\d+]/g,''); if(d.startsWith('+212')) d='0'+d.slice(4); else if(d.startsWith('00212')) d='0'+d.slice(5); else if(d.startsWith('212')&&d.length===12) d='0'+d.slice(3); return d; }
+function normPhone(v){ let d=(v||'').replace(/[^\d+]/g,''); if(d.startsWith('+212')) d='0'+d.slice(4); else if(d.startsWith('00212')) d='0'+d.slice(5); else if(d.startsWith('212')&&d.length===12) d='0'+d.slice(3); else if(d.length===9&&/^[67]/.test(d)) d='0'+d; return d; }
+/* téléphone : uniquement un portable marocain, 10 chiffres, 06 ou 07 (+212 / 00212 acceptés) */
+const validPhone=p=>/^0[67]\d{8}$/.test(p);
+const validName=n=>n.length>=3&&!/\d/.test(n)&&/[\u0600-\u06FFA-Za-zÀ-ÿ]{2}/.test(n);
 function postOrder(payload,ms){
   const ctl=window.AbortController?new AbortController():null; const to=setTimeout(()=>ctl&&ctl.abort(),ms||8000);
   return fetch(CONFIG.ORDER_WEBHOOK,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload),signal:ctl&&ctl.signal})
@@ -811,5 +814,116 @@ if(WA_ON){
   document.body.appendChild(a);
   $('#ftWa').innerHTML=`<a class="ft-wa" href="${waLink(WA_HELLO)}" target="_blank" rel="noopener">${ICON.wa}<span>واتساب<bdi dir="ltr">${WA_SHOW}</bdi></span></a>`;
 }
+/* téléphone : on ne garde que chiffres, + et espaces pendant la saisie */
+document.addEventListener('input',e=>{ const t=e.target; if(t.matches&&t.matches('input[type=tel]')){ const v=t.value.replace(/[^\d+ ]/g,''); if(v!==t.value) t.value=v; }
+  const f=t.closest&&t.closest('.f.bad'); if(f) f.classList.remove('bad'); });
+
+/* =================== CHATBOT DE COMMANDE (en bas à droite) ===================
+   Prend la commande pas à pas et l'envoie par le même chemin que le formulaire :
+   Google Sheet (onglet Commandes) + onglet Tajer (TajerCOD), avec la colonne Page = "… (chatbot)". */
+const cbE=v=>String(v||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const CB={open:false,step:'',d:{},t0:0,busy:false};
+const cbEl=document.createElement('div'); cbEl.className='dbot'; cbEl.setAttribute('role','dialog'); cbEl.setAttribute('aria-label','طلب سريع');
+cbEl.innerHTML=`<div class="dbot-h"><span class="dbot-av">D</span><div><b>Dabadeal — طلب سريع</b><small><i></i> كنسجلو ليك الطلب هنا فدقيقة</small></div><button class="dbot-x" aria-label="سد">✕</button></div>
+<div class="dbot-b" aria-live="polite"></div><div class="dbot-c"></div>
+<form class="dbot-f"><input class="dbot-i" autocomplete="off" placeholder="كتب هنا…"><button class="dbot-s" aria-label="صيفط">➤</button></form>`;
+const cbFab=document.createElement('button'); cbFab.className='dbot-fab'; cbFab.setAttribute('aria-label','اطلب هنا');
+cbFab.innerHTML=`<span class="dbot-fl">اطلب هنا</span><span class="dbot-fb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M8.5 11h7M8.5 14h4"/></svg></span>`;
+const cbTeaser=document.createElement('div'); cbTeaser.className='dbot-tz'; cbTeaser.innerHTML='بغيتي تطلب؟ نسجلو ليك الطلب هنا 👋<button aria-label="سد">✕</button>';
+document.body.append(cbEl,cbFab,cbTeaser);
+const cbB=cbEl.querySelector('.dbot-b'), cbC=cbEl.querySelector('.dbot-c'), cbF=cbEl.querySelector('.dbot-f'), cbI=cbEl.querySelector('.dbot-i');
+function cbScroll(){ cbB.scrollTop=cbB.scrollHeight; }
+function cbSay(txt,me){ const m=document.createElement('div'); m.className='dbot-m'+(me?' me':''); if(me){ m.textContent=txt; m.dir='auto'; } else m.innerHTML=txt; cbB.appendChild(m); cbScroll(); }
+function cbBot(txt){ return new Promise(r=>{ const ty=document.createElement('div'); ty.className='dbot-m dbot-ty'; ty.innerHTML='<i></i><i></i><i></i>'; cbB.appendChild(ty); cbScroll();
+  setTimeout(()=>{ ty.remove(); cbSay(txt); r(); },450); }); }
+function cbChips(list){ cbC.innerHTML=''; list.forEach(([label,fn,cls])=>{ const b=document.createElement('button'); b.type='button'; b.className='dbot-ch'+(cls?' '+cls:''); b.innerHTML=label;
+  b.onclick=()=>{ cbC.innerHTML=''; cbSay(b.textContent.trim(),true); fn(); }; cbC.appendChild(b); }); cbScroll(); }
+function cbAsk(step,ph,type){ CB.step=step; cbF.classList.remove('off'); cbI.value=''; cbI.placeholder=ph||'كتب هنا…';
+  cbI.type=type==='tel'?'tel':'text'; cbI.inputMode=type==='tel'?'numeric':'text'; if(type==='city') cbI.setAttribute('list','cities'); else cbI.removeAttribute('list');
+  cbI.maxLength=type==='tel'?20:200; if(matchMedia('(min-width:761px)').matches) cbI.focus(); }
+function cbNoInput(){ CB.step=''; cbF.classList.add('off'); }
+function cbPrice(id,q){ return lineTotal({id,qty:q,mode:'normal'}); }
+function cbOpen(){ if(CB.open) return; CB.open=true; HUMAN=true; cbEl.classList.add('on'); cbFab.classList.add('on'); cbTeaser.classList.remove('on'); document.body.classList.add('dbot-open');
+  try{ sessionStorage.setItem('dd_cb','1'); }catch(e){}
+  if(!cbB.children.length){ CB.t0=Date.now(); track('Contact',{content_name:'chatbot',content_category:PAGE||'home'}); cbStart(); } }
+function cbClose(){ CB.open=false; cbEl.classList.remove('on'); cbFab.classList.remove('on'); document.body.classList.remove('dbot-open'); }
+cbFab.onclick=()=>CB.open?cbClose():cbOpen();
+cbEl.querySelector('.dbot-x').onclick=cbClose;
+cbTeaser.onclick=e=>{ cbTeaser.classList.remove('on'); try{ sessionStorage.setItem('dd_cb','1'); }catch(x){} if(e.target.tagName!=='BUTTON') cbOpen(); };
+setTimeout(()=>{ let seen=''; try{ seen=sessionStorage.getItem('dd_cb'); }catch(e){} if(!seen&&!CB.open&&location.hash!=='#merci'&&location.hash!=='#checkout') cbTeaser.classList.add('on'); },12000);
+
+async function cbStart(){
+  CB.d={};
+  await cbBot('السلام 👋 أنا المساعدة ديال <b>Dabadeal</b>. نقدر نسجل ليك الطلب ديالك هنا، والخلاص <b>عند الاستلام</b> والتوصيل <b>مجاني</b>.');
+  cbMenu();
+}
+async function cbMenu(){
+  cbNoInput();
+  const cur=PAGE.startsWith('p-')?byId(PAGE.slice(2)):null;
+  const opts=[];
+  if(cur) opts.push([`🛒 نطلب ${cur.name}`,()=>cbPick(cur.id),'pri']);
+  opts.push([cur?'منتوج آخر':'🛒 نطلب منتوج',cbList,cur?'':'pri'],['🚚 التوصيل',()=>cbFaq('ship')],['💵 الخلاص',()=>cbFaq('pay')],['🔄 الإرجاع',()=>cbFaq('ret')]);
+  await cbBot('شنو بغيتي دير؟'); cbChips(opts);
+}
+async function cbFaq(k){
+  const A={ship:'التوصيل <b>مجاني</b> لجميع المدن، بين <b>24 و72 ساعة</b> فأغلب المدن وحتى 5 أيام فالمناطق البعيدة.',
+           pay:'ما كتخلص والو دابا: كتخلص <b>كاش للليفرور</b> ملي توصلك السلعة وتشوفها.',
+           ret:'إلا وصلك المنتوج فيه عيب، تواصل معانا فـ <b>7 أيام</b> ونبدلوه ليك بلا مصاريف.'};
+  await cbBot(A[k]); cbChips([['🛒 نطلب دابا',cbList,'pri'],['سؤال آخر',cbMenu]]);
+}
+async function cbList(){
+  cbNoInput(); await cbBot('اختار المنتوج 👇'); cbC.innerHTML='';
+  const wrap=document.createElement('div'); wrap.className='dbot-pl';
+  P.forEach(p=>{ const b=document.createElement('button'); b.type='button'; b.className='dbot-p';
+    b.innerHTML=`<img src="${S(p.img[0])}" alt="" width="52" height="52" loading="lazy"><span>${p.name}<b>${fmt(p.price)}</b></span>`;
+    b.onclick=()=>{ cbC.innerHTML=''; cbSay(p.name,true); cbPick(p.id); }; wrap.appendChild(b); });
+  cbC.appendChild(wrap); cbScroll();
+}
+async function cbPick(id){
+  const p=byId(id); CB.d={id,qty:1,variant:''};
+  if(p.variants&&p.variants.length){ await cbBot(`<b>${p.name}</b> — شمن قياس بغيتي؟`);
+    cbChips(p.variants.map(v=>[v,()=>{ CB.d.variant=v; cbQty(); }])); return; }
+  cbQty();
+}
+async function cbQty(){
+  const p=byId(CB.d.id);
+  await cbBot(`شحال من حبة بغيتي؟ <small>(-${Math.round(CONFIG.TIER_DISCOUNT*100)}٪ على كل حبة زايدة)</small>`);
+  cbChips([1,2,3].map(q=>[`${q===1?'حبة وحدة':q===2?'جوج حبات':'3 حبات'} — ${fmt(cbPrice(p.id,q))}`,()=>{ CB.d.qty=q; cbCustomer(); }]));
+}
+async function cbCustomer(){
+  if(saved&&validPhone(normPhone(saved.phone||''))&&saved.name&&saved.city&&saved.address){
+    await cbBot(`نستعملو نفس المعلومات؟<br><b>${cbE(saved.name)}</b> • <bdi dir="ltr">${cbE(saved.phone)}</bdi><br>${cbE(saved.city)} — ${cbE(saved.address)}`);
+    cbChips([['إيه، نفس المعلومات',()=>{ Object.assign(CB.d,{name:saved.name,phone:normPhone(saved.phone),city:saved.city,address:saved.address}); cbRecap(); },'pri'],['لا، معلومات جداد',cbName]]); return; }
+  cbName();
+}
+async function cbName(){ await cbBot('شنو سميتك الكاملة؟ (الاسم والنسب)'); cbAsk('name','مثلا: محمد العلوي'); }
+async function cbPhone(){ await cbBot('عطيني رقم البورطابل باش نعيطو ليك نأكدو الطلب 📞'); cbAsk('phone','06XXXXXXXX ولا 07XXXXXXXX','tel'); }
+async function cbCity(){ await cbBot('فاش من مدينة؟'); cbAsk('city','الدار البيضاء، الرباط، فاس…','city'); }
+async function cbAddr(){ await cbBot('العنوان الكامل: الحي، الزنقة، رقم الدار، ولا شي علامة قريبة 🏠'); cbAsk('address','الحي، الزنقة، رقم الدار…'); }
+async function cbRecap(){
+  cbNoInput(); const p=byId(CB.d.id), list=[{id:p.id,qty:CB.d.qty,mode:'normal'}], t=totals(list);
+  await cbBot(`<b>الطلب ديالك:</b><br>${CB.d.qty} × ${p.name}${CB.d.variant?' ('+CB.d.variant+')':''}<br>
+    ${t.gift?`هدية -10٪: - ${fmt(t.gift)}<br>`:''}الإجمالي: <b>${fmt(t.total)}</b> • التوصيل مجاني<br>
+    👤 ${cbE(CB.d.name)} • <bdi dir="ltr">${cbE(CB.d.phone)}</bdi><br>📍 ${cbE(CB.d.city)} — ${cbE(CB.d.address)}<br>
+    <small>كتخلص ملي توصلك السلعة.</small>`);
+  cbChips([['✅ أكد الطلب',cbConfirm,'pri'],['✏️ بدل المعلومات',cbName],['بدل المنتوج',cbList]]);
+}
+async function cbConfirm(){
+  if(CB.busy) return; CB.busy=true; setTimeout(()=>CB.busy=false,4000);
+  const d=CB.d, p=byId(d.id);
+  const f={name:d.name,phone:d.phone,city:d.city,address:d.address,_bot:{hp:'',t:Math.max(Date.now()-CB.t0,3000),human:true,prefilled:false,via:'chatbot'}};
+  await cbBot('مزيان! كنسجلو الطلب… ⏳');
+  placeOrder([{key:p.id+'|normal|'+d.variant,id:p.id,qty:d.qty,variant:d.variant,mode:'normal'}],f);
+  setTimeout(()=>{ cbClose(); cbB.innerHTML=''; cbC.innerHTML=''; },700);
+}
+cbF.addEventListener('submit',async e=>{
+  e.preventDefault(); const v=cbI.value.trim(); if(!v||!CB.step) return;
+  cbSay(v,true); cbI.value=''; const st=CB.step;
+  if(st==='name'){ if(!validName(v)){ await cbBot('دخل الاسم والنسب بالحروف عافاك (بلا أرقام).'); return; } CB.d.name=v; cbPhone(); }
+  else if(st==='phone'){ const ph=normPhone(v); if(!validPhone(ph)){ await cbBot('الرقم ماشي صحيح ❌ خاصو يكون رقم بورطابل مغربي: <b>10 أرقام</b> ويبدا بـ <b>06</b> ولا <b>07</b>.'); return; } CB.d.phone=ph; cbCity(); }
+  else if(st==='city'){ if(v.length<2||/\d/.test(v)){ await cbBot('دخل سمية المدينة عافاك.'); return; } CB.d.city=v; cbAddr(); }
+  else if(st==='address'){ if(v.length<5){ await cbBot('العنوان قصير بزاف، زيد التفاصيل (الحي، الزنقة، الرقم) باش يوصلك الليفرور.'); return; } CB.d.address=v; cbRecap(); }
+});
+cbNoInput();
 $('#cities').innerHTML=CITIES.map(c=>`<option value="${c}">`).join('');
 renderCount(); route();
