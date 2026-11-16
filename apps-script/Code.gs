@@ -223,6 +223,11 @@ const TAJER_SKU = {
   'TJ-692': 'coussin-de-soutien', 'TJ-9': 'footmass', 'TJ-1357': 'canne-pliante', 'TJ-494': 'banc-de-prière',
   'TJ-495': 'ceinture-de-grossesse', 'TJ-629': 'enregistreur-de-conduite', 'TJ-1287': 'brosse-à-vapeur-3-en-1'
 };
+// Packs vendus sur le site sous un seul SKU : TajerCOD reçoit une ligne par article du pack, dans le même colis.
+// Le prix du pack est porté par la 1re ligne, les autres lignes sont à 0 DH.
+const TAJER_PACKS = {
+  'pack-lifting-retinol': ['es_1081', 'guanjing-retinol']
+};
 function tajerSheet() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   let sh = ss.getSheetByName('Tajer');
@@ -237,8 +242,18 @@ function pushTajer(o) {
   const sh = tajerSheet();
   const items = o.items || [];
   const date = Utilities.formatDate(o.date instanceof Date ? o.date : new Date(o.date || Date.now()), 'Africa/Casablanca', 'yyyy-MM-dd HH:mm');
-  items.forEach(function (it, k) {
+  const lines = [];
+  items.forEach(function (it) {
+    const pack = TAJER_PACKS[it.sku];
+    if (!pack) { lines.push(it); return; }
+    pack.forEach(function (sku, j) {
+      lines.push({ sku: sku, qty: it.qty, line: j === 0 ? it.line : 0, variant: it.variant, pack: it.sku });
+    });
+  });
+  lines.forEach(function (it, k) {
+    const items = lines;
     let note = 'Dabadeal ' + o.id;
+    if (it.pack) note += ' [' + it.pack + ' : même colis]';
     if (o.upsell) note += ' (ajout après commande, même client — à livrer dans le même colis)';
     else if (items.length > 1) note += ' (produit ' + (k + 1) + '/' + items.length + ', même commande, total ' + (Number(o.total) || 0) + ' DH)';
     if (it.variant) note += ' — ' + it.variant;

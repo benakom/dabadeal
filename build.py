@@ -80,7 +80,7 @@ def main():
                     d = "Dabadeal: منتوجات مختارة للراحة، الدار والطوموبيل. التوصيل مجاني لجميع مدن المغرب والخلاص عند الاستلام. Boutique en ligne au Maroc, paiement à la livraison."
                     ld = [ORG, WEBSITE, {"@context": "https://schema.org", "@type": "ItemList", "itemListElement": [
                         {"@type": "ListItem", "position": i + 1, "url": f"{SITE}/p/{p['id']}/", "name": p["name"]} for i, p in enumerate(P)]}]
-                    img = SITE + "/img/robinet_0.webp"
+                    img = SITE + "/img/acariens_0.webp"
                 elif page.startswith("i-"):
                     k = page[2:]; t, d = INFO_SEO[k]
                     ld = [ORG, crumbs([("الرئيسية", SITE + "/"), (t.split(" | ")[0], url)])]
