@@ -10,8 +10,6 @@ const CONFIG = {
   BUNDLE_DISCOUNT: 0.15,        // -15% sur les produits ajoutés via "Ka-yechriwhom m3a ba3d"
   ORDER_BUMP_DISCOUNT: 0.30,    // -30% sur l'order bump du checkout
   POST_UPSELL_DISCOUNT: 0.30,   // -30% sur l'upsell après commande
-  GIFT_THRESHOLD: 700,          // à partir de ce montant : -10% sur toute la commande
-  GIFT_DISCOUNT: 0.10,
   // Offre flash : -20 DH sur la commande si le client commande dans les 10 min après sa 1re visite de la fiche.
   // Le minuteur démarre une seule fois par appareil : recharger la page ne le remet pas à zéro. Après, prix normal.
   FLASH: { ids: ['robinet-douchette'], amount: 20, minutes: 10 }
@@ -297,10 +295,9 @@ function lineTotal(l){
 function totals(list=cart){
   const sub = list.reduce((s,l)=>s+lineTotal(l),0);
   const compare = list.reduce((s,l)=>s+byId(l.id).compare*l.qty,0);
-  const gift = sub>=CONFIG.GIFT_THRESHOLD ? Math.round(sub*CONFIG.GIFT_DISCOUNT) : 0;
   const flash = flashAmt(list);
-  const total = sub-gift-flash;
-  return {sub, gift, flash, total, compare, saved: compare-total, items: list.reduce((s,l)=>s+l.qty,0)};
+  const total = sub-flash;
+  return {sub, flash, total, compare, saved: compare-total, items: list.reduce((s,l)=>s+l.qty,0)};
 }
 function addToCart(id, qty=1, opts={}){
   const mode = opts.mode||'normal', variant = opts.variant||'';
@@ -357,7 +354,7 @@ function waPdpMsg(){ const p=byId(pdp.id); const q=pdp.qty;
   return `السلام، بغيت نطلب من Dabadeal:\n• ${p.name}\n• ${q===1?'حبة وحدة':q===2?'جوج حبات':'3 حبات'} — ${fmt(pdpSelectionTotal())}${pdp.variant?`\n• المقاس: ${pdp.variant}`:''}\nhttps://dabadeal.ma/p/${p.id}/`; }
 function waCartMsg(){ const t=totals();
   return `السلام، بغيت نطلب من Dabadeal:\n${cart.map(l=>`• ${l.qty} × ${byId(l.id).name}${l.variant?' ('+l.variant+')':''} — ${fmt(lineTotal(l))}`).join('\n')}\nالمجموع: ${fmt(t.total)} (الخلاص عند الاستلام)`; }
-document.getElementById('ann').innerHTML = Array(2).fill(`${WA_ON?`<a href="${waLink(WA_HELLO)}" target="_blank" rel="noopener" class="ann-wa">${ICON.wa} <b>اطلب عبر واتساب</b> <bdi dir="ltr">${WA_SHOW}</bdi></a>`:''}<span>🚚 <b>التوصيل مجاني</b> لجميع المدن</span><span>💵 <b>خلص ملي توصلك</b> السلعة</span><span>⚡ <b>-20٪</b> على الحبة الثانية</span><span>🎁 من ${CONFIG.GIFT_THRESHOLD} درهم: <b>-10٪</b> على الطلب كامل</span>`).join('');
+document.getElementById('ann').innerHTML = Array(2).fill(`${WA_ON?`<a href="${waLink(WA_HELLO)}" target="_blank" rel="noopener" class="ann-wa">${ICON.wa} <b>اطلب عبر واتساب</b> <bdi dir="ltr">${WA_SHOW}</bdi></a>`:''}<span>🚚 <b>التوصيل مجاني</b> لجميع المدن</span><span>💵 <b>خلص ملي توصلك</b> السلعة</span><span>⚡ <b>-20٪</b> على الحبة الثانية</span>`).join('');
 
 /* =================== HOME =================== */
 let homeCat = PAGE.startsWith('c-') ? CATS[PAGE.slice(2)].key : 'all';
@@ -473,7 +470,7 @@ function renderHome(){
     <details><summary>واش كنخلص قبل؟</summary><p>لا. كتخلص كاش للليفرور ملي توصلك السلعة لباب الدار.</p></details>
     <details><summary>شحال كياخد التوصيل؟</summary><p>بين 24 و72 ساعة فأغلب المدن، وحتى 5 أيام فالمناطق البعيدة. والتوصيل مجاني.</p></details>
     <details><summary>كيفاش كتخدم -20٪ على الحبة الثانية؟</summary><p>الحبة الأولى بالثمن ديال العرض، وكل حبة زايدة من نفس المنتوج كتنقص عليها 20٪ أوتوماتيكيا.</p></details>
-    <details><summary>واش نقدر نطلب بزاف ديال المنتوجات فمرة وحدة؟</summary><p>إيه، زيدهم للسلة وكمل الطلب مرة وحدة. ومن ${CONFIG.GIFT_THRESHOLD} درهم كتاخد -10٪ على الطلب كامل.</p></details>
+    <details><summary>واش نقدر نطلب بزاف ديال المنتوجات فمرة وحدة؟</summary><p>إيه، زيدهم للسلة وكمل الطلب مرة وحدة.</p></details>
     <details><summary>إلا وصلني المنتوج فيه عيب؟</summary><p>تواصل معانا فـ 7 أيام من الاستلام وصيفط لينا تصويرة ديال العيب، ونبدلوه ليك بلا مصاريف. التفاصيل فـ <a href="/retour/">سياسة الإرجاع والاستبدال</a>.</p></details>
     <details><summary>كيفاش نتواصل معاكم؟</summary><p>${WA_ON?`عبر <a href="${waLink(WA_HELLO)}" target="_blank" rel="noopener">واتساب (<bdi dir="ltr">${WA_SHOW}</bdi>)</a>، `:''}عبر <a href="https://m.me/61596594987899" target="_blank" rel="noopener">ميسنجر</a> ولا <a href="https://www.facebook.com/profile.php?id=61596594987899" target="_blank" rel="noopener">صفحة الفيسبوك</a> ديالنا. شوف <a href="/contact/">كل طرق التواصل</a>.</p></details>
   </div></section>`;
@@ -486,8 +483,7 @@ function renderPDP(id){
   if (pdp.id!==id) pdp = {id, qty:1, variant:p.variants?p.variants[1]:'', img:0, fbt:Object.fromEntries(p.xs.map(x=>[x,true]))};
   track('ViewContent',{content_ids:[p.sku],content_type:'product',content_name:p.name,value:p.price,currency:'MAD'});
   flashStart(id); const fl=flashLeft(id);
-  // prix affiché = prix payé (la remise -10 % au-dessus de 700 DH est déjà déduite)
-  const tiers=[1,2,3].map(q=>{ const s=p.price+(q-1)*tierUnit(p); return {q, tot:s-(s>=CONFIG.GIFT_THRESHOLD?Math.round(s*CONFIG.GIFT_DISCOUNT):0), cmp:p.compare*q}; });
+  const tiers=[1,2,3].map(q=>({q, tot:p.price+(q-1)*tierUnit(p), cmp:p.compare*q}));
   app.innerHTML = `
   <div class="container">
     <div class="crumbs"><a href="/">الرئيسية</a> / <a href="/c/${CATSLUG[p.cat]}/" data-cat="${p.cat}">${p.catL}</a> / <span>${p.name}</span></div>
@@ -580,7 +576,7 @@ function renderPDP(id){
   </div></section>`;
   renderFBT(); renderSATC(p);
 }
-// total réellement payé pour la sélection de la fiche (remise -10 % au-dessus de 700 DH et offre flash comprises)
+// total réellement payé pour la sélection de la fiche (offre flash comprise)
 function pdpSelectionTotal(){ return totals([{id:pdp.id,qty:pdp.qty,mode:'normal'}]).total; }
 function renderFBT(){
   const p=byId(pdp.id), box=$('#fbt'); if(!box) return;
@@ -608,12 +604,12 @@ function renderSATC(p){
 
 /* =================== DRAWER (cart) =================== */
 function renderDrawer(){
-  const t=totals(); const left=Math.max(0,CONFIG.GIFT_THRESHOLD-t.sub);
+  const t=totals();
   const inCart=new Set(cart.map(l=>l.id));
   const recos=[...new Set(cart.flatMap(l=>byId(l.id).xs).concat(['pieds','brosse','canne']))].filter(id=>!inCart.has(id)).slice(0,4);
   $('#drawer').innerHTML = `
    <div class="dh"><h3>السلة ديالك (${t.items})</h3><button class="x" data-close>×</button></div>
-   ${cart.length?`<div class="prog">${left>0?`باقي ليك <span class="o">${fmt(left)}</span> وتاخد <b>-10٪</b> على الطلب كامل 🎁`:'🎉 مبروك! ربحتي <b>-10٪</b> على الطلب كامل'}<div class="bar"><i style="width:${Math.min(100,t.sub/CONFIG.GIFT_THRESHOLD*100)}%"></i></div></div>`:''}
+   
    <div class="dbody">
      ${cart.length?cart.map(l=>{const p=byId(l.id);return `<div class="line">
         <img src="${S(p.img[0])}" alt="" width="74" height="74" decoding="async">
@@ -630,7 +626,6 @@ function renderDrawer(){
    ${cart.length?`<div class="df">
      <div class="sum">
        <div><span>المجموع</span><span>${fmt(t.sub)}</span></div>
-       ${t.gift?`<div class="disc"><span>هدية -10٪</span><span>- ${fmt(t.gift)}</span></div>`:''}
       ${t.flash?`<div class="disc"><span>⏱️ عرض خاص • <span class="fclk">${flashClock(flashLeftList(cart))}</span></span><span>- ${fmt(t.flash)}</span></div>`:''}
        <div><span>التوصيل</span><span class="o" style="font-weight:800">مجاني</span></div>
        <div class="tot"><span>الإجمالي</span><b>${fmt(t.total)}</b></div>
@@ -668,7 +663,7 @@ function placeOrder(list,f){
   const t=totals(list), id='DD'+Date.now().toString().slice(-7);
   saved=f; try{ localStorage.setItem('dd_cust',JSON.stringify(f)); }catch(e){}
   const items=list.map(l=>({sku:byId(l.id).sku,name:byId(l.id).name,qty:l.qty,variant:l.variant,mode:l.mode,line:lineTotal(l)}));
-  // Les remises sur la commande (-10 % au-dessus de 700 DH, offre flash) sont reportées sur les lignes :
+  // La remise sur la commande (offre flash) est reportée sur les lignes :
   // l'onglet Tajer reprend le prix de chaque ligne, et le livreur doit encaisser exactement le total annoncé au client.
   let cut=items.reduce((s,i)=>s+i.line,0)-t.total;
   [...items].sort((a,b)=>b.line-a.line).forEach(i=>{ const c=Math.min(cut,i.line); i.line-=c; cut-=c; });
@@ -676,7 +671,7 @@ function placeOrder(list,f){
   const sig=f.phone+'|'+items.map(i=>i.sku+'x'+i.qty+(i.variant||'')).sort().join(',');
   let prev=null; try{ prev=JSON.parse(localStorage.getItem('dd_last')||'null'); }catch(e){}
   if(prev&&prev.sig===sig&&Date.now()-prev.ts<18e5&&lastOrder&&lastOrder.id===prev.id){ location.hash='merci'; return; }
-  lastOrder={id,date:new Date().toISOString(),...f,items,subtotal:t.sub,discount:t.gift+t.flash,total:t.total,source:ATTR.source||new URLSearchParams(location.search).get('utm_source')||'direct',upsell:null};
+  lastOrder={id,date:new Date().toISOString(),...f,items,subtotal:t.sub,discount:t.flash,total:t.total,source:ATTR.source||new URLSearchParams(location.search).get('utm_source')||'direct',upsell:null};
   try{ localStorage.setItem('dd_last',JSON.stringify({sig,id,ts:Date.now()})); }catch(e){}
   const payload={type:'order',...lastOrder,hp:bot.hp,t:bot.t,human:bot.human,prefilled:bot.prefilled,page:location.pathname+(bot.via?' (chatbot)':''),device:matchMedia('(max-width:760px)').matches?'mobile':'desktop',
     campaign:ATTR.campaign||'',content:ATTR.content||'',...metaIds(),dup_of:(prev&&prev.sig===sig&&Date.now()-prev.ts<18e5)?prev.id:''};
@@ -726,7 +721,6 @@ function renderCoSummary(){
     ${list.map(l=>{const p=byId(l.id);return `<div class="mini"><div class="im"><img src="${S(p.img[0])}" alt="" width="74" height="74" decoding="async"><span class="q">${l.qty}</span></div><div class="t">${p.name}${l.variant?` <small style="color:var(--mut)">(${l.variant})</small>`:''}${l.mode!=='normal'?' <small class="o">عرض خاص</small>':''}</div><div class="p">${fmt(lineTotal(l))}</div></div>`}).join('')}
     <div class="sum" style="margin-top:10px">
       <div><span>المجموع</span><span>${fmt(t.sub)}</span></div>
-      ${t.gift?`<div class="disc"><span>هدية -10٪</span><span>- ${fmt(t.gift)}</span></div>`:''}
       ${t.flash?`<div class="disc"><span>⏱️ عرض خاص • <span class="fclk">${flashClock(flashLeftList(list))}</span></span><span>- ${fmt(t.flash)}</span></div>`:''}
       <div><span>التوصيل</span><span class="o" style="font-weight:800">مجاني</span></div>
       <div class="tot"><span>الإجمالي</span><b>${fmt(t.total)}</b></div>
@@ -1001,7 +995,7 @@ async function cbAddr(){ await cbBot('العنوان الكامل: الحي، ا
 async function cbRecap(){
   cbNoInput(); const p=byId(CB.d.id), list=[{id:p.id,qty:CB.d.qty,mode:'normal'}], t=totals(list);
   await cbBot(`<b>الطلب ديالك:</b><br>${CB.d.qty} × ${p.name}${CB.d.variant?' ('+CB.d.variant+')':''}<br>
-    ${t.gift?`هدية -10٪: - ${fmt(t.gift)}<br>`:''}${t.flash?`⏱️ عرض خاص: - ${fmt(t.flash)}<br>`:''}الإجمالي: <b>${fmt(t.total)}</b> • التوصيل مجاني<br>
+    ${t.flash?`⏱️ عرض خاص: - ${fmt(t.flash)}<br>`:''}الإجمالي: <b>${fmt(t.total)}</b> • التوصيل مجاني<br>
     👤 ${cbE(CB.d.name)} • <bdi dir="ltr">${cbE(CB.d.phone)}</bdi><br>📍 ${cbE(CB.d.city)} — ${cbE(CB.d.address)}<br>
     <small>كتخلص ملي توصلك السلعة.</small>`);
   cbChips([['✅ أكد الطلب',cbConfirm,'pri'],['✏️ بدل المعلومات',cbName],['بدل المنتوج',cbList]]);
