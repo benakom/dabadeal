@@ -29,7 +29,7 @@ const P = [
    notice:"ما توجهيش الضو UV للعينين ولا للجلد، وخلي المكنسة بعيدة على الدراري الصغار.",
    faq:[["واش كتصلح للزربية والصالون؟","إيه، مخصوصة للثوب: الماطلة، الكوسانات، الصالون، الزربية وكراسي الطوموبيل."],["كيفاش كننقي الخزان؟","الخزان كيتحل بسهولة، كتخويه، كتمسحو وكترجعيه."]],
    xs:["balai","slicer"] },
- { id:"robinet-douchette", sku:"robinet-chauffe-eau", cat:"دار", catL:"الدار", name:"حنفية الما السخون الكهربائية مع الدوش", short:"الحنفية + الدوش، ما سخون فـ 3 ثواني", price:399, compare:599, badge:"عرض الشتا", img:["/img/robinet-douchette_0.jpg","/img/robinet-douchette_2.jpg","/img/robinet-douchette_3.jpg","/img/robinet-douchette_4.jpg","/img/robinet-douchette_1.jpg"],
+ { id:"robinet-douchette", sku:"robinet-chauffe-eau", cat:"دار", catL:"الدار", name:"حنفية الما السخون الكهربائية مع الدوش", short:"الحنفية + الدوش، ما سخون فـ 3 ثواني", price:399, compare:599, badge:"عرض الشتا", img:["/img/robinet-douchette_0.jpg","/img/robinet-douchette_2.jpg","/img/robinet-douchette_3.jpg","/img/robinet-douchette_1.jpg"],
    hook:"الدراري يدوشو بالما السخون… بلا بوطة",
    lead:"حنفية كهربائية مع الدوش كتسخن الما فـ 3 حتى 5 ثواني، فيها شاشة رقمية كتبين الحرارة. للدوش ديال الدراري، الوضوء ولا الماعن — بلا بوطة، بلا شوفو.",
    bullets:["ما سخون فـ 3 حتى 5 ثواني","جات مع الدوش والطيو","شاشة رقمية كتبين الحرارة","بلا بوطة غاز وبلا خزان"],
