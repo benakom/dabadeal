@@ -11,7 +11,10 @@ const CONFIG = {
   ORDER_BUMP_DISCOUNT: 0.30,    // -30% sur l'order bump du checkout
   POST_UPSELL_DISCOUNT: 0.30,   // -30% sur l'upsell après commande
   GIFT_THRESHOLD: 700,          // à partir de ce montant : -10% sur toute la commande
-  GIFT_DISCOUNT: 0.10
+  GIFT_DISCOUNT: 0.10,
+  // Offre flash : -20 DH sur la commande si le client commande dans les 10 min après sa 1re visite de la fiche.
+  // Le minuteur démarre une seule fois par appareil : recharger la page ne le remet pas à zéro. Après, prix normal.
+  FLASH: { ids: ['robinet-douchette'], amount: 20, minutes: 10 }
 };
 
 /* =================== CATALOGUE =================== */
@@ -237,6 +240,47 @@ const fmt = n => `${Math.round(n)} ${CONFIG.CURRENCY}`;
 const tierUnit = p => Math.round(p.price*(1-CONFIG.TIER_DISCOUNT));
 const bundleUnit = p => Math.round(p.price*(1-CONFIG.BUNDLE_DISCOUNT));
 
+/* =================== OFFRE FLASH (-X DH pendant N minutes) =================== */
+let FLASH_MEM = {};
+function flashMap(){ let m={}; try{ m=JSON.parse(localStorage.getItem('dd_flash')||'{}')||{}; }catch(e){} return Object.assign({}, FLASH_MEM, m); }
+function flashStart(id){
+  if(!CONFIG.FLASH || !CONFIG.FLASH.ids.includes(id)) return;
+  const m=flashMap(); if(m[id]) return;
+  m[id]=Date.now(); FLASH_MEM=m; try{ localStorage.setItem('dd_flash', JSON.stringify(m)); }catch(e){}
+}
+function flashLeft(id){
+  if(!CONFIG.FLASH || !CONFIG.FLASH.ids.includes(id)) return 0;
+  const ts=flashMap()[id]; return ts ? Math.max(0, ts + CONFIG.FLASH.minutes*6e4 - Date.now()) : 0;
+}
+// une seule remise par commande, si un produit en offre flash est dans la commande et que son minuteur tourne encore
+const flashAmt = list => list.some(l=>l.mode==='normal' && flashLeft(l.id)>0) ? CONFIG.FLASH.amount : 0;
+const flashClock = ms => { const s=Math.ceil(ms/1000); return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0'); };
+function flashLeftList(list){ return Math.max(0, ...list.filter(l=>l.mode==='normal').map(l=>flashLeft(l.id))); }
+(function(){ const st=document.createElement('style'); st.textContent=`
+.flashbox{display:flex;align-items:center;gap:12px;margin:10px 0 6px;padding:11px 14px;border-radius:14px;background:#FFF4EC;border:2px dashed var(--o,#F15A24)}
+.flashbox .fx{flex:1;min-width:0;font-size:14.5px;line-height:1.5}
+.flashbox .fx b{color:var(--o2,var(--o,#F15A24))}
+.flashbox .fx s{color:#6B6B73}
+.flashbox .ft{display:block;font-size:17px;margin-bottom:2px}
+.flashbox .fx small{display:block;color:#6B6B73;font-size:12.5px}
+.flashbox .fclk{flex:none;font-family:var(--hf,inherit);font-weight:800;font-size:22px;direction:ltr;background:var(--o,#F15A24);color:#fff;border-radius:10px;padding:6px 10px;font-variant-numeric:tabular-nums}
+`; document.head.appendChild(st); })();
+// chaque seconde : met à jour les minuteurs affichés ; quand l'offre se termine, réaffiche les prix normaux
+let FLASH_WAS = null;
+setInterval(()=>{
+  const list = location.hash==='#checkout' ? coList() : (PAGE.startsWith('p-') && pdp.id ? [{id:pdp.id,mode:'normal'}] : cart);
+  const left = flashLeftList(list);
+  document.querySelectorAll('.fclk').forEach(el=>{ el.textContent = flashClock(left); });
+  const on = left>0;
+  if(FLASH_WAS===true && !on){
+    const b=$('#flashBox'); if(b) b.remove();
+    if(PAGE.startsWith('p-') && pdp.id && $('#qTot')){ $('#qTot').textContent=fmt(pdpSelectionTotal()); renderSATC(byId(pdp.id)); }
+    if(location.hash==='#checkout' && $('#coSum')) renderCoSummary();
+    if($('#drawer') && $('#drawer').classList.contains('on')) renderDrawer();
+  }
+  FLASH_WAS = on;
+}, 1000);
+
 /* =================== STATE =================== */
 let cart = [];  // {key,id,qty,variant,mode:'normal'|'bundle'|'bump'|'upsell'}
 try { cart = JSON.parse(localStorage.getItem('dd_cart')||'[]').filter(l=>l&&byId(l.id)); } catch(e){ cart=[]; }
@@ -254,7 +298,9 @@ function totals(list=cart){
   const sub = list.reduce((s,l)=>s+lineTotal(l),0);
   const compare = list.reduce((s,l)=>s+byId(l.id).compare*l.qty,0);
   const gift = sub>=CONFIG.GIFT_THRESHOLD ? Math.round(sub*CONFIG.GIFT_DISCOUNT) : 0;
-  return {sub, gift, total: sub-gift, compare, saved: compare-(sub-gift), items: list.reduce((s,l)=>s+l.qty,0)};
+  const flash = flashAmt(list);
+  const total = sub-gift-flash;
+  return {sub, gift, flash, total, compare, saved: compare-total, items: list.reduce((s,l)=>s+l.qty,0)};
 }
 function addToCart(id, qty=1, opts={}){
   const mode = opts.mode||'normal', variant = opts.variant||'';
@@ -439,7 +485,9 @@ function renderPDP(id){
   const p = byId(id); if(!p){ location.hash=''; return; }
   if (pdp.id!==id) pdp = {id, qty:1, variant:p.variants?p.variants[1]:'', img:0, fbt:Object.fromEntries(p.xs.map(x=>[x,true]))};
   track('ViewContent',{content_ids:[p.sku],content_type:'product',content_name:p.name,value:p.price,currency:'MAD'});
-  const tiers=[1,2,3].map(q=>({q, tot:p.price+(q-1)*tierUnit(p), cmp:p.compare*q}));
+  flashStart(id); const fl=flashLeft(id);
+  // prix affiché = prix payé (la remise -10 % au-dessus de 700 DH est déjà déduite)
+  const tiers=[1,2,3].map(q=>{ const s=p.price+(q-1)*tierUnit(p); return {q, tot:s-(s>=CONFIG.GIFT_THRESHOLD?Math.round(s*CONFIG.GIFT_DISCOUNT):0), cmp:p.compare*q}; });
   app.innerHTML = `
   <div class="container">
     <div class="crumbs"><a href="/">الرئيسية</a> / <a href="/c/${CATSLUG[p.cat]}/" data-cat="${p.cat}">${p.catL}</a> / <span>${p.name}</span></div>
@@ -453,6 +501,7 @@ function renderPDP(id){
         <h1 class="h">${p.name}</h1>
         <p class="hook">${p.hook}</p>
         <div class="price"><span class="now">${fmt(p.price)}</span><s>${fmt(p.compare)}</s><span class="save">وفر ${fmt(p.compare-p.price)}</span></div>
+        ${fl>0?`<div class="flashbox" id="flashBox"><div class="fx"><b class="ft">⏱️ -${CONFIG.FLASH.amount} درهم إلا طلبتي دابا</b>الثمن ليك: <b>${fmt(p.price-CONFIG.FLASH.amount)}</b> بلاصة <s>${fmt(p.price)}</s><small>من بعد الوقت كيرجع ${fmt(p.price)}</small></div><span class="fclk">${flashClock(fl)}</span></div>`:''}
         <p class="lead">${p.lead}</p>
         <ul class="bullets">${p.bullets.map(b=>`<li>${b}</li>`).join('')}</ul>
 
@@ -531,7 +580,8 @@ function renderPDP(id){
   </div></section>`;
   renderFBT(); renderSATC(p);
 }
-function pdpSelectionTotal(){ const p=byId(pdp.id); return p.price+(pdp.qty-1)*tierUnit(p); }
+// total réellement payé pour la sélection de la fiche (remise -10 % au-dessus de 700 DH et offre flash comprises)
+function pdpSelectionTotal(){ return totals([{id:pdp.id,qty:pdp.qty,mode:'normal'}]).total; }
 function renderFBT(){
   const p=byId(pdp.id), box=$('#fbt'); if(!box) return;
   const items=[p,...p.xs.map(byId)];
@@ -581,6 +631,7 @@ function renderDrawer(){
      <div class="sum">
        <div><span>المجموع</span><span>${fmt(t.sub)}</span></div>
        ${t.gift?`<div class="disc"><span>هدية -10٪</span><span>- ${fmt(t.gift)}</span></div>`:''}
+      ${t.flash?`<div class="disc"><span>⏱️ عرض خاص • <span class="fclk">${flashClock(flashLeftList(cart))}</span></span><span>- ${fmt(t.flash)}</span></div>`:''}
        <div><span>التوصيل</span><span class="o" style="font-weight:800">مجاني</span></div>
        <div class="tot"><span>الإجمالي</span><b>${fmt(t.total)}</b></div>
        <div class="disc" style="justify-content:center">وفرتي ${fmt(t.saved)} 🔥</div>
@@ -617,11 +668,15 @@ function placeOrder(list,f){
   const t=totals(list), id='DD'+Date.now().toString().slice(-7);
   saved=f; try{ localStorage.setItem('dd_cust',JSON.stringify(f)); }catch(e){}
   const items=list.map(l=>({sku:byId(l.id).sku,name:byId(l.id).name,qty:l.qty,variant:l.variant,mode:l.mode,line:lineTotal(l)}));
+  // Les remises sur la commande (-10 % au-dessus de 700 DH, offre flash) sont reportées sur les lignes :
+  // l'onglet Tajer reprend le prix de chaque ligne, et le livreur doit encaisser exactement le total annoncé au client.
+  let cut=items.reduce((s,i)=>s+i.line,0)-t.total;
+  [...items].sort((a,b)=>b.line-a.line).forEach(i=>{ const c=Math.min(cut,i.line); i.line-=c; cut-=c; });
   // même téléphone + même panier il y a moins de 30 min sur cet appareil = double clic : on ne crée pas une 2e commande
   const sig=f.phone+'|'+items.map(i=>i.sku+'x'+i.qty+(i.variant||'')).sort().join(',');
   let prev=null; try{ prev=JSON.parse(localStorage.getItem('dd_last')||'null'); }catch(e){}
   if(prev&&prev.sig===sig&&Date.now()-prev.ts<18e5&&lastOrder&&lastOrder.id===prev.id){ location.hash='merci'; return; }
-  lastOrder={id,date:new Date().toISOString(),...f,items,subtotal:t.sub,discount:t.gift,total:t.total,source:ATTR.source||new URLSearchParams(location.search).get('utm_source')||'direct',upsell:null};
+  lastOrder={id,date:new Date().toISOString(),...f,items,subtotal:t.sub,discount:t.gift+t.flash,total:t.total,source:ATTR.source||new URLSearchParams(location.search).get('utm_source')||'direct',upsell:null};
   try{ localStorage.setItem('dd_last',JSON.stringify({sig,id,ts:Date.now()})); }catch(e){}
   const payload={type:'order',...lastOrder,hp:bot.hp,t:bot.t,human:bot.human,prefilled:bot.prefilled,page:location.pathname+(bot.via?' (chatbot)':''),device:matchMedia('(max-width:760px)').matches?'mobile':'desktop',
     campaign:ATTR.campaign||'',content:ATTR.content||'',...metaIds(),dup_of:(prev&&prev.sig===sig&&Date.now()-prev.ts<18e5)?prev.id:''};
@@ -672,6 +727,7 @@ function renderCoSummary(){
     <div class="sum" style="margin-top:10px">
       <div><span>المجموع</span><span>${fmt(t.sub)}</span></div>
       ${t.gift?`<div class="disc"><span>هدية -10٪</span><span>- ${fmt(t.gift)}</span></div>`:''}
+      ${t.flash?`<div class="disc"><span>⏱️ عرض خاص • <span class="fclk">${flashClock(flashLeftList(list))}</span></span><span>- ${fmt(t.flash)}</span></div>`:''}
       <div><span>التوصيل</span><span class="o" style="font-weight:800">مجاني</span></div>
       <div class="tot"><span>الإجمالي</span><b>${fmt(t.total)}</b></div>
       <div class="disc" style="justify-content:center">وفرتي ${fmt(t.saved)} 🔥</div>
@@ -945,7 +1001,7 @@ async function cbAddr(){ await cbBot('العنوان الكامل: الحي، ا
 async function cbRecap(){
   cbNoInput(); const p=byId(CB.d.id), list=[{id:p.id,qty:CB.d.qty,mode:'normal'}], t=totals(list);
   await cbBot(`<b>الطلب ديالك:</b><br>${CB.d.qty} × ${p.name}${CB.d.variant?' ('+CB.d.variant+')':''}<br>
-    ${t.gift?`هدية -10٪: - ${fmt(t.gift)}<br>`:''}الإجمالي: <b>${fmt(t.total)}</b> • التوصيل مجاني<br>
+    ${t.gift?`هدية -10٪: - ${fmt(t.gift)}<br>`:''}${t.flash?`⏱️ عرض خاص: - ${fmt(t.flash)}<br>`:''}الإجمالي: <b>${fmt(t.total)}</b> • التوصيل مجاني<br>
     👤 ${cbE(CB.d.name)} • <bdi dir="ltr">${cbE(CB.d.phone)}</bdi><br>📍 ${cbE(CB.d.city)} — ${cbE(CB.d.address)}<br>
     <small>كتخلص ملي توصلك السلعة.</small>`);
   cbChips([['✅ أكد الطلب',cbConfirm,'pri'],['✏️ بدل المعلومات',cbName],['بدل المنتوج',cbList]]);
